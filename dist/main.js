@@ -1,0 +1,1 @@
+(()=>{const t=document.querySelector("#addButton"),e=document.querySelector(".createTaskButtonContainer"),c=document.querySelector(".createProjectButtonContainer");t.addEventListener("click",(()=>{t.classList.toggle("active"),e.classList.toggle("active"),c.classList.toggle("active")}))})();

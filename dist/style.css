@@ -1,0 +1,184 @@
+html{
+    font-size: 62.5%;
+    font-family: sans-serif;
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+li,ul{
+    list-style: none;
+}
+
+body{
+    min-height: 100vh;
+    max-width: 100vw;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Nav bar */
+nav{
+    background-color:red;
+    color:white;
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+nav .material-icons{
+    font-size: 3rem;
+}
+
+/* Menu */
+menu{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 3rem;
+    background-color: #ff8f87;
+    flex:1;
+    width: 28rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color:black;
+}
+
+[data-tab]{
+    margin:1rem;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border:0.25rem solid white;
+    border-radius: 1rem;
+}
+
+/* Project lists on the left side */
+[data-tab='Projects']{
+    height: 40vh;
+    flex-direction: column;
+    justify-content: start;
+}
+
+/* custom the scroll bar */
+.listProjectsContainer{
+    width: 85%;
+    overflow:auto;
+    font-size: 1.75rem;
+    margin: 1rem 0 1rem 0;
+}
+
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #ff7878;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 101, 101);
+}
+
+/* Each item in the project list */
+.listProjectsContainer li{
+    padding: 0.5rem;
+}
+
+.listProjectsContainer li:hover{
+    background-color: red;
+}
+
+/* Add buttons */
+.addButtonsContainer{
+    position: absolute;
+    bottom:2rem;
+    right:2rem;
+    font-size:2rem;
+}
+
+.addButtonsContainer span{
+    display: block;
+    margin: 1rem;
+}
+
+#addButton{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    border: none;
+    border-radius: 50%;
+    width: 5rem;
+    height: 5rem;
+    transition: 500ms ease-in-out;
+}
+
+#addButton .material-icons{
+    font-weight: bolder;
+    font-size: 3rem;
+}
+
+#addButton.active{
+    -webkit-transform: rotate(90deg);
+}
+
+.createTaskButtonContainer,
+.createProjectButtonContainer{
+    display: flex;
+    visibility: hidden;
+    position: absolute;
+    bottom: 5rem;
+    right: 0;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0.5rem;
+    transition: 0.5s ease-in-out;
+}
+
+.createProjectButtonContainer{
+    right: 5rem;
+    bottom: 0;
+}
+
+.createTaskButtonContainer.active{
+    visibility: visible;
+    -webkit-transform: translateY(-6rem);
+}
+
+#createTaskButton,
+#createProjectButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    border:none;
+    border-radius: 50%;
+    background-color: red;
+}
+
+
+
+.createProjectButtonContainer.active{
+    visibility: visible;
+    -webkit-transform: translateX(-6rem);
+}
+
+.material-icons{
+    color: white;
+}
+
+
+
