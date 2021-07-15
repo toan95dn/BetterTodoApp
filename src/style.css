@@ -36,6 +36,17 @@ nav .material-icons{
     font-size: 3rem;
 }
 
+/* Hamburger Button */
+#hamburgerButton{
+    position: fixed;
+    left: 0;
+    color:white;
+}
+
+#hamburgerButton .hamburger:hover{
+    opacity: 1;
+}
+
 /* Menu */
 menu{
     list-style: none;
@@ -179,6 +190,5 @@ menu{
 .material-icons{
     color: white;
 }
-
 
 
