@@ -14,7 +14,7 @@ li,ul{
 }
 
 body{
-    min-height: 100vh;
+    height: 100vh;
     max-width: 100vw;
     background-color: white;
     display: flex;
@@ -38,6 +38,7 @@ nav .material-icons{
 
 /* Hamburger Button */
 #hamburgerButton{
+    display: none;
     position: fixed;
     left: 0;
     color:white;
@@ -47,19 +48,27 @@ nav .material-icons{
     opacity: 1;
 }
 
+/* Content Container (Menu + List of Tasks */
+.contentContainer{
+    flex:1;
+    position: relative;
+    display: flex;
+}
+
 /* Menu */
-menu{
+.menu{
+    width: 28rem;
+    height: 100%;
     list-style: none;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 3rem;
     background-color: #ff8f87;
-    flex:1;
-    width: 28rem;
     font-size: 2.5rem;
     font-weight: bold;
     color:black;
+    transition: 0.3s ease-in-out;
 }
 
 [data-tab]{
@@ -83,8 +92,8 @@ menu{
 .listProjectsContainer{
     width: 85%;
     overflow:auto;
-    font-size: 1.75rem;
-    margin: 1rem 0 1rem 0;
+    font-size: 1.5rem;
+    margin: 1.25rem 0 1.25rem 0;
 }
 
 ::-webkit-scrollbar {
@@ -96,12 +105,13 @@ menu{
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgb(255, 101, 101);
+    background-color: rgb(252, 63, 63);
 }
 
 /* Each item in the project list */
 .listProjectsContainer li{
     padding: 0.5rem;
+    border-bottom: 0.2rem solid white;
 }
 
 .listProjectsContainer li:hover{
@@ -191,4 +201,71 @@ menu{
     color: white;
 }
 
+/* Pop up modal */
+input{
+    display: block;
+}
+
+.popupModalBg{
+    visibility: hidden;
+    position: absolute;;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.popupModalBg.active{
+    visibility: visible;
+}
+
+.createProjectModal{
+    width: 50rem;
+    height: auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: red;
+    flex-direction: column;
+    font-size: 2rem;
+    padding: 1rem;
+    margin:1rem;
+}
+
+.createProjectModal input{
+    width: 80%;
+}
+
+#submitNewProject{
+    width: 80%;
+}
+
+.createTaskModal{
+display: none;
+}
+
+.createTaskModal .active{
+    display: flex;
+}
+
+
+/* Responsive */
+@media (max-width: 800px) {
+    #hamburgerButton{
+        display: block;
+    }
+
+    .menu{
+        position: absolute;
+        left: -28rem;
+        top:0;
+    }
+
+    .menu.active{
+        transform: translateX(28rem);
+    }
+}
 
