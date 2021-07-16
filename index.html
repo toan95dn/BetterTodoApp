@@ -20,7 +20,6 @@
             </button>
         </div>
 
-
         <span>T</span>
         <span class="material-icons">
             task_alt
@@ -29,32 +28,40 @@
         <span class="material-icons">
             sentiment_very_satisfied
         </span>
-
     </nav>
 
-    <!-- Menu -->
-    <menu>
-        <li data-tab='Home'>Home</li>
-        <li data-tab='Today'>Today</li>
-        <li data-tab='Week'>Week</li>
-        <ul data-tab='Projects'>
-            <div>Projects</div>
-            <div class="listProjectsContainer">
-                <li>First project</li>
-                <li>Second Project</li>
-                <li>Third Project</li>
-                <li>Fourth Project</li>
-                <li>5aaaaaaaaaaaaa</li>
-                <li>6</li>
-                <li>7</li>
-                <li>8</li>
-                <li>9</li>
-                <li>10</li>
-                <li>11</li>
-                <li>12</li>
+    <div class="contentContainer">
+        <!-- Menu -->
+        <menu class="menu">
+            <li data-tab='Home'>Home</li>
+            <li data-tab='Today'>Today</li>
+            <li data-tab='Week'>Week</li>
+            <ul data-tab='Projects'>
+                <div>Projects</div>
+                <div class="listProjectsContainer">
+                    <li>First project</li>
+                    <li>Second Project</li>
+                    <li>Third Project</li>
+                    <li>Fourth Project</li>
+                    <li>5aaaaaaaaaaaaa</li>
+                    <li>6</li>
+                    <li>7</li>
+                    <li>8</li>
+                    <li>9</li>
+                    <li>10</li>
+                    <li>11</li>
+                    <li>12</li>
+                </div>
+            </ul>
+        </menu>
+
+        <div class="taskListsContainer">
+            <div>Project's Title</div>
+            <div class='listOfTasks'>
+
             </div>
-        </ul>
-    </menu>
+        </div>
+    </div>
 
 
 
@@ -81,16 +88,34 @@
 
         </div>
     </div>
+
     <!-- Popup Modal -->
-    <div class='addProjectModal'>
+    <div class="popupModalBg">
+        <form class="createProjectModal">
+            <label for="projectName">Enter the name of the project</label>
+            <input type="text" id="projectNameInput" name="projectNameInput" placeholder="Ex: Build a house" required>
+            <button id='submitNewProject' type='submit'>submit</button>
+        </form>
 
-    </div>
+        <form class="createTaskModal">
+            <h2>Add a new task</h2>
+            <label for="taskTitle">Book title:</label>
+            <input type="text" name="taskTitle" id="taskTitle" placeholder="Enter the task's title here" required>
+            <label for="ProjectName">Project name</label>
+            <input type="textarea" name="description" id="description" placeholder="Enter the description here"
+                required>
+            <label for="dueDate">Due date</label>
+            <input type="date" name="dueDate" id="dueDate" required>
+            <label for="Status">Pick the project</label>
+            <select name="Status" id="Status">
+                <option value="Yes">Default</option>
+                <option value="No">aks</option>
+            </select>
+            <button class="material-icons" type="button" id="closeForm">clear</button>
+            <Button id="submitNewTask" type="button">Add</Button>
+        </form>
 
-    <div class='addTaskModal'>
-
-    </div>
-
-    <script src="main.js"></script>
+        <script src="main.js"></script>
 </body>
 
 </html>
