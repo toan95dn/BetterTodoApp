@@ -57,14 +57,14 @@ nav .material-icons{
 
 /* Menu */
 .menu{
-    width: 28rem;
+    width: 35rem;
     height: 100%;
     list-style: none;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 3rem;
-    background-color: #ff8f87;
+    background-color: #ff7a7b;
     font-size: 2.5rem;
     font-weight: bold;
     color:black;
@@ -118,6 +118,84 @@ nav .material-icons{
     background-color: red;
 }
 
+
+/* List tasks container */
+.projectInfoContainer{
+    background-color: lightpink;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.projectInfoHeader{
+    padding: 0 1rem 0 1rem;
+    width: 90%;
+    height: 4rem;
+    display: grid;
+    grid-template-columns: 1fr 16rem;
+    align-items: center;
+    margin: 1rem;
+    font-size: 2rem;
+    border-bottom: 0.25rem solid white;
+}
+
+.dueDateSort{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.dueDateSort:hover{
+    font-size: 2.1rem;
+    cursor: pointer;
+}
+
+.projectInfoHeader h2{
+    margin-left: 1rem;
+}
+
+.projectInfoHeader .material-icons{
+}
+
+.listOfTasks{
+    width: 90%;
+    font-size: 1.75rem;
+}
+
+.task{
+    display: grid;
+    height: 3.5rem;
+    margin: 1rem;   
+    padding: 0 1rem 0 1rem;
+    border-radius: 0.5rem;
+    background-color: #ff5456;
+    grid-template-columns: 2rem 1fr 9rem 2rem 2rem;
+    gap:1rem;
+    justify-items: start;
+    border: 0.2rem solid transparent;
+    align-items: center;
+    transition: 0.25s;
+}
+
+.task:hover{
+    border: 0.2rem solid white;
+}
+
+.task .material-icons{
+    margin: 0.5rem;
+    font-size: 1.75rem;
+}
+
+.dueDate{
+    justify-self: end;
+}
+
+.task .material-icons:hover{
+    font-size: 2rem;
+}
+
+
 /* Add buttons */
 .addButtonsContainer{
     position: absolute;
@@ -140,9 +218,9 @@ nav .material-icons{
     align-items: center;
     background-color: red;
     border: none;
-    border-radius: 50%;
     width: 5rem;
     height: 5rem;
+    border-radius: 50%;
     transition: 500ms ease-in-out;
 }
 
@@ -223,9 +301,9 @@ input{
 }
 
 .createProjectModal{
+    display: none;
     width: 50rem;
     height: auto;
-    display: flex;
     justify-content: space-evenly;
     align-items: center;
     background-color: red;
@@ -233,6 +311,10 @@ input{
     font-size: 2rem;
     padding: 1rem;
     margin:1rem;
+}
+
+.createProjectModal.active{  
+    display: flex;
 }
 
 .createProjectModal input{
@@ -247,25 +329,30 @@ input{
 display: none;
 }
 
-.createTaskModal .active{
+.createTaskModal.active{
     display: flex;
+    flex-direction: column;
 }
 
 
 /* Responsive */
 @media (max-width: 800px) {
+    html{
+        font-size: 50%;
+    }
+
     #hamburgerButton{
         display: block;
     }
 
     .menu{
         position: absolute;
-        left: -28rem;
+        left: -35rem;
         top:0;
     }
 
     .menu.active{
-        transform: translateX(28rem);
+        transform: translateX(35rem);
     }
 }
 

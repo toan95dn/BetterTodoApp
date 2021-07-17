@@ -3,8 +3,8 @@ import './hamburger.css'
 
 //ALL BUTTONS TO ASK A TASK/PROJECT
 const addButton = document.querySelector('#addButton');
-const addTaskButton = document.querySelector('.createTaskButtonContainer');
-const addProjectButton = document.querySelector('.createProjectButtonContainer');
+const addTaskOptionButton = document.querySelector('.createTaskButtonContainer');
+const addProjectOptionButton = document.querySelector('.createProjectButtonContainer');
 const submitProjectButton = document.querySelector('#submitNewProject');
 const submitTaskButton = document.querySelector('#submitNewTask');
 
@@ -14,8 +14,10 @@ const hamburgerButton = document.querySelector('.hamburger');
 // ALL CONTAINERS + POPUP
 const menuTab = document.querySelector('.menu');
 const listProjectsContainer = document.querySelector('.listProjectsContainer');
+const listTasksContainer = document.querySelector('.listOfTasks');
 const popupModalBg = document.querySelector('.popupModalBg');
-
+const createProjectModal = document.querySelector('.createProjectModal');
+const createTaskModal = document.querySelector('.createTaskModal');
 
 //
 addButton.addEventListener('click', () => {
@@ -29,8 +31,8 @@ function popUporClosedAddTaskOrProject() {
 //FUNCTION WILL TOGGLE ALL 'ACTIVE' VALUE OF BUTTON, SO THAT WHEN 1 THING POP UP, OTHER THINGS CLOSED
 function changeStatusOfButtons() {
     addButton.classList.toggle('active');
-    addTaskButton.classList.toggle('active');
-    addProjectButton.classList.toggle('active');
+    addTaskOptionButton.classList.toggle('active');
+    addProjectOptionButton.classList.toggle('active');
 }
 
 hamburgerButton.addEventListener('click', () => {
@@ -39,8 +41,9 @@ hamburgerButton.addEventListener('click', () => {
 })
 
 //CREATE A NEW PROJECT
-addProjectButton.addEventListener('click', () => {
+addProjectOptionButton.addEventListener('click', () => {
     popupModalBg.classList.add('active');
+    createProjectModal.classList.add('active');
 })
 
 const inputProjectName = document.querySelector('#projectNameInput');
@@ -50,10 +53,63 @@ submitProjectButton.addEventListener('click', (e) => {
     newProject.innerText = inputProjectName.value;
     listProjectsContainer.append(newProject);
     popupModalBg.classList.remove('active');
+    createProjectModal.classList.remove('active');
 })
 
 //CREATE A NEW TASK
+addTaskOptionButton.addEventListener('click', () => {
+    popupModalBg.classList.add('active');
+    createTaskModal.classList.add('active');
+})
 
+const inputTasksTitle = document.querySelector('#taskTitleInput');
+const inputDueDate = document.querySelector('#dueDateInput');
+const inputDescription = document.querySelector('#descriptionInput');
+const inputPriority = document.querySelector('#priorityInput');
+
+submitTaskButton.addEventListener('click', () => {
+    const newTask = document.createElement('li');
+    newTask.innerHTML = `
+    <ul class='task'>
+        <div class="material-icons">
+            check_box
+        </div>
+        <div>${inputTasksTitle.value}</div>
+
+        <div>${new Date(inputDueDate.value).toLocaleDateString()}</div >
+        <div class="material-icons">
+            edit
+        </div>
+        <div class="material-icons">
+            delete
+        </div>             
+    </ul >
+    `;
+
+    listTasksContainer.append(newTask);
+
+    createTaskModal.classList.remove('active');
+    popupModalBg.classList.remove('active');
+})
+
+
+
+// const inputTaskTitle;
+// const inputDescription;
+
+
+
+
+
+
+
+
+
+
+
+
+
+console.log('asd')
 
 
 

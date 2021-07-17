@@ -55,10 +55,43 @@
             </ul>
         </menu>
 
-        <div class="taskListsContainer">
-            <div>Project's Title</div>
+        <div class="projectInfoContainer">
+            <ul class='projectInfoHeader'>
+                <h2> Home </h2>
+                <div class='dueDateSort'><span>Due Date</span>
+                    <span class="material-icons">swap_vert</span>
+                </div>
+            </ul>
             <div class='listOfTasks'>
+                <ul class='task'>
+                    <div class="material-icons">
+                        check_box
+                    </div>
+                    <div>Demo Task</div>
 
+                    <div class='dueDate'>7/16/2021</div>
+                    <div class="material-icons">
+                        edit
+                    </div>
+                    <div class="material-icons">
+                        delete
+                    </div>
+                </ul>
+
+                <ul class='task'>
+                    <div class="material-icons">
+                        check_box
+                    </div>
+                    <div>Demo Task</div>
+
+                    <div>12/16/2021</div>
+                    <div class="material-icons">
+                        edit
+                    </div>
+                    <div class="material-icons">
+                        delete
+                    </div>
+                </ul>
             </div>
         </div>
     </div>
@@ -99,18 +132,23 @@
 
         <form class="createTaskModal">
             <h2>Add a new task</h2>
-            <label for="taskTitle">Book title:</label>
-            <input type="text" name="taskTitle" id="taskTitle" placeholder="Enter the task's title here" required>
-            <label for="ProjectName">Project name</label>
-            <input type="textarea" name="description" id="description" placeholder="Enter the description here"
+            <label for="taskTitleInput">Task's title:</label>
+            <input type="text" name="taskTitleInput" id="taskTitleInput" placeholder="Enter the task's title here"
                 required>
-            <label for="dueDate">Due date</label>
-            <input type="date" name="dueDate" id="dueDate" required>
-            <label for="Status">Pick the project</label>
-            <select name="Status" id="Status">
-                <option value="Yes">Default</option>
-                <option value="No">aks</option>
+
+            <label for="dueDateInput">Due date</label>
+            <input type="date" name="dueDateInput" id="dueDateInput" required>
+
+            <label for="descriptionInput">Description</label>
+            <textarea name="description" id="descriptionInput" cols="30" rows="10"></textarea>
+
+            <label for="priorityInput">Pick the priority</label>
+            <select name="priorityInput" id="priorityInput">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="Height">High</option>
             </select>
+
             <button class="material-icons" type="button" id="closeForm">clear</button>
             <Button id="submitNewTask" type="button">Add</Button>
         </form>
