@@ -66,6 +66,8 @@ const inputTasksTitle = document.querySelector('#taskTitleInput');
 const inputDueDate = document.querySelector('#dueDateInput');
 const inputDescription = document.querySelector('#descriptionInput');
 const inputPriority = document.querySelector('#priorityInput');
+import dayjs from 'dayjs';
+
 
 submitTaskButton.addEventListener('click', () => {
     const newTask = document.createElement('li');
@@ -74,15 +76,17 @@ submitTaskButton.addEventListener('click', () => {
         <div class="material-icons">
             check_box
         </div>
+
         <div>${inputTasksTitle.value}</div>
 
-        <div>${new Date(inputDueDate.value).toLocaleDateString()}</div >
+        <div class='dueDate'>${dayjs(inputDueDate.value).format('MM/DD/YYYY')}</div>
         <div class="material-icons">
             edit
         </div>
         <div class="material-icons">
             delete
-        </div>             
+        </div>
+        
     </ul >
     `;
 

@@ -1,4 +1,4 @@
-import { Task } from "./Task";
+import { TaskModel } from "./Task";
 const TasksManager = (() => {
     //tasksMap is initialized with an empty project name, all tasks created without projectname will be put in
     const tasksMap = new Map();
