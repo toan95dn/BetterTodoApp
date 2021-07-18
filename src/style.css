@@ -78,7 +78,6 @@ nav .material-icons{
     justify-content: center;
     align-items: center;
     border:0.25rem solid white;
-    border-radius: 1rem;
 }
 
 /* Project lists on the left side */
@@ -101,7 +100,7 @@ nav .material-icons{
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #ff7878;
+    background-color: #ff6868;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -112,6 +111,8 @@ nav .material-icons{
 .listProjectsContainer li{
     padding: 0.5rem;
     border-bottom: 0.2rem solid white;
+    line-height: 3rem;
+    margin-right: 1.5rem;
 }
 
 .listProjectsContainer li:hover{
@@ -168,7 +169,6 @@ nav .material-icons{
     height: 3.5rem;
     margin: 1rem;   
     padding: 0 1rem 0 1rem;
-    border-radius: 0.5rem;
     background-color: #ff5456;
     grid-template-columns: 2rem 1fr 9rem 2rem 2rem;
     gap:1rem;
@@ -204,8 +204,7 @@ nav .material-icons{
     position: relative;
     width: 50vw;
     height: auto;
-    border: 0.5rem solid white;
-    border-radius: 2rem;
+    border: 0.25rem solid white;
     display: flex;
     flex-direction: column;
     justify-content: center;

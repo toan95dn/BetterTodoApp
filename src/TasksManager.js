@@ -26,4 +26,13 @@ const TasksManager = (() => {
 
 })()
 
+const TasksManagerView = (() => {
+
+})
+
+//Make the project view and data linked together=> easier to manipulate
+const TaskManagerController = (() => {
+
+})
+
 export { TasksManager };

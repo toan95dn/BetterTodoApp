@@ -10,13 +10,10 @@ class TaskModel {
     #projectName;
 
     constructor(title, detail, dueDate, priority, projectName) {
-        this.#title = title;
-        this.#detail = detail;
-        this.#dueDate = dueDate;
-        this.#priority = priority;
-        this.#isDone = false;
-        this.#projectName = projectName;
+        this.updateTask(title, detail, dueDate, priority, projectName);
     }
+
+
 
     //getters
     getTitle() { return this.#title; }
@@ -43,6 +40,7 @@ class TaskModel {
         this.#isDone = false;
         this.#projectName = projectName;
     }
+
 }
 
 class TaskView {
@@ -145,6 +143,7 @@ class TaskController {
 
         this.#bindShowDetailEvent();
         this.#bindEditEvent();
+        this.#bindDeleteTaskEvent();
     }
 
     #bindShowDetailEvent() {
@@ -175,9 +174,10 @@ class TaskController {
     }
 
     #bindDeleteTaskEvent() {
-        const deleteTaskButton = this.taskView.getDeleteButtonView();
+        const deleteTaskButton = this.#taskView.getDeleteButtonView();
         deleteTaskButton.addEventListener('click', (event) => {
-
+            event.stopPropagation();
+            this.#taskView.removeView();
         })
     }
 
