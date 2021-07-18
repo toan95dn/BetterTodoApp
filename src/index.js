@@ -1,5 +1,9 @@
 import './style.css';
 import './hamburger.css'
+import dayjs from 'dayjs';
+
+import { TaskModel, TaskView, TaskController } from './Task';
+
 
 //ALL BUTTONS TO ASK A TASK/PROJECT
 const addButton = document.querySelector('#addButton');
@@ -66,38 +70,24 @@ const inputTasksTitle = document.querySelector('#taskTitleInput');
 const inputDueDate = document.querySelector('#dueDateInput');
 const inputDescription = document.querySelector('#descriptionInput');
 const inputPriority = document.querySelector('#priorityInput');
-import dayjs from 'dayjs';
 
 
 submitTaskButton.addEventListener('click', () => {
-    const newTask = document.createElement('li');
-    newTask.innerHTML = `
-    <ul class='task'>
-        <div class="material-icons">
-            check_box
-        </div>
+    const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value, inputDueDate.value, "Low", "Cona");
+    const newTaskView = new TaskView(inputTasksTitle.value, inputDueDate.value);
+    //title, detail, dueDate, priority, projectName
 
-        <div>${inputTasksTitle.value}</div>
-
-        <div class='dueDate'>${dayjs(inputDueDate.value).format('MM/DD/YYYY')}</div>
-        <div class="material-icons">
-            edit
-        </div>
-        <div class="material-icons">
-            delete
-        </div>
-        
-    </ul >
-    `;
-
-    listTasksContainer.append(newTask);
-
+    const newController = new TaskController(newTaskModel, newTaskView);
     createTaskModal.classList.remove('active');
     popupModalBg.classList.remove('active');
 })
 
 
-
+let k = (function addADemoTask() {
+    const newTaskView = new TaskView("DemoTest", '10/10/2020');
+    const newTaskModel = new TaskModel();
+    const newController = new TaskController(newTaskModel, newTaskView);
+})()
 // const inputTaskTitle;
 // const inputDescription;
 

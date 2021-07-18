@@ -195,6 +195,41 @@ nav .material-icons{
     font-size: 2rem;
 }
 
+/* Task description */
+.popUpDetailBg{
+    visibility: visible !important;
+}
+
+.popUpDetail{
+    position: relative;
+    width: 50vw;
+    height: auto;
+    border: 0.5rem solid white;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    font-size: 2rem ;
+    background-color:lightpink ;
+    line-height: 3rem;;
+}
+
+.popUpDetail h3{
+    align-self: center;
+}
+
+#closeDetailButton{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+}
+
+#closeDetailButton:hover{
+    color:red;
+}
 
 /* Add buttons */
 .addButtonsContainer{
@@ -222,6 +257,7 @@ nav .material-icons{
     height: 5rem;
     border-radius: 50%;
     transition: 500ms ease-in-out;
+    cursor: pointer;
 }
 
 #addButton .material-icons{
@@ -266,6 +302,7 @@ nav .material-icons{
     border:none;
     border-radius: 50%;
     background-color: red;
+    cursor: pointer;
 }
 
 
@@ -284,7 +321,8 @@ input{
     display: block;
 }
 
-.popupModalBg{
+.popupModalBg,
+.popUpDetailBg{
     visibility: hidden;
     position: absolute;;
     width: 100vw;
