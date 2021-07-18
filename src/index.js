@@ -1,9 +1,7 @@
 import './style.css';
 import './hamburger.css'
-import dayjs from 'dayjs';
 
 import { TaskModel, TaskView, TaskController } from './Task';
-
 
 //ALL BUTTONS TO ASK A TASK/PROJECT
 const addButton = document.querySelector('#addButton');
@@ -53,9 +51,13 @@ addProjectOptionButton.addEventListener('click', () => {
 const inputProjectName = document.querySelector('#projectNameInput');
 submitProjectButton.addEventListener('click', (e) => {
     e.preventDefault();
+
     const newProject = document.createElement('li');
     newProject.innerText = inputProjectName.value;
     listProjectsContainer.append(newProject);
+
+
+
     popupModalBg.classList.remove('active');
     createProjectModal.classList.remove('active');
 })
@@ -83,15 +85,7 @@ submitTaskButton.addEventListener('click', () => {
 })
 
 
-let k = (function addADemoTask() {
-    const newTaskView = new TaskView("DemoTest", '10/10/2020');
-    const newTaskModel = new TaskModel("DemoTest", 'none', '11/10/2020', "asd", "k");
-    const newController = new TaskController(newTaskModel, newTaskView);
 
-    const newTaskView1 = new TaskView("DemoTest_1", '10/10/2020');
-    const newTaskModel1 = new TaskModel("DemoTest_1", 'none', '11/10/2020', "asd", "k");
-    const newController1 = new TaskController(newTaskModel1, newTaskView1);
-})()
 // const inputTaskTitle;
 // const inputDescription;
 
@@ -101,13 +95,6 @@ let k = (function addADemoTask() {
 
 
 
-
-
-
-
-
-
-console.log('asd')
 
 
 
