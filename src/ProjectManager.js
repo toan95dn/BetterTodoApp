@@ -7,8 +7,8 @@ const ProjectManager = (() => {
         projectMap.set(projectName, []);
     }
 
-    const addNewTask = (task, projectName) => {
-        projectMap.get(projectName).push(task);
+    const addNewTask = (task) => {
+        projectMap.get(task.getProjectName()).push(task);
     }
 
     const removeTask = (task) => {
@@ -23,7 +23,11 @@ const ProjectManager = (() => {
         addNewTask(task, anotherProject);
     }
 
+    const printOutProject = () => {
+        console.log(projectMap);
+    }
 
+    return { addNewTask, addNewProject, printOutProject }
 })()
 
 const ProjectManagerView = (() => {

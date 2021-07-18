@@ -39,6 +39,13 @@ class TaskModel {
         this.#projectName = projectName;
     }
 
+    removeTask() {
+
+    }
+
+    moveTask() {
+
+    }
 }
 
 class TaskView {
@@ -181,15 +188,7 @@ class TaskController {
 
 }
 
-let k = (function addADemoTask() {
-    const newTaskView = new TaskView("DemoTest", '10/10/2020');
-    const newTaskModel = new TaskModel("DemoTest", 'none', '11/10/2020', "asd", "k");
-    const newController = new TaskController(newTaskModel, newTaskView);
 
-    const newTaskView1 = new TaskView("DemoTest_1", '10/10/2020');
-    const newTaskModel1 = new TaskModel("DemoTest_1", 'none', '11/10/2020', "asd", "k");
-    const newController1 = new TaskController(newTaskModel1, newTaskView1);
-})()
 
 export { TaskModel, TaskView, TaskController }
 

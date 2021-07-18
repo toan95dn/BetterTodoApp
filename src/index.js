@@ -2,6 +2,7 @@ import './style.css';
 import './hamburger.css'
 
 import { TaskModel, TaskView, TaskController } from './Task';
+import { ProjectManager } from './ProjectManager';
 
 //ALL BUTTONS TO ASK A TASK/PROJECT
 const addButton = document.querySelector('#addButton');
@@ -56,7 +57,8 @@ submitProjectButton.addEventListener('click', (e) => {
     newProject.innerText = inputProjectName.value;
     listProjectsContainer.append(newProject);
 
-
+    ProjectManager.addNewProject(inputProjectName.value);
+    ProjectManager.printOutProject();
 
     popupModalBg.classList.remove('active');
     createProjectModal.classList.remove('active');
@@ -77,15 +79,21 @@ const inputPriority = document.querySelector('#priorityInput');
 submitTaskButton.addEventListener('click', () => {
     const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value, inputDueDate.value, "Low", "Cona");
     const newTaskView = new TaskView(inputTasksTitle.value, inputDueDate.value);
-    //title, detail, dueDate, priority, projectName
-
     const newController = new TaskController(newTaskModel, newTaskView);
     createTaskModal.classList.remove('active');
     popupModalBg.classList.remove('active');
 })
 
 
+let k = (function addADemoTask() {
+    const newTaskView = new TaskView("DemoTest", '10/10/2020');
+    const newTaskModel = new TaskModel("DemoTest", 'none', '11/10/2020', "asd", "k");
+    const newController = new TaskController(newTaskModel, newTaskView);
 
+    const newTaskView1 = new TaskView("DemoTest_1", '10/10/2020');
+    const newTaskModel1 = new TaskModel("DemoTest_1", 'none', '11/10/2020', "asd", "k");
+    const newController1 = new TaskController(newTaskModel1, newTaskView1);
+})()
 // const inputTaskTitle;
 // const inputDescription;
 
