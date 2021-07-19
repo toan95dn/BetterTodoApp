@@ -184,6 +184,7 @@ class TaskController {
         deleteTaskButton.addEventListener('click', (event) => {
             event.stopPropagation();
             this.#taskView.removeView();
+            //todo : emit deletetask event
         })
     }
 

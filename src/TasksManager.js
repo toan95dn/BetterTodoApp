@@ -1,3 +1,5 @@
+import { pubsub } from "./pubsub";
+
 const TasksManagerModel = (() => {
     //tasksMap is initialized with an empty project name, all tasks created without projectname will be put in
     const projectMap = new Map();
@@ -5,10 +7,12 @@ const TasksManagerModel = (() => {
     const addNewProject = (projectName) => {
         projectMap.set(projectName, []);
     }
+    pubsub.on('addProject', addNewProject);
 
     const addNewTask = (task) => {
         projectMap.get(task.getProjectName()).push(task);
     }
+    pubsub.on('addTask', addNewTask);
 
     const removeTask = (task) => {
         const currProjectName = task.getProjectName();

@@ -1,4 +1,4 @@
-const events = {
+const pubsub = {
     events: {},
     on: function (eventName, fn) {
         this.events[eventName] = this.events[eventName] || [];
@@ -6,11 +6,13 @@ const events = {
     },
     off: function (eventName, fn) {
         if (this.events[eventName]) {
-            for (var i = 0; i < this.events[eventName].length; i++) {
+            for (let i = 0; i < this.events[eventName].length; i++) {
                 if (this.events[eventName][i] === fn) {
                     this.events[eventName].splice(i, 1);
                     break;
                 }
+
+                // this.events[eventName].splice(this.events[eventName].indexOf(fn), 1);
             };
         }
     },
@@ -22,3 +24,11 @@ const events = {
         }
     }
 };
+
+export { pubsub }
+
+// List of events:
+// 1/Add Project
+// 2/Delete Project
+// 3/Add Task
+// 4/Delete Task
