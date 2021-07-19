@@ -57,8 +57,14 @@ const TasksManagerView = (() => {
 
 
         const newProjectView = document.createElement('li');
-        const newNumTaskview = document.createElement('div');
-        newProjectView.innerText = projectName;
+
+        newProjectView.innerHTML = `
+            <div data-numTasksOf = ${projectName}>0</div>
+            <div>${projectName}</div>
+            
+        `
+
+
         listProjectsContainer.append(newProjectView);
 
         return newProjectView;

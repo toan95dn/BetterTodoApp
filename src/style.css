@@ -113,10 +113,27 @@ nav .material-icons{
     border-bottom: 0.2rem solid white;
     line-height: 2.5rem;
     margin-right: 1.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
 }
 
 .listProjectsContainer li:hover{
     background-color: red;
+}
+
+[data-numTasksOf]{
+    color:white;
+    margin-right:0.5rem;
+    background-color: #ff5959;
+    display: flex;
+
+    width:3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
 }
 
 
