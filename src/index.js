@@ -7,7 +7,8 @@ import { pubsub } from './pubsub';
 //ALL BUTTONS TO ASK A TASK/PROJECT
 const addButton = document.querySelector('#addButton');
 const addTaskOptionButton = document.querySelector('.createTaskButtonContainer');
-
+const addProjectOptionButton = document.querySelector('.createProjectButtonContainer');
+const submitProjectButton = document.querySelector('#submitNewProject');
 const submitTaskButton = document.querySelector('#submitNewTask');
 
 //BUTTON TO MAKE THE MENU SLIDE OUT (SMALL SCREEN)
