@@ -1,8 +1,7 @@
 import './style.css';
 import './hamburger.css'
-
 import { TaskModel, TaskView, TaskController } from './Task';
-import { ProjectManager } from './ProjectManager';
+import { TasksManagerModel } from './TasksManager';
 
 //ALL BUTTONS TO ASK A TASK/PROJECT
 const addButton = document.querySelector('#addButton');
@@ -57,8 +56,8 @@ submitProjectButton.addEventListener('click', (e) => {
     newProject.innerText = inputProjectName.value;
     listProjectsContainer.append(newProject);
 
-    ProjectManager.addNewProject(inputProjectName.value);
-    ProjectManager.printOutProject();
+    TasksManagerModel.addNewProject(inputProjectName.value);
+    TasksManagerModel.printOutProject();
 
     popupModalBg.classList.remove('active');
     createProjectModal.classList.remove('active');
@@ -66,9 +65,25 @@ submitProjectButton.addEventListener('click', (e) => {
 
 //CREATE A NEW TASK
 addTaskOptionButton.addEventListener('click', () => {
+    getAllProjectsSelection();
     popupModalBg.classList.add('active');
     createTaskModal.classList.add('active');
 })
+
+//WHEN CLICK THE BUTTON TO POPUP FORM TO ADD TASK, PUT ALL THE POSSIBLE PROJECT TO THE PROJECT SELECTION
+const projectInputSelection = document.querySelector('#projectSelectionInput');
+function getAllProjectsSelection() {
+    while (projectInputSelection.firstChild) {
+        projectInputSelection.removeChild(projectInputSelection.firstChild);
+    }
+
+    TasksManagerModel.getAllProjects().forEach((Project) => {
+        const projectOption = document.createElement('option');
+        projectOption.innerText = Project;
+        projectInputSelection.append(projectOption);
+    });
+}
+//
 
 const inputTasksTitle = document.querySelector('#taskTitleInput');
 const inputDueDate = document.querySelector('#dueDateInput');
@@ -77,12 +92,20 @@ const inputPriority = document.querySelector('#priorityInput');
 
 
 submitTaskButton.addEventListener('click', () => {
+
     const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value, inputDueDate.value, "Low", "Cona");
     const newTaskView = new TaskView(inputTasksTitle.value, inputDueDate.value);
     const newController = new TaskController(newTaskModel, newTaskView);
+
+    TasksManagerModel.addNewTask(newTaskModel);
+
     createTaskModal.classList.remove('active');
     popupModalBg.classList.remove('active');
 })
+
+
+
+/////////////////////////////////////////
 
 
 let k = (function addADemoTask() {

@@ -1,7 +1,6 @@
-const ProjectManager = (() => {
+const TasksManagerModel = (() => {
     //tasksMap is initialized with an empty project name, all tasks created without projectname will be put in
     const projectMap = new Map();
-    projectMap.set('', []);
 
     const addNewProject = (projectName) => {
         projectMap.set(projectName, []);
@@ -27,10 +26,14 @@ const ProjectManager = (() => {
         console.log(projectMap);
     }
 
-    return { addNewTask, addNewProject, printOutProject }
+    const getAllProjects = () => {
+        return Array.from(projectMap.keys());
+    }
+
+    return { addNewTask, addNewProject, printOutProject, getAllProjects }
 })()
 
-const ProjectManagerView = (() => {
+const TasksManagerView = (() => {
 
     const ProjectsContainer = document.querySelector('.listProjectsContainer');
 
@@ -46,14 +49,16 @@ const ProjectManagerView = (() => {
     const updateNumTaskView = () => {
 
     }
+
+
 })()
 
 //Make the project view and data linked together=> easier to manipulate
-const ProjectManagerController = (() => {
+const TasksManagerController = (() => {
 
 
 })()
 
 
 
-export { ProjectManager };
+export { TasksManagerModel };

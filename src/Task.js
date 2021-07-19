@@ -1,4 +1,4 @@
-import { ProjectManager } from "./ProjectManager";
+import { TasksManagerModel } from "./TasksManager";
 import dayjs from 'dayjs';
 
 class TaskModel {
@@ -175,6 +175,7 @@ class TaskController {
         const editButton = this.#taskView.getEditButtonView();
         editButton.addEventListener('click', (event) => {
             event.stopPropagation();
+            console.log(TasksManagerModel.getAllProjects());
         })
     }
 
