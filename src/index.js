@@ -71,16 +71,16 @@ addTaskOptionButton.addEventListener('click', () => {
 })
 
 //WHEN CLICK THE BUTTON TO POPUP FORM TO ADD TASK, PUT ALL THE POSSIBLE PROJECT TO THE PROJECT SELECTION
-const projectInputSelection = document.querySelector('#projectSelectionInput');
+const inputProjectSelection = document.querySelector('#projectSelectionInput');
 function getAllProjectsSelection() {
-    while (projectInputSelection.firstChild) {
-        projectInputSelection.removeChild(projectInputSelection.firstChild);
+    while (inputProjectSelection.firstChild) {
+        inputProjectSelection.removeChild(inputProjectSelection.firstChild);
     }
 
     TasksManagerModel.getAllProjects().forEach((Project) => {
         const projectOption = document.createElement('option');
         projectOption.innerText = Project;
-        projectInputSelection.append(projectOption);
+        inputProjectSelection.append(projectOption);
     });
 }
 //
@@ -93,10 +93,12 @@ const inputPriority = document.querySelector('#priorityInput');
 
 submitTaskButton.addEventListener('click', () => {
 
-    const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value, inputDueDate.value, "Low", "Cona");
+    const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value,
+        inputDueDate.value, inputPriority.value, inputProjectSelection.value);
     const newTaskView = new TaskView(inputTasksTitle.value, inputDueDate.value);
     const newController = new TaskController(newTaskModel, newTaskView);
 
+    //title, detail, dueDate, priority, projectName
     TasksManagerModel.addNewTask(newTaskModel);
 
     createTaskModal.classList.remove('active');
