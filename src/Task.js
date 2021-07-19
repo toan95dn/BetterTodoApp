@@ -1,5 +1,6 @@
 import { TasksManagerModel } from "./TasksManager";
 import dayjs from 'dayjs';
+import { pubsub } from "./pubsub";
 
 class TaskModel {
     #title;
@@ -184,7 +185,7 @@ class TaskController {
         deleteTaskButton.addEventListener('click', (event) => {
             event.stopPropagation();
             this.#taskView.removeView();
-            //todo : emit deletetask event
+            pubsub.emit('removeTask', this.#taskModel);
         })
     }
 

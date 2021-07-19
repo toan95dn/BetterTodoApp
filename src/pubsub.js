@@ -28,7 +28,7 @@ const pubsub = {
 export { pubsub }
 
 // List of events:
-// 1/Add Project
-// 2/Delete Project
-// 3/Add Task
-// 4/Delete Task
+// 1/Add Project    (addProject)
+// 2/Delete Project (removeProject)
+// 3/Add Task       (addTask)
+// 4/Delete Task    (removeTask)
