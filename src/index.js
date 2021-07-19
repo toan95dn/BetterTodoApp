@@ -76,8 +76,8 @@ addTaskOptionButton.addEventListener('click', () => {
 //WHEN CLICK THE BUTTON TO POPUP FORM TO ADD TASK, PUT ALL THE POSSIBLE PROJECT TO THE PROJECT SELECTION
 const inputProjectSelection = document.querySelector('#projectSelectionInput');
 function getAllProjectsSelection() {
-    while (inputProjectSelection.firstChild) {
-        inputProjectSelection.removeChild(inputProjectSelection.firstChild);
+    while (inputProjectSelection.firstElementChild) {
+        inputProjectSelection.firstElementChild.remove();
     }
 
     TasksManagerModel.getAllProjects().forEach((Project) => {
@@ -126,7 +126,12 @@ submitTaskButton.addEventListener('click', () => {
 // const inputDescription;
 
 
+let m = (function addDemoProjectAndTask() {
+    pubsub.emit('addProject', '1stDemo');
+    pubsub.emit('addProject', '2ndDemo');
+    pubsub.emit('addProject', '3rdDemo');
 
+})()
 
 
 

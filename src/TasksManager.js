@@ -1,5 +1,5 @@
 import { pubsub } from "./pubsub";
-import { TaskView } from "./Task";
+import { TaskController, TaskView } from "./Task";
 
 const TasksManagerModel = (() => {
     //tasksMap is initialized with an empty project name, all tasks created without projectname will be put in
@@ -47,27 +47,41 @@ const TasksManagerModel = (() => {
 const TasksManagerView = (() => {
 
     const listProjectsContainer = document.querySelector('.listProjectsContainer');
+    const listOfTasksContainer = document.querySelector('.listOfTasks');
 
     const removeProjectView = () => {
 
     }
 
     const addProjectView = (projectName) => {
+
+
         const newProjectView = document.createElement('li');
+        const newNumTaskview = document.createElement('div');
         newProjectView.innerText = projectName;
         listProjectsContainer.append(newProjectView);
+
         return newProjectView;
     }
 
+
+
     const renderAllTasksOfSelectedProject = (tasks) => {
+        clearAllTasksView();
         tasks.forEach((task) => {
-            console.log(task);
+            new TaskController(task, new TaskView(task.getTitle(), task.getDueDate()));
         })
     }
 
     //Update the number of tasks of each project
     const updateNumTaskView = () => {
 
+    }
+
+    const clearAllTasksView = () => {
+        while (listOfTasksContainer.firstElementChild) {
+            listOfTasksContainer.firstElementChild.remove()
+        }
     }
 
 
