@@ -42,6 +42,15 @@ const TasksManagerModel = (() => {
         return Array.from(projectMap.keys());
     }
 
+    const getAllTasks = () => {
+        let allTasksArray = [];
+        let allArrayOfTasks = Array.from(projectMap.values());
+        allArrayOfTasks.forEach(arrayOfTasks => {
+            allTasksArray = allTasksArray.concat(arrayOfTasks);
+        })
+        return allTasksArray;
+    }
+
     const getSizeOfProject = (projectName) => {
         return projectMap.get(projectName).length;
     }
@@ -50,7 +59,11 @@ const TasksManagerModel = (() => {
         return projectMap.get(projectName);
     }
 
-    return { addNewTask, addNewProject, removeProject, printOutProject, getAllProjects, getSizeOfProject, getAllTasksOfSelectedProject }
+    return {
+        addNewTask, addNewProject, removeProject, printOutProject,
+        getAllProjects, getSizeOfProject, getAllTasksOfSelectedProject,
+        getAllTasks
+    }
 })()
 
 const TasksManagerView = (() => {
@@ -191,6 +204,13 @@ const TasksManagerController = (() => {
 
     //Home Tab, which shows all tasks from all project
     const homeTab = document.querySelector("li[data-tab='Home']");
+    const showAllTasksFromAllProject = homeTab.addEventListener('click', () => {
+        const allTasks = TasksManagerModel.getAllTasks();
+        allTasks.forEach((task) => {
+            new TaskController(task, new TaskView(task.getTitle(), task.getDueDate()));
+        })
+    })
+
 
 })()
 

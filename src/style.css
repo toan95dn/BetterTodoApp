@@ -90,6 +90,7 @@ nav .material-icons{
 /* custom the scroll bar */
 .listProjectsContainer{
     width: 90%;
+    height: 100%;
     overflow:auto;
     font-size: 1.5rem;
     margin: 1.25rem 0 1.25rem 0;
@@ -216,6 +217,12 @@ nav .material-icons{
 .listOfTasks{
     width: 90%;
     font-size: 1.75rem;
+    height: 80vh;
+    overflow: auto;
+}
+
+.listOfTasks::-webkit-scrollbar {
+    width: 0.75rem;
 }
 
 .task{
