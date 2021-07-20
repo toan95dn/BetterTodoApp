@@ -117,6 +117,7 @@ nav .material-icons{
     justify-content: flex-start;
     align-items: center;
     flex-direction: row;
+    cursor: pointer;
 }
 
 .listProjectsContainer li:hover{

@@ -85,9 +85,6 @@ const TasksManagerView = (() => {
         currentTab.innerText = currSelectedTab;
     }
 
-    const showCurrentTabContent = () => {
-
-    }
 
     //Update the number of tasks of each project
     const updateNumTaskView = (projectName, newNum) => {
@@ -110,12 +107,19 @@ const TasksManagerView = (() => {
 //Make the project view and data linked together=> easier to manipulate
 const TasksManagerController = (() => {
 
+    //switch to pick tab 
+    const switchToTab = (ProjectName) => {
+        TasksManagerView.updateTilteOfTasksContainer(ProjectName);
+        TasksManagerView.renderAllTasksOfSelectedProject(TasksManagerModel.getAllTasksOfSelectedProject(ProjectName));
+    }
 
+    //Render all tasks list when a project get pick
     const bindNewProjectViewToEvent = (projectName) => {
         const newProjectView = TasksManagerView.addProjectView(projectName);
         newProjectView.addEventListener('click', () => {
-            TasksManagerView.updateTilteOfTasksContainer(projectName);
-            TasksManagerView.renderAllTasksOfSelectedProject(TasksManagerModel.getAllTasksOfSelectedProject(projectName));
+            // TasksManagerView.updateTilteOfTasksContainer(projectName);
+            // TasksManagerView.renderAllTasksOfSelectedProject(TasksManagerModel.getAllTasksOfSelectedProject(projectName));
+            switchToTab(projectName);
         })
     }
     pubsub.on('addProject', bindNewProjectViewToEvent);
@@ -127,6 +131,11 @@ const TasksManagerController = (() => {
     pubsub.on('addTask', bindNumTaskViewToEvent);
     pubsub.on('removeTask', bindNumTaskViewToEvent);
 
+    //When a task is added to a project, show the current content of that project
+    const showCurrentTabContent = (task) => {
+        switchToTab(task.getProjectName());
+    }
+    pubsub.on('addTask', showCurrentTabContent);
 
 })()
 
