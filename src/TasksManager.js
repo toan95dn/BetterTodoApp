@@ -196,8 +196,8 @@ const TasksManagerController = (() => {
         })
     })
 
-    const sortDueDate = () => {
-        const switchOrder = 1; // to toggle sorting from low->high or high->low
+    const sortDueDate = (() => {
+        let switchOrder = 1; // to toggle sorting from low->high or high->low
         return function (tasks) {
             switchOrder = switchOrder === 1 ? -1 : 1;
             tasks.sort((firstTask, secondTask) => {
@@ -207,7 +207,7 @@ const TasksManagerController = (() => {
                 return -switchOrder;
             })
         }
-    }
+    })()
 
     //Today Tab, which shows all tasks due today
     const todayTab = document.querySelector("li[data-tab='Today']");
