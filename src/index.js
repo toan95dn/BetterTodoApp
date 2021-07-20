@@ -133,12 +133,12 @@ let m = (function addDemoProjectAndTask() {
 
 let k = (function addADemoTask() {
     for (let i = 1; i < 10; i++) {
-        const newTask = new TaskModel('Task_Number_' + i, 'none', i + '/10/2021', 'Low', '1stDemo');
+        const newTask = new TaskModel('Task_Number_' + i + '_1stDemo', 'none', i + '/10/2021', 'Low', '1stDemo');
         pubsub.emit('addTask', newTask)
     }
 
-    for (let i = 0; i < 5; i++) {
-        const newTask = new TaskModel('Task_Number_' + i, 'none', '10/10/2021', 'Low', '2ndDemo');
+    for (let i = 1; i < 6; i++) {
+        const newTask = new TaskModel('Task_Number_' + i + '_2ndDemo', 'none', `10/${'0' + i}/2021`, 'Low', '2ndDemo');
         pubsub.emit('addTask', newTask)
     }
 })()

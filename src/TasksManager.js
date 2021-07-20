@@ -122,8 +122,6 @@ const TasksManagerView = (() => {
         }
     }
 
-
-
     return {
         addProjectView, renderAllTasksOfSelectedProject,
         updateTilteOfTasksContainer, updateNumTaskView, getDeleteProjectButtonView, clearAllTasksView
@@ -189,19 +187,6 @@ const TasksManagerController = (() => {
     // 
     //        document.querySelectorAll('ul[data-dueDate]')
 
-    const sortDueDateButton = document.querySelector('.dueDateSort');
-
-    const sortDueDate = () => {
-        let lowFirst = true; //to change to sort from low to high or high to low each time it click
-        return function () {
-            lowFirst = lowFirst ? false : true;
-            document.querySelectorAll('ul[data-dueDate]');
-        }
-    }
-
-    sortDueDateButton.addEventListener('click', sortDueDate);
-
-
     //Home Tab, which shows all tasks from all project
     const homeTab = document.querySelector("li[data-tab='Home']");
     const showAllTasksFromAllProject = homeTab.addEventListener('click', () => {
@@ -210,6 +195,32 @@ const TasksManagerController = (() => {
             new TaskController(task, new TaskView(task.getTitle(), task.getDueDate()));
         })
     })
+
+    const sortDueDate = () => {
+        const switchOrder = 1; // to toggle sorting from low->high or high->low
+        return function (tasks) {
+            switchOrder = switchOrder === 1 ? -1 : 1;
+            tasks.sort((firstTask, secondTask) => {
+                if (new Date(firstTask.getDueDate()) > new Date(secondTask.getDueDate())) {
+                    return switchOrder;
+                }
+                return -switchOrder;
+            })
+        }
+    }
+
+    //Today Tab, which shows all tasks due today
+    const todayTab = document.querySelector("li[data-tab='Today']");
+    const showAllTasksToday = todayTab.addEventListener('click', () => {
+        const allTasks = TasksManagerModel.getAllTasks();
+        sortDueDate(allTasks);
+        TasksManagerView.clearAllTasksView();
+        allTasks.forEach((task) => {
+            new TaskController(task, new TaskView(task.getTitle(), task.getDueDate()));
+        })
+    })
+
+
 
 
 })()
