@@ -89,7 +89,7 @@ nav .material-icons{
 
 /* custom the scroll bar */
 .listProjectsContainer{
-    width: 85%;
+    width: 90%;
     overflow:auto;
     font-size: 1.5rem;
     margin: 1.25rem 0 1.25rem 0;
@@ -129,8 +129,8 @@ nav .material-icons{
     background-color: #ff5959;
     display: flex;
 
-    width:3.5rem;
-    height: 3.5rem;
+    width:3rem;
+    height: 3rem;
     border-radius: 50%;
     align-items: center;
     justify-content: center;
@@ -169,7 +169,7 @@ nav .material-icons{
     cursor: pointer;
 }
 
-.projectInfoHeader h2{
+.projectInfoHeader h3{
     margin-left: 1rem;
 }
 

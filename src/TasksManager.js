@@ -1,5 +1,5 @@
 import { pubsub } from "./pubsub";
-import { TaskController, TaskView } from "./Task";
+import { TaskController, TaskModel, TaskView } from "./Task";
 
 const TasksManagerModel = (() => {
     //tasksMap is initialized with an empty project name, all tasks created without projectname will be put in
@@ -37,11 +37,15 @@ const TasksManagerModel = (() => {
         return Array.from(projectMap.keys());
     }
 
+    const getSizeOfProject = (projectName) => {
+        return projectMap.get(projectName).length;
+    }
+
     const getAllTasksOfSelectedProject = (projectName) => {
         return projectMap.get(projectName);
     }
 
-    return { addNewTask, addNewProject, printOutProject, getAllProjects, getAllTasksOfSelectedProject }
+    return { addNewTask, addNewProject, printOutProject, getAllProjects, getSizeOfProject, getAllTasksOfSelectedProject }
 })()
 
 const TasksManagerView = (() => {
@@ -63,10 +67,7 @@ const TasksManagerView = (() => {
             <div>${projectName}</div>
             
         `
-
-
         listProjectsContainer.append(newProjectView);
-
         return newProjectView;
     }
 
@@ -79,9 +80,20 @@ const TasksManagerView = (() => {
         })
     }
 
-    //Update the number of tasks of each project
-    const updateNumTaskView = () => {
+    const currentTab = document.querySelector('#currentTab');
+    const updateTilteOfTasksContainer = (currSelectedTab) => {
+        currentTab.innerText = currSelectedTab;
+    }
 
+    const showCurrentTabContent = () => {
+
+    }
+
+    //Update the number of tasks of each project
+    const updateNumTaskView = (projectName, newNum) => {
+        const currNumTaskView = document.querySelector(`div[data-numTasksOf='${projectName}']`);
+        console.log(currNumTaskView);
+        currNumTaskView.innerText = newNum;
     }
 
     const clearAllTasksView = () => {
@@ -92,7 +104,7 @@ const TasksManagerView = (() => {
 
 
 
-    return { addProjectView, renderAllTasksOfSelectedProject }
+    return { addProjectView, renderAllTasksOfSelectedProject, updateTilteOfTasksContainer, updateNumTaskView }
 })()
 
 //Make the project view and data linked together=> easier to manipulate
@@ -102,12 +114,18 @@ const TasksManagerController = (() => {
     const bindNewProjectViewToEvent = (projectName) => {
         const newProjectView = TasksManagerView.addProjectView(projectName);
         newProjectView.addEventListener('click', () => {
+            TasksManagerView.updateTilteOfTasksContainer(projectName);
             TasksManagerView.renderAllTasksOfSelectedProject(TasksManagerModel.getAllTasksOfSelectedProject(projectName));
         })
     }
     pubsub.on('addProject', bindNewProjectViewToEvent);
 
-
+    //Update the number of tasks of each project view (the number show on the left of the project)
+    const bindNumTaskViewToEvent = (task) => {
+        TasksManagerView.updateNumTaskView(task.getProjectName(), TasksManagerModel.getSizeOfProject(task.getProjectName()));
+    }
+    pubsub.on('addTask', bindNumTaskViewToEvent);
+    pubsub.on('removeTask', bindNumTaskViewToEvent);
 
 
 })()

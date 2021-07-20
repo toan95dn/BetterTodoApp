@@ -130,6 +130,12 @@ let m = (function addDemoProjectAndTask() {
     pubsub.emit('addProject', '1stDemo');
     pubsub.emit('addProject', '2ndDemo');
     pubsub.emit('addProject', '3rdDemo');
+    pubsub.emit('addProject', '4thDemo');
+    pubsub.emit('addProject', '5thDemo');
+    pubsub.emit('addProject', '6thDemo');
+    pubsub.emit('addProject', '7thDemo');
+    pubsub.emit('addProject', '8thDemo');
+    pubsub.emit('addProject', '9thDemooo');
 
 })()
 
