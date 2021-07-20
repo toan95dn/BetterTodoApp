@@ -63,7 +63,7 @@ nav .material-icons{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 3rem;
+    padding: 1.5rem;
     background-color: #ff7a7b;
     font-size: 2.5rem;
     font-weight: bold;
@@ -109,12 +109,13 @@ nav .material-icons{
 
 /* Each item in the project list */
 .listProjectsContainer li{
+    position: relative;
     padding: 0.5rem;
     border-bottom: 0.2rem solid white;
     line-height: 2.5rem;
     margin-right: 1.5rem;
-    display: flex;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: 3.5rem 1fr 2.5rem;
     align-items: center;
     flex-direction: row;
     cursor: pointer;
@@ -122,6 +123,16 @@ nav .material-icons{
 
 .listProjectsContainer li:hover{
     background-color: red;
+}
+
+.listProjectsContainer .material-icons{
+    font-size: 2rem;
+    color: pink;
+    justify-self: flex-start;
+}
+
+.listProjectsContainer .material-icons:hover{
+    font-size: 2.5rem;
 }
 
 [data-numTasksOf]{
@@ -137,7 +148,32 @@ nav .material-icons{
     justify-content: center;
 }
 
+/* Confirm delete a project */
+.confirmDeleteProject{
+    display: none;
+}
+.confirmDeleteProject.active{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    right: 0;
+    background-color: lightpink;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
 
+.confirmDelete,.cancelDelete{
+    width: 45%;
+    border: 0.25rem solid white;
+    text-align: center;
+    color: white;
+}
+
+.confirmDelete:hover,.cancelDelete:hover{
+    background-color: red;
+}
 /* List tasks container */
 .projectInfoContainer{
     background-color: lightpink;
@@ -194,10 +230,13 @@ nav .material-icons{
     border: 0.2rem solid transparent;
     align-items: center;
     transition: 0.25s;
+    cursor: pointer;
 }
 
 .task:hover{
     border: 0.2rem solid white;
+    box-shadow: 0.5rem 0.5rem 0.75rem red;
+    transform: translateY(-0.5rem) translateX(-0.5rem);
 }
 
 .task .material-icons{

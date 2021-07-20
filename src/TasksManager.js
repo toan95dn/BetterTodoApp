@@ -63,15 +63,21 @@ const TasksManagerView = (() => {
         const newProjectView = document.createElement('li');
 
         newProjectView.innerHTML = `
+            <div class='confirmDeleteProject'>
+                <div class ='confirmDelete'>Delete</div>
+                <div class ='cancelDelete'>Cancel</div>
+            </div>
             <div data-numTasksOf = ${projectName}>0</div>
             <div>${projectName}</div>
-            
+            <div class = 'material-icons'>delete</div>
         `
         listProjectsContainer.append(newProjectView);
         return newProjectView;
     }
 
-
+    const getDeleteProjectButtonView = (ProjectView) => {
+        return newProjectView.lastElementChild;
+    }
 
     const renderAllTasksOfSelectedProject = (tasks) => {
         clearAllTasksView();
@@ -89,7 +95,6 @@ const TasksManagerView = (() => {
     //Update the number of tasks of each project
     const updateNumTaskView = (projectName, newNum) => {
         const currNumTaskView = document.querySelector(`div[data-numTasksOf='${projectName}']`);
-        console.log(currNumTaskView);
         currNumTaskView.innerText = newNum;
     }
 
@@ -101,7 +106,11 @@ const TasksManagerView = (() => {
 
 
 
-    return { addProjectView, renderAllTasksOfSelectedProject, updateTilteOfTasksContainer, updateNumTaskView }
+    return {
+        addProjectView, renderAllTasksOfSelectedProject,
+        updateTilteOfTasksContainer, updateNumTaskView, getDeleteProjectButtonView
+    }
+
 })()
 
 //Make the project view and data linked together=> easier to manipulate
@@ -116,10 +125,24 @@ const TasksManagerController = (() => {
     //Render all tasks list when a project get pick
     const bindNewProjectViewToEvent = (projectName) => {
         const newProjectView = TasksManagerView.addProjectView(projectName);
-        newProjectView.addEventListener('click', () => {
-            // TasksManagerView.updateTilteOfTasksContainer(projectName);
-            // TasksManagerView.renderAllTasksOfSelectedProject(TasksManagerModel.getAllTasksOfSelectedProject(projectName));
-            switchToTab(projectName);
+        newProjectView.addEventListener('click', () => { switchToTab(projectName); })
+        const deleteProjectButton = newProjectView.lastElementChild;
+
+        const popupConfirm = newProjectView.firstElementChild;
+
+        //Bind event to delete project button
+        deleteProjectButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            popupConfirm.classList.add('active');
+        })
+
+        //Bind event to confirm to delete project or cancel to delete
+        popupConfirm.lastElementChild.addEventListener('click', () => {
+            popupConfirm.classList.remove('active');
+        });
+
+        popupConfirm.firstElementChild.addEventListener('click', () => {
+
         })
     }
     pubsub.on('addProject', bindNewProjectViewToEvent);
@@ -136,6 +159,9 @@ const TasksManagerController = (() => {
         switchToTab(task.getProjectName());
     }
     pubsub.on('addTask', showCurrentTabContent);
+
+
+    // 
 
 })()
 

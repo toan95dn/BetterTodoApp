@@ -127,18 +127,18 @@ let m = (function addDemoProjectAndTask() {
     pubsub.emit('addProject', '6thDemo');
     pubsub.emit('addProject', '7thDemo');
     pubsub.emit('addProject', '8thDemo');
-    pubsub.emit('addProject', '9thDemooo');
+    pubsub.emit('addProject', '9thDemoooo');
 
 })()
 
 let k = (function addADemoTask() {
-    for (let i = 0; i < 10; i++) {
-        const newTask = new TaskModel('TaskNumber' + i, 'none', '10/10/2021', 'Low', '1stDemo');
+    for (let i = 1; i < 10; i++) {
+        const newTask = new TaskModel('Task_Number_' + i, 'none', i + '/10/2021', 'Low', '1stDemo');
         pubsub.emit('addTask', newTask)
     }
 
     for (let i = 0; i < 5; i++) {
-        const newTask = new TaskModel('TaskNumber' + i, 'none', '10/10/2021', 'Low', '2ndDemo');
+        const newTask = new TaskModel('Task_Number_' + i, 'none', '10/10/2021', 'Low', '2ndDemo');
         pubsub.emit('addTask', newTask)
     }
 })()

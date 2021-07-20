@@ -71,7 +71,6 @@ class TaskView {
         this.#deleteButtonView = this.#createView('delete', 'material-icons');
 
         this.#taskView.append(this.#checkBoxView, this.#titleView, this.#dueDateView, this.#editButtonView, this.#deleteButtonView);
-
         listOfTasksView.append(this.#taskView);
 
         //
