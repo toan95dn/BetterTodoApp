@@ -113,15 +113,7 @@ submitTaskButton.addEventListener('click', () => {
 /////////////////////////////////////////
 
 
-// let k = (function addADemoTask() {
-//     const newTaskView = new TaskView("DemoTest", '10/10/2020');
-//     const newTaskModel = new TaskModel("DemoTest", 'none', '11/10/2020', "asd", "k");
-//     const newController = new TaskController(newTaskModel, newTaskView);
 
-//     const newTaskView1 = new TaskView("DemoTest_1", '10/10/2020');
-//     const newTaskModel1 = new TaskModel("DemoTest_1", 'none', '11/10/2020', "asd", "k");
-//     const newController1 = new TaskController(newTaskModel1, newTaskView1);
-// })()
 // const inputTaskTitle;
 // const inputDescription;
 
@@ -137,6 +129,18 @@ let m = (function addDemoProjectAndTask() {
     pubsub.emit('addProject', '8thDemo');
     pubsub.emit('addProject', '9thDemooo');
 
+})()
+
+let k = (function addADemoTask() {
+    for (let i = 0; i < 10; i++) {
+        const newTask = new TaskModel('TaskNumber' + i, 'none', '10/10/2021', 'Low', '1stDemo');
+        pubsub.emit('addTask', newTask)
+    }
+
+    for (let i = 0; i < 5; i++) {
+        const newTask = new TaskModel('TaskNumber' + i, 'none', '10/10/2021', 'Low', '2ndDemo');
+        pubsub.emit('addTask', newTask)
+    }
 })()
 
 
