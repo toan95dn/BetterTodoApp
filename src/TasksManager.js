@@ -11,6 +11,11 @@ const TasksManagerModel = (() => {
     }
     pubsub.on('addProject', addNewProject);
 
+    const removeProject = (projectName) => {
+        projectMap.delete(projectName);
+    }
+    pubsub.on('removeProject', removeProject);
+
     const addNewTask = (task) => {
         projectMap.get(task.getProjectName()).push(task);
     }
@@ -45,7 +50,7 @@ const TasksManagerModel = (() => {
         return projectMap.get(projectName);
     }
 
-    return { addNewTask, addNewProject, printOutProject, getAllProjects, getSizeOfProject, getAllTasksOfSelectedProject }
+    return { addNewTask, addNewProject, removeProject, printOutProject, getAllProjects, getSizeOfProject, getAllTasksOfSelectedProject }
 })()
 
 const TasksManagerView = (() => {
@@ -64,7 +69,7 @@ const TasksManagerView = (() => {
 
         newProjectView.innerHTML = `
             <div class='confirmDeleteProject'>
-                <div class ='confirmDelete'>Delete</div>
+                <div class ='confirmDelete'>Confirm</div>
                 <div class ='cancelDelete'>Cancel</div>
             </div>
             <div data-numTasksOf = ${projectName}>0</div>
@@ -108,7 +113,7 @@ const TasksManagerView = (() => {
 
     return {
         addProjectView, renderAllTasksOfSelectedProject,
-        updateTilteOfTasksContainer, updateNumTaskView, getDeleteProjectButtonView
+        updateTilteOfTasksContainer, updateNumTaskView, getDeleteProjectButtonView, clearAllTasksView
     }
 
 })()
@@ -137,12 +142,19 @@ const TasksManagerController = (() => {
         })
 
         //Bind event to confirm to delete project or cancel to delete
-        popupConfirm.lastElementChild.addEventListener('click', () => {
+        const cancelToDeleteButton = popupConfirm.lastElementChild;
+        cancelToDeleteButton.addEventListener('click', (event) => {
+            event.stopPropagation();
             popupConfirm.classList.remove('active');
         });
 
-        popupConfirm.firstElementChild.addEventListener('click', () => {
-
+        const confirmToDeleteButton = popupConfirm.firstElementChild;
+        confirmToDeleteButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            newProjectView.remove();
+            pubsub.emit('removeProject', projectName);
+            TasksManagerView.updateTilteOfTasksContainer(`Removed ${projectName}`);
+            TasksManagerView.clearAllTasksView();
         })
     }
     pubsub.on('addProject', bindNewProjectViewToEvent);
@@ -162,6 +174,23 @@ const TasksManagerController = (() => {
 
 
     // 
+    //        document.querySelectorAll('ul[data-dueDate]')
+
+    const sortDueDateButton = document.querySelector('.dueDateSort');
+
+    const sortDueDate = () => {
+        let lowFirst = true; //to change to sort from low to high or high to low each time it click
+        return function () {
+            lowFirst = lowFirst ? false : true;
+            document.querySelectorAll('ul[data-dueDate]');
+        }
+    }
+
+    sortDueDateButton.addEventListener('click', sortDueDate);
+
+
+    //Home Tab, which shows all tasks from all project
+    const homeTab = document.querySelector("li[data-tab='Home']");
 
 })()
 
