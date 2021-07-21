@@ -10,7 +10,9 @@ const TasksManagerModel = (() => {
     projectMap.set('Inbox', []);
 
     const addNewProject = (projectName) => {
-        projectMap.set(projectName, []);
+        if (!projectMap.has(projectName)) {
+            projectMap.set(projectName, []);
+        }
     }
     pubsub.on('addProject', addNewProject);
 
@@ -115,8 +117,10 @@ const TasksManagerView = (() => {
 
     //Update the number of tasks of each project
     const updateNumTaskView = (projectName, newNum) => {
-        const currNumTaskView = document.querySelector(`div[data-numTasksOf='${projectName}']`);
-        currNumTaskView.innerText = newNum;
+        if (projectName !== 'Inbox') {
+            const currNumTaskView = document.querySelector(`div[data-numTasksOf='${projectName}']`);
+            currNumTaskView.innerText = newNum;
+        }
     }
 
     const clearAllTasksView = () => {
@@ -224,6 +228,14 @@ const TasksManagerController = (() => {
         TasksManagerView.renderAllTasksOfSelectedProject(currTabTasksData);
     })
 
+    //------------------------Inbox Tab, which shows all tasks that does not belong to any project-----------------------------
+    const inboxTab = document.querySelector("li[data-tab='Inbox']");
+    inboxTab.addEventListener('click', () => {
+        TasksManagerView.updateTilteOfTasksContainer('Inbox');
+        TasksManagerView.clearAllTasksView();
+        const currTabTasksData = TasksManagerModel.getAllTasksOfSelectedProject('Inbox');
+        TasksManagerView.renderAllTasksOfSelectedProject(currTabTasksData);
+    })
 
 
     const sortDueDateButton = document.querySelector('.dueDateSort');
