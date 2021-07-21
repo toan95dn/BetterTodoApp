@@ -1,6 +1,11 @@
 import { TasksManagerModel } from "./TasksManager";
 import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
 import { pubsub } from "./pubsub";
+
+dayjs.extend(isToday);
+
+console.log(dayjs('2021-07-20').isToday());
 
 class TaskModel {
     #title;

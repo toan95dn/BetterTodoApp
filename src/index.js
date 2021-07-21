@@ -95,7 +95,7 @@ const inputPriority = document.querySelector('#priorityInput');
 
 
 submitTaskButton.addEventListener('click', () => {
-
+    console.log(inputDueDate.value);
     const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value,
         inputDueDate.value, inputPriority.value, inputProjectSelection.value);
     const newTaskView = new TaskView(inputTasksTitle.value, inputDueDate.value);
@@ -132,13 +132,13 @@ let m = (function addDemoProjectAndTask() {
 })()
 
 let k = (function addADemoTask() {
-    for (let i = 1; i < 10; i++) {
-        const newTask = new TaskModel('Task_Number_' + i + '_1stDemo', 'none', i + '/10/2021', 'Low', '1stDemo');
+    for (let i = 1; i < 12; i++) {
+        const newTask = new TaskModel('Task_Number_' + i + '_1stDemo', 'none', `'2021-07-${i + 15}`, 'Low', '1stDemo');
         pubsub.emit('addTask', newTask)
     }
 
     for (let i = 1; i < 6; i++) {
-        const newTask = new TaskModel('Task_Number_' + i + '_2ndDemo', 'none', `10/${'0' + i}/2021`, 'Low', '2ndDemo');
+        const newTask = new TaskModel('Task_Number_' + i + '_2ndDemo', 'none', `2021-${'0' + i}-10`, 'Low', '2ndDemo');
         pubsub.emit('addTask', newTask)
     }
 })()

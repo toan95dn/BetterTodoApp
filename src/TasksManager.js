@@ -1,3 +1,6 @@
+import dayjs from "dayjs";
+import isToday from 'dayjs/plugin/isToday';
+dayjs.extend(isToday);
 import { pubsub } from "./pubsub";
 import { TaskController, TaskModel, TaskView } from "./Task";
 
@@ -131,11 +134,13 @@ const TasksManagerView = (() => {
 
 //Make the project view and data linked together=> easier to manipulate
 const TasksManagerController = (() => {
+    let currTabTasksData; //hold the data of current selected tab
 
     //switch to pick tab 
     const switchToTab = (ProjectName) => {
         TasksManagerView.updateTilteOfTasksContainer(ProjectName);
-        TasksManagerView.renderAllTasksOfSelectedProject(TasksManagerModel.getAllTasksOfSelectedProject(ProjectName));
+        currTabTasksData = TasksManagerModel.getAllTasksOfSelectedProject(ProjectName);
+        TasksManagerView.renderAllTasksOfSelectedProject(currTabTasksData);
     }
 
     //Render all tasks list when a project get pick
@@ -183,15 +188,49 @@ const TasksManagerController = (() => {
     }
     pubsub.on('addTask', showCurrentTabContent);
 
-
-    // 
-    //        document.querySelectorAll('ul[data-dueDate]')
-
-    //Home Tab, which shows all tasks from all project
+    //-----------------------------Home Tab, which shows all tasks from all project---------------------------------
     const homeTab = document.querySelector("li[data-tab='Home']");
-    const showAllTasksFromAllProject = homeTab.addEventListener('click', () => {
-        const allTasks = TasksManagerModel.getAllTasks();
-        allTasks.forEach((task) => {
+    homeTab.addEventListener('click', () => {
+        TasksManagerView.clearAllTasksView();
+        currTabTasksData = TasksManagerModel.getAllTasks();
+        currTabTasksData.forEach((task) => {
+            new TaskController(task, new TaskView(task.getTitle(), task.getDueDate()));
+        })
+    })
+
+
+    //------------------------------Today Tab, which shows all tasks due today-------------------------------------
+    const todayTab = document.querySelector("li[data-tab='Today']");
+    todayTab.addEventListener('click', () => {
+        TasksManagerView.updateTilteOfTasksContainer('Today')
+        TasksManagerView.clearAllTasksView();
+        const currTabTasksData = TasksManagerModel.getAllTasks().filter(task => dayjs(task.getDueDate()).isToday());
+        TasksManagerView.renderAllTasksOfSelectedProject(currTabTasksData);
+    })
+
+    //------------------------------Week Tab, which shows all tasks due in the next 7 days----------------------
+    const weekTab = document.querySelector("li[data-tab='Week']");
+    weekTab.addEventListener('click', () => {
+        TasksManagerView.updateTilteOfTasksContainer('Week');
+        TasksManagerView.clearAllTasksView();
+        const today = new Date();
+        const currTabTasksData = TasksManagerModel.getAllTasks().filter((task) => {
+            const dayDiff = (new Date(task.getDueDate()) - today) / 1000 / 60 / 60 / 24;
+            if (dayDiff <= 7 && dayDiff >= 0) {
+                return true;
+            }
+            return false;
+        });
+        TasksManagerView.renderAllTasksOfSelectedProject(currTabTasksData);
+    })
+
+
+
+    const sortDueDateButton = document.querySelector('.dueDateSort');
+    sortDueDateButton.addEventListener('click', () => {
+        sortDueDate(currTabTasksData);
+        TasksManagerView.clearAllTasksView();
+        currTabTasksData.forEach((task) => {
             new TaskController(task, new TaskView(task.getTitle(), task.getDueDate()));
         })
     })
@@ -209,18 +248,7 @@ const TasksManagerController = (() => {
         }
     })()
 
-    //Today Tab, which shows all tasks due today
-    const todayTab = document.querySelector("li[data-tab='Today']");
-    const showAllTasksToday = todayTab.addEventListener('click', () => {
-        const allTasks = TasksManagerModel.getAllTasks();
-        sortDueDate(allTasks);
-        TasksManagerView.clearAllTasksView();
-        allTasks.forEach((task) => {
-            new TaskController(task, new TaskView(task.getTitle(), task.getDueDate()));
-        })
-    })
-
-
+    //
 
 
 })()
