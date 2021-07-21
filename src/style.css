@@ -282,7 +282,6 @@ nav .material-icons{
     height: 3.5rem;
     margin: 1rem;   
     padding: 0 1rem 0 1rem;
-    background-color: #ff5456;
     grid-template-columns: 2rem 1fr 9rem 2rem 2rem;
     gap:1rem;
     justify-items: start;
@@ -291,10 +290,23 @@ nav .material-icons{
     transition: 0.25s;
     cursor: pointer;
     z-index: 0;
+    background-color: #FF9A8B;
+    /* background-image: linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%); */
+}
+
+.task.High{
+    border-left: 0.5rem solid red;
+}
+
+.task.Medium{
+    border-left: 0.5rem solid rgb(0, 204, 0);
+}
+
+.task.Low{
+    border-left: 0.5rem solid yellow;
 }
 
 .task:hover{
-    border: 0.2rem solid white;
     box-shadow: 0.5rem 0.5rem 0.75rem red;
     -webkit-transform: translateY(-0.5rem) translateX(-0.5rem);
 }

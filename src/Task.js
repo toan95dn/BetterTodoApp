@@ -64,6 +64,7 @@ class TaskView {
         //Create a taskView container and push all elements inside of it
         this.#taskView = document.createElement('ul');
         this.#taskView.classList.add('task');
+        this.#taskView.classList.add(priority);
 
         this.#checkBoxView = this.#createView('check_box', 'material-icons');
         this.#titleView = this.#createView(title);

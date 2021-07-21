@@ -113,8 +113,7 @@ submitTaskButton.addEventListener('click', () => {
     console.log(inputDueDate.value);
     const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value,
         inputDueDate.value, inputPriority.value, inputProjectSelection.value);
-    const newTaskView = new TaskView(inputTasksTitle.value, inputDueDate.value);
-    const newController = new TaskController(newTaskModel, newTaskView);
+    const newController = new TaskController(newTaskModel);
 
     //title, detail, dueDate, priority, projectName
     pubsub.emit('addTask', newTaskModel);
@@ -157,12 +156,19 @@ let m = (function addDemoProjectAndTask() {
 
 let k = (function addADemoTask() {
     for (let i = 1; i < 12; i++) {
-        const newTask = new TaskModel('Task_Number_' + i + '_1stDemo', 'none', `'2021-07-${i + 15}`, 'Low', '1stDemo');
+        let currPri;
+        if (i % 2 === 0) {
+            currPri = 'High';
+        }
+        else {
+            currPri = i % 3 === 0 ? 'Low' : 'Medium';
+        }
+        const newTask = new TaskModel('Task_Number_' + i + '_1stDemo', 'none', `'2021-07-${i + 15}`, currPri, '1stDemo');
         pubsub.emit('addTask', newTask)
     }
 
     for (let i = 1; i < 6; i++) {
-        const newTask = new TaskModel('Task_Number_' + i + '_2ndDemo', 'none', `2021-${'0' + i}-10`, 'Low', '2ndDemo');
+        const newTask = new TaskModel('Task_Number_' + i + '_2ndDemo', 'none', `2021-${'0' + i}-10`, 'High', '2ndDemo');
         pubsub.emit('addTask', newTask)
     }
 })()
@@ -170,8 +176,8 @@ let k = (function addADemoTask() {
 
 
 
-addButton.click();
-addProjectOptionButton.click();
+// addButton.click();
+// addProjectOptionButton.click();
 // addTaskOptionButton.click()
 
 
