@@ -30,7 +30,11 @@ closeTaskForm.addEventListener('click', () => {
     createTaskModal.classList.remove('active');
 })
 
-
+const closeProjectForm = document.querySelector('#closeProjectForm');
+closeProjectForm.addEventListener('click', () => {
+    popupModalBg.classList.remove('active');
+    createProjectModal.classList.remove('active');
+})
 
 //
 
@@ -81,7 +85,6 @@ submitProjectButton.addEventListener('click', (e) => {
 addTaskOptionButton.addEventListener('click', () => {
     getAllProjectsSelection();
     popupModalBg.classList.add('active');
-
     createTaskModal.classList.add('active');
 })
 
@@ -167,7 +170,8 @@ let k = (function addADemoTask() {
 
 
 
-// addButton.click()
+addButton.click();
+addProjectOptionButton.click();
 // addTaskOptionButton.click()
 
 
