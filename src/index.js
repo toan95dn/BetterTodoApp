@@ -22,6 +22,18 @@ const popupModalBg = document.querySelector('.popupModalBg');
 const createProjectModal = document.querySelector('.createProjectModal');
 const createTaskModal = document.querySelector('.createTaskModal');
 
+//button to close
+
+const closeTaskForm = document.querySelector('#closeTaskForm');
+closeTaskForm.addEventListener('click', () => {
+    popupModalBg.classList.remove('active');
+    createTaskModal.classList.remove('active');
+})
+
+
+
+//
+
 //
 addButton.addEventListener('click', () => {
     popUporClosedAddTaskOrProject();
@@ -128,6 +140,15 @@ let m = (function addDemoProjectAndTask() {
     pubsub.emit('addProject', '7thDemo');
     pubsub.emit('addProject', '8thDemo');
     pubsub.emit('addProject', '9thDemoooo');
+    pubsub.emit('addProject', '1tDemo');
+    pubsub.emit('addProject', '2dDemo');
+    pubsub.emit('addProject', '3dDemo');
+    pubsub.emit('addProject', '4hDemo');
+    pubsub.emit('addProject', '5hDemo');
+    pubsub.emit('addProject', '6Demo');
+    pubsub.emit('addProject', '7Demo');
+    pubsub.emit('addProject', 'thDemo');
+    pubsub.emit('addProject', '9hDemoooo');
 
 })()
 
