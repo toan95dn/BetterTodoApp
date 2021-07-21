@@ -42,7 +42,6 @@ const TasksManagerModel = (() => {
     }
 
     const printOutProject = () => {
-        console.log(projectMap);
     }
 
     const getAllProjects = () => {
@@ -154,6 +153,7 @@ const TasksManagerController = (() => {
 
         //If project name exist, then return
         if (!TasksManagerModel.addNewProject(projectName)) {
+            alert('Project name already exists');
             return;
         };
 
@@ -241,7 +241,7 @@ const TasksManagerController = (() => {
     inboxTab.addEventListener('click', () => {
         TasksManagerView.updateTilteOfTasksContainer('Inbox');
         TasksManagerView.clearAllTasksView();
-        const currTabTasksData = TasksManagerModel.getAllTasksOfSelectedProject('Inbox');
+        currTabTasksData = TasksManagerModel.getAllTasksOfSelectedProject('Inbox');
         TasksManagerView.renderAllTasksOfSelectedProject(currTabTasksData);
     })
 

@@ -94,21 +94,48 @@ nav .material-icons{
 }
 
 [data-tab]{
+    position: relative;
     margin:1rem;
     padding: 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border:0.25rem solid white;
+    border-bottom:0.25rem solid white;
     cursor: pointer;
 }
 
+[data-tab]::before{
+    position: absolute;
+    bottom: -0.25rem;
+    left: 0;
+    width: 0;
+    height: 0.25rem;
+    content: '';
+    background-color: transparent;
+    -webkit-transition: all 0.25s;
+}
+
+[data-tab]:hover:before{
+    width: 100%;
+   background-color: red;
+   z-index: 1;
+}
+
+
 /* Project lists on the left side */
-[data-tab='Projects']{
+.Projects{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     height: 40vh;
     flex-direction: column;
     justify-content: start;
     cursor:default;
+}
+
+[data-tab='Projects']:hover{
+    border:none;
 }
 
 /* custom the scroll bar */
