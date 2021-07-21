@@ -1,11 +1,7 @@
 import { TasksManagerModel } from "./TasksManager";
 import dayjs from 'dayjs';
-import isToday from 'dayjs/plugin/isToday';
 import { pubsub } from "./pubsub";
 
-dayjs.extend(isToday);
-
-console.log(dayjs('2021-07-20').isToday());
 
 class TaskModel {
     #title;
@@ -62,7 +58,7 @@ class TaskView {
     #editButtonView;
     #deleteButtonView;
 
-    constructor(title, dueDate) {
+    constructor(title, dueDate, priority) {
         const listOfTasksView = document.querySelector('.listOfTasks');
 
         //Create a taskView container and push all elements inside of it
@@ -115,7 +111,7 @@ class TaskView {
         //switch check box and text
     }
 
-    createShowDetailTaskView(title, dueDate, projectName, detail) {
+    createShowDetailTaskView(title, dueDate, projectName, detail, priority) {
 
         const detailPopup = document.createElement('div');
         detailPopup.classList.add('popUpDetailBg');
@@ -127,6 +123,7 @@ class TaskView {
                     <h3>${title}</h3>
                     <div><span> Due Date: </span> <span>${dayjs(dueDate).format('MM/DD/YYYY')}</span></div>
                     <div><span>Project: </span> <span>${projectName}</span></div>
+                    <div><span>Priority: </span><span>${priority}</span></div>
                     <p><span>Detail: </span> <span>${detail}</span></p>
                 </p>
             </div>`
@@ -147,9 +144,9 @@ class TaskController {
     #taskModel;
     #taskView;
 
-    constructor(taskModel, taskView) {
+    constructor(taskModel) {
         this.#taskModel = taskModel;
-        this.#taskView = taskView;
+        this.#taskView = new TaskView(taskModel.getTitle(), taskModel.getDueDate(), taskModel.getPriority());
 
         this.#bindShowDetailEvent();
         this.#bindEditEvent();
@@ -163,7 +160,8 @@ class TaskController {
                 this.#taskModel.getTitle(),
                 this.#taskModel.getDueDate(),
                 this.#taskModel.getProjectName(),
-                this.#taskModel.getDetail()
+                this.#taskModel.getDetail(),
+                this.#taskModel.getPriority()
             );
             //Bind the close event to the 'X' button to close the popup detail 
             this.#bindCloseDetailEvent();

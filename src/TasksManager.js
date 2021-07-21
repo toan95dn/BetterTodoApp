@@ -106,7 +106,7 @@ const TasksManagerView = (() => {
     const renderAllTasksOfSelectedProject = (tasks) => {
         clearAllTasksView();
         tasks.forEach((task) => {
-            new TaskController(task, new TaskView(task.getTitle(), task.getDueDate()));
+            new TaskController(task);
         })
     }
 
@@ -206,7 +206,7 @@ const TasksManagerController = (() => {
         TasksManagerView.clearAllTasksView();
         currTabTasksData = TasksManagerModel.getAllTasks();
         currTabTasksData.forEach((task) => {
-            new TaskController(task, new TaskView(task.getTitle(), task.getDueDate()));
+            new TaskController(task);
         })
     })
 
@@ -251,7 +251,7 @@ const TasksManagerController = (() => {
         sortDueDate(currTabTasksData);
         TasksManagerView.clearAllTasksView();
         currTabTasksData.forEach((task) => {
-            new TaskController(task, new TaskView(task.getTitle(), task.getDueDate()));
+            new TaskController(task);
         })
     })
 
