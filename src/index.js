@@ -146,7 +146,8 @@ let k = (function addADemoTask() {
 
 
 
-
+addButton.click()
+addTaskOptionButton.click()
 
 
 // IMPORTANT BUTTON -> BUTTONS THAT MODIFY BOTH DATA AND VIEW OR NEED DATA TO SHOW VIEW

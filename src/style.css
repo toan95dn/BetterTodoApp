@@ -69,6 +69,7 @@ nav .material-icons{
     font-weight: bold;
     color:black;
     transition: 0.3s ease-in-out;
+    z-index: 1;
 }
 
 [data-tab]{
@@ -240,12 +241,13 @@ nav .material-icons{
     align-items: center;
     transition: 0.25s;
     cursor: pointer;
+    z-index: 0;
 }
 
 .task:hover{
     border: 0.2rem solid white;
     box-shadow: 0.5rem 0.5rem 0.75rem red;
-    transform: translateY(-0.5rem) translateX(-0.5rem);
+    -webkit-transform: translateY(-0.5rem) translateX(-0.5rem);
 }
 
 .task .material-icons{
@@ -302,6 +304,7 @@ nav .material-icons{
     bottom:2rem;
     right:2rem;
     font-size:2rem;
+    background-color: brown;
 }
 
 .addButtonsContainer span{
@@ -342,20 +345,23 @@ nav .material-icons{
     bottom: 5rem;
     right: 0;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin: 0.5rem;
     transition: 0.5s ease-in-out;
+    background: red;
+    color: white;
+    width: 13rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    box-shadow: 0.3rem 0.3rem 0.3rem lightcoral;
 }
 
 .createProjectButtonContainer{
-    right: 5rem;
-    bottom: 0;
+    right: 0;
+    bottom: 5rem;
 }
 
-.createTaskButtonContainer.active{
-    visibility: visible;
-    -webkit-transform: translateY(-6rem);
-}
+
 
 #createTaskButton,
 #createProjectButton{
@@ -364,17 +370,21 @@ nav .material-icons{
     align-items: center;
     width: 4rem;
     height: 4rem;
-    border:none;
-    border-radius: 50%;
+    border-radius: 0 50% 50% 0;
     background-color: red;
+    border:none;
+    border-left: 0.25rem solid white;
     cursor: pointer;
 }
 
-
+.createTaskButtonContainer.active{
+    visibility: visible;
+    -webkit-transform: translateY(-9rem);
+}
 
 .createProjectButtonContainer.active{
     visibility: visible;
-    -webkit-transform: translateX(-6rem);
+    -webkit-transform: translateY(-2.5rem);
 }
 
 .material-icons{
@@ -433,8 +443,18 @@ display: none;
 }
 
 .createTaskModal.active{
+    position: relative;
     display: flex;
     flex-direction: column;
+    width: 50rem;
+    height: 60rem;
+    background-color: lightcyan;
+}
+
+#closeTaskForm{
+    position: absolute;
+    top:2rem;
+    right: 2rem;
 }
 
 
