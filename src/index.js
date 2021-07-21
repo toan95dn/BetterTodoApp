@@ -163,12 +163,12 @@ let k = (function addADemoTask() {
         else {
             currPri = i % 3 === 0 ? 'Low' : 'Medium';
         }
-        const newTask = new TaskModel('Task_Number_' + i + '_1stDemo', 'none', `'2021-07-${i + 15}`, currPri, '1stDemo');
+        const newTask = new TaskModel('Task_' + i + '_1stDemo', 'none', `'2021-07-${i + 15}`, currPri, '1stDemo');
         pubsub.emit('addTask', newTask)
     }
 
     for (let i = 1; i < 6; i++) {
-        const newTask = new TaskModel('Task_Number_' + i + '_2ndDemo', 'none', `2021-${'0' + i}-10`, 'High', '2ndDemo');
+        const newTask = new TaskModel('Task_' + i + '_2ndDemo', 'none', `2021-${'0' + i}-10`, 'High', '2ndDemo');
         pubsub.emit('addTask', newTask)
     }
 })()

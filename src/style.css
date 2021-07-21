@@ -285,13 +285,11 @@ nav .material-icons{
     grid-template-columns: 2rem 1fr 9rem 2rem 2rem;
     gap:1rem;
     justify-items: start;
-    border: 0.2rem solid transparent;
     align-items: center;
     transition: 0.25s;
     cursor: pointer;
     z-index: 0;
     background-color: #FF9A8B;
-    /* background-image: linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%); */
 }
 
 .task.High{
@@ -307,7 +305,7 @@ nav .material-icons{
 }
 
 .task:hover{
-    box-shadow: 0.5rem 0.5rem 0.75rem red;
+    box-shadow: 0.5rem 0.5rem 0.75rem rgb(255, 46, 46);
     -webkit-transform: translateY(-0.5rem) translateX(-0.5rem);
 }
 
