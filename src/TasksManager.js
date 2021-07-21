@@ -12,9 +12,11 @@ const TasksManagerModel = (() => {
     const addNewProject = (projectName) => {
         if (!projectMap.has(projectName)) {
             projectMap.set(projectName, []);
+            return true;
         }
+        return false;
     }
-    pubsub.on('addProject', addNewProject);
+    // pubsub.on('addProject', addNewProject);
 
     const removeProject = (projectName) => {
         projectMap.delete(projectName);
@@ -148,7 +150,13 @@ const TasksManagerController = (() => {
     }
 
     //Render all tasks list when a project get pick
-    const bindNewProjectViewToEvent = (projectName) => {
+    const createProjectDataAndView = (projectName) => {
+
+        //If project name exist, then return
+        if (!TasksManagerModel.addNewProject(projectName)) {
+            return;
+        };
+
         const newProjectView = TasksManagerView.addProjectView(projectName);
         newProjectView.addEventListener('click', () => { switchToTab(projectName); })
         const deleteProjectButton = newProjectView.lastElementChild;
@@ -177,7 +185,7 @@ const TasksManagerController = (() => {
             TasksManagerView.clearAllTasksView();
         })
     }
-    pubsub.on('addProject', bindNewProjectViewToEvent);
+    pubsub.on('addProject', createProjectDataAndView);
 
     //Update the number of tasks of each project view (the number show on the left of the project)
     const bindNumTaskViewToEvent = (task) => {
