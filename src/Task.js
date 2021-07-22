@@ -231,6 +231,8 @@ class TaskController {
 
             editDueDateInput.value = this.#taskModel.getDueDate();
 
+            editDetailInput.value = this.#taskModel.getDetail();
+
             editPriorityInput.querySelectorAll('option').forEach(option => {
                 if (option.value === this.#taskModel.getPriority()) {
                     editPriorityInput.value = option.value;
