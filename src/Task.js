@@ -132,43 +132,44 @@ class TaskView {
         document.querySelector('body').append(popUpBg);
     }
 
-    turnOffDetailTaskView() {
+    turnOffPopup() {
         document.querySelector('.popUpBg').remove();
     }
 
-    showEditPanelTask() {
+    showEditPanelTask(title, dueDate, detail) {
         const popUpBg = document.createElement('div');
         popUpBg.classList.add('popUpBg');
 
 
         popUpBg.innerHTML = `<form class="editTaskModal active">
-            <h2>Edit</h2>
+            <h2>Editing... </h2>
 
             <label for="taskTitleEdit">Task's title</label>
-            <input type="text" name="taskTitleEdit" id="taskTitleEdit" required>
+            <input type="text" name="taskTitleEdit"  id="taskTitleEdit" required>
 
-                <label for="dueDateEdit">Due date</label>
-                <input type="date" name="dueDateEdit" id="dueDateEdit" required>
+            <label for="dueDateEdit" >Due date</label>
+            <input type="date" name="dueDateEdit" id="dueDateEdit"  required>
 
-                    <label for="descriptionEdit">Description</label>
-                    <textarea name="descriptionEdit" id="descriptionEdit" cols="30" rows="10"></textarea>
+            <label for="descriptionEdit">Description</label>
+            <textarea name="descriptionEdit" id="descriptionEdit" cols="30" rows="10"></textarea>
 
-                    <label for="priorityEdit">Pick the priority</label>
-                    <select name="priorityEdit" id="priorityEdit">
-                        <option value="Low">Low</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Height">High</option>
-                    </select>
+            <label for="priorityEdit">Pick the priority</label>
+            <select name="priorityEdit" id="priorityEdit">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
 
-                    <label for="projectSelectionEdit">Pick the project</label>
-                    <select name="projectSelectionEdit" id="projectSelectionEdit">
-                    </select>
+            <label for="projectSelectionEdit">Pick the project</label>
+            <select name="projectSelectionEdit" id="projectSelectionEdit">
+            </select>
 
-                    <button class="material-icons" type="button" id="closeEditedForm">clear</button>
-                    <Button id="submitEditedTask" type="button">Confirm Edit</Button>
-             </form>`
+            <button class="material-icons" type="button" id="closeEditedForm">clear</button>
+            <Button id="submitEditedTask" type="button">Confirm Edit</Button>
+             
+            </form>`
 
-        document.querySelector('body').append(popUpBg);
+        document.querySelector('body').prepend(popUpBg);
     }
 }
 
@@ -181,8 +182,8 @@ class TaskController {
         this.#taskView = new TaskView(taskModel.getTitle(), taskModel.getDueDate(), taskModel.getPriority());
 
         this.#bindShowDetailEvent();
-        this.#bindEditEvent();
         this.#bindDeleteTaskEvent();
+        this.#bindEditEvent();
     }
 
     #bindShowDetailEvent() {
@@ -195,25 +196,59 @@ class TaskController {
                 this.#taskModel.getDetail(),
                 this.#taskModel.getPriority()
             );
-            //Bind the close event to the 'X' button to close the popup detail 
             this.#bindCloseDetailEvent();
         })
     }
 
     #bindCloseDetailEvent() {
         const closeDetailButton = document.querySelector('#closeDetailButton');
-        closeDetailButton.addEventListener('click', () => this.#taskView.turnOffDetailTaskView());
+        closeDetailButton.addEventListener('click', () => this.#taskView.turnOffPopup());
     }
 
-
+    //--------------------Edit a task -----------------------
     #bindEditEvent() {
         const editButton = this.#taskView.getEditButtonView();
         editButton.addEventListener('click', (event) => {
             event.stopPropagation();
-            this.#taskView.showEditPanelTask();
+            this.#taskView.showEditPanelTask(
+                this.#taskModel.getTitle(),
+                this.#taskModel.getDueDate(),
+                this.#taskModel.getDetail()
+            );
+
+
+            // console.log(this.#taskModel)
+
+            //Get all input 
+            const editTitleInput = document.querySelector('#taskTitleEdit');
+            const editDueDateInput = document.querySelector('#dueDateEdit');
+            const editDetailInput = document.querySelector('#descriptionEdit');
+            const editPriorityInput = document.querySelector('#priorityEdit');
+            const editProjectInput = document.querySelector('#projectSelectionEdit');
+
+            //Set default value for edit popup
+            editTitleInput.value = this.#taskModel.getTitle();
+            editDueDateInput.value = this.#taskModel.getDueDate();
+
+            editPriorityInput.querySelectorAll('option').forEach(option => {
+                if (option.value === this.#taskModel.getPriority()) {
+                    editPriorityInput.value = option.value;
+                }
+            })
+
+
+            this.#bindCloseEditPopupEvent();
         })
     }
 
+    #bindCloseEditPopupEvent() {
+        const closeEditedFormButton = document.querySelector('#closeEditedForm');
+        closeEditedFormButton.addEventListener('click', () => {
+            this.#taskView.turnOffPopup();
+        })
+    }
+
+    //------------ 
     #bindDeleteTaskEvent() {
         const deleteTaskButton = this.#taskView.getDeleteButtonView();
         deleteTaskButton.addEventListener('click', (event) => {
