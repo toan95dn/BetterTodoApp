@@ -313,6 +313,7 @@ nav .material-icons{
 .task .material-icons{
     margin: 0.5rem;
     font-size: 1.75rem;
+    z-index: 1;
 }
 
 .task.isDone{
