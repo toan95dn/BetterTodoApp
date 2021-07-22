@@ -280,7 +280,7 @@ nav .material-icons{
 .task{
     position: relative;
     display: grid;
-    height: 3.5rem;
+    height: 4rem;
     margin: 1rem;   
     padding: 0 1rem 0 1rem;
     grid-template-columns: 2.75rem 1fr 9rem 2.75rem 2.75rem;
