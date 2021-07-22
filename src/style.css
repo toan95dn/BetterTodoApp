@@ -315,6 +315,10 @@ nav .material-icons{
     font-size: 1.75rem;
 }
 
+.task.isDone{
+    background: #ffcbc4;
+}
+
 .task::before{
     visibility: hidden;
     position: absolute;
