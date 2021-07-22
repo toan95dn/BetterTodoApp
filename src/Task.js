@@ -228,6 +228,7 @@ class TaskController {
 
             //Set default value for edit popup
             editTitleInput.value = this.#taskModel.getTitle();
+
             editDueDateInput.value = this.#taskModel.getDueDate();
 
             editPriorityInput.querySelectorAll('option').forEach(option => {
@@ -236,15 +237,26 @@ class TaskController {
                 }
             })
 
+            const allProjectNames = TasksManagerModel.getAllProjects();
+            allProjectNames.forEach(projectName => {
+                const currOption = document.createElement('option');
+                currOption.value = projectName;
+                currOption.innerText = projectName;
+                editProjectInput.append(currOption);
+            })
 
-            this.#bindCloseEditPopupEvent();
-        })
-    }
+            const submitEditTask = document.querySelector('#submitEditedTask');
+            submitEditTask.addEventListener('click', () => {
+                pubsub.emit('removeTask', this.#taskModel);
+                this.#taskModel.updateTask(editTitleInput.value, editDetailInput.value, editDueDateInput.value, editPriorityInput.value, editProjectInput.value);
+                pubsub.emit('addTask', this.#taskModel)
+                this.#taskView.turnOffPopup();
+            })
 
-    #bindCloseEditPopupEvent() {
-        const closeEditedFormButton = document.querySelector('#closeEditedForm');
-        closeEditedFormButton.addEventListener('click', () => {
-            this.#taskView.turnOffPopup();
+            const closeEditedFormButton = document.querySelector('#closeEditedForm');
+            closeEditedFormButton.addEventListener('click', () => {
+                this.#taskView.turnOffPopup();
+            })
         })
     }
 
