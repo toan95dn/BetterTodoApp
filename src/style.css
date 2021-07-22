@@ -241,7 +241,7 @@ nav .material-icons{
     width: 90%;
     height: 4rem;
     display: grid;
-    grid-template-columns: 1fr 16rem;
+    grid-template-columns: 1fr 18rem;
     align-items: center;
     margin: 1rem;
     font-size: 2rem;
@@ -278,11 +278,12 @@ nav .material-icons{
 }
 
 .task{
+    position: relative;
     display: grid;
     height: 3.5rem;
     margin: 1rem;   
     padding: 0 1rem 0 1rem;
-    grid-template-columns: 2rem 1fr 9rem 2rem 2rem;
+    grid-template-columns: 2.75rem 1fr 9rem 2.75rem 2.75rem;
     gap:1rem;
     justify-items: start;
     align-items: center;
@@ -314,12 +315,31 @@ nav .material-icons{
     font-size: 1.75rem;
 }
 
+.task::before{
+    visibility: hidden;
+    position: absolute;
+    align-self: center;
+    width: 0%;
+    height: 0.15rem;
+    content: '';
+    background-color:black;
+    -webkit-transition:all 0.25s;
+}
+
+.task.isDone::before{
+   visibility: visible;
+   width: 100%;
+}
+
 .dueDate{
     justify-self: end;
 }
 
+.task .material-icons{
+    font-size: 2.25rem;
+}
 .task .material-icons:hover{
-    font-size: 2rem;
+    font-size: 2.75rem;
 }
 
 /* Task description */

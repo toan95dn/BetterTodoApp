@@ -27,10 +27,9 @@ class TaskModel {
     setTitle(newTitle) { this.#title = newTitle; }
     setDetail(newDescription) { this.#detail = newDescription; }
     setDueDate(newDueDate) { this.#dueDate = newDueDate; }
-    setStatus(newStatus) { this.#isDone = newStatus; }
     setPriority(newPriority) { this.#priority = newPriority; }
     setProjectName(newProjectName) { this.#projectName = newProjectName; }
-
+    toggleNewStatus() { this.#isDone = this.#isDone ? false : true; }
     //
     updateTask(title, detail, dueDate, priority, projectName) {
         this.#title = title;
@@ -58,7 +57,7 @@ class TaskView {
     #editButtonView;
     #deleteButtonView;
 
-    constructor(title, dueDate, priority) {
+    constructor(title, dueDate, priority, isDone) {
         const listOfTasksView = document.querySelector('.listOfTasks');
 
         //Create a taskView container and push all elements inside of it
@@ -66,7 +65,7 @@ class TaskView {
         this.#taskView.classList.add('task');
         this.#taskView.classList.add(priority);
 
-        this.#checkBoxView = this.#createView('check_box', 'material-icons');
+        this.#checkBoxView = this.#createView('check_box_outline_blank', 'material-icons');
         this.#titleView = this.#createView(title);
         this.#dueDateView = this.#createView(dayjs(dueDate).format('MM/DD/YYYY'));
         this.#editButtonView = this.#createView('edit', 'material-icons');
@@ -91,6 +90,9 @@ class TaskView {
         return this.#deleteButtonView;
     }
 
+    getCheckBoxView() {
+        return this.#checkBoxView;
+    }
 
     //Create a view an element in taskView and add it to the taskView
     #createView(textInside, ...allClassNames) {
@@ -108,8 +110,15 @@ class TaskView {
         this.#titleView.innerText = newTitle;
     }
 
-    updateProgressView(isDone) {
-        //switch check box and text
+    updateStatusView(isDone) {
+        if (isDone) {
+            this.#checkBoxView.innerText = 'check_box';
+            this.#taskView.classList.add('isDone');
+        }
+        else {
+            this.#checkBoxView.innerText = 'check_box_outline_blank';
+            this.#taskView.classList.remove('isDone');
+        }
     }
 
     createShowDetailTaskView(title, dueDate, projectName, detail, priority) {
@@ -179,11 +188,13 @@ class TaskController {
 
     constructor(taskModel) {
         this.#taskModel = taskModel;
-        this.#taskView = new TaskView(taskModel.getTitle(), taskModel.getDueDate(), taskModel.getPriority());
+        this.#taskView = new TaskView(taskModel.getTitle(), taskModel.getDueDate(), taskModel.getPriority(), taskModel.getStatus());
 
         this.#bindShowDetailEvent();
+        this.#bindChangeStatusEvent();
         this.#bindDeleteTaskEvent();
         this.#bindEditEvent();
+
     }
 
     #bindShowDetailEvent() {
@@ -204,6 +215,15 @@ class TaskController {
         const closeDetailButton = document.querySelector('#closeDetailButton');
         closeDetailButton.addEventListener('click', () => this.#taskView.turnOffPopup());
     }
+    //--------------------Change status of a task-----------------------
+    #bindChangeStatusEvent() {
+        const statusCheckBox = this.#taskView.getCheckBoxView();
+        statusCheckBox.addEventListener('click', (event) => {
+            event.stopPropagation();
+            this.#taskModel.toggleNewStatus();
+            this.#taskView.updateStatusView(this.#taskModel.getStatus());
+        })
+    }
 
     //--------------------Edit a task -----------------------
     #bindEditEvent() {
@@ -215,9 +235,6 @@ class TaskController {
                 this.#taskModel.getDueDate(),
                 this.#taskModel.getDetail()
             );
-
-
-            // console.log(this.#taskModel)
 
             //Get all input 
             const editTitleInput = document.querySelector('#taskTitleEdit');
@@ -231,7 +248,7 @@ class TaskController {
 
             editDueDateInput.value = this.#taskModel.getDueDate();
 
-            editDetailInput.value = this.#taskModel.getDetail();
+            editDetailInput = this.#taskModel.getDetail();
 
             editPriorityInput.querySelectorAll('option').forEach(option => {
                 if (option.value === this.#taskModel.getPriority()) {
