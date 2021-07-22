@@ -65,11 +65,12 @@ class TaskView {
         this.#taskView.classList.add('task');
         this.#taskView.classList.add(priority);
 
-        this.#checkBoxView = this.#createView('check_box_outline_blank', 'material-icons');
         this.#titleView = this.#createView(title);
         this.#dueDateView = this.#createView(dayjs(dueDate).format('MM/DD/YYYY'));
         this.#editButtonView = this.#createView('edit', 'material-icons');
         this.#deleteButtonView = this.#createView('delete', 'material-icons');
+        this.#checkBoxView = this.#createView('check_box_outline_blank', 'material-icons');
+        this.setStatusView(isDone);
 
         this.#taskView.append(this.#checkBoxView, this.#titleView, this.#dueDateView, this.#editButtonView, this.#deleteButtonView);
         listOfTasksView.append(this.#taskView);
@@ -110,7 +111,7 @@ class TaskView {
         this.#titleView.innerText = newTitle;
     }
 
-    updateStatusView(isDone) {
+    setStatusView(isDone) {
         if (isDone) {
             this.#checkBoxView.innerText = 'check_box';
             this.#taskView.classList.add('isDone');
@@ -146,7 +147,7 @@ class TaskView {
     }
 
     showEditPanelTask(title, dueDate, detail) {
-        const popUpBg = document.createElement('div');
+        let popUpBg = document.createElement('div');
         popUpBg.classList.add('popUpBg');
 
 
@@ -221,7 +222,7 @@ class TaskController {
         statusCheckBox.addEventListener('click', (event) => {
             event.stopPropagation();
             this.#taskModel.toggleNewStatus();
-            this.#taskView.updateStatusView(this.#taskModel.getStatus());
+            this.#taskView.setStatusView(this.#taskModel.getStatus());
         })
     }
 
@@ -248,7 +249,7 @@ class TaskController {
 
             editDueDateInput.value = this.#taskModel.getDueDate();
 
-            editDetailInput = this.#taskModel.getDetail();
+            editDetailInput.value = this.#taskModel.getDetail();
 
             editPriorityInput.querySelectorAll('option').forEach(option => {
                 if (option.value === this.#taskModel.getPriority()) {

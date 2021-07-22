@@ -324,14 +324,16 @@ nav .material-icons{
     position: absolute;
     align-self: center;
     width: 0%;
-    height: 0.15rem;
+    height: 10%;
     content: '';
-    background-color:black;
-    -webkit-transition:all 0.25s;
+    background-color:gray;
+    opacity: 0.5;
+    transition: 0.5s all;
 }
 
 .task.isDone::before{
-   visibility: visible;
+    visibility: visible;
+   display: block;
    width: 100%;
 }
 
