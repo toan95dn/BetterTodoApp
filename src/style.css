@@ -323,7 +323,7 @@ nav .material-icons{
 }
 
 /* Task description */
-.popUpDetailBg{
+.popUpBg{
     visibility: visible !important;
 }
 
@@ -456,7 +456,7 @@ input{
 }
 
 .popupModalBg,
-.popUpDetailBg{
+.popUpBg{
     visibility: hidden;
     position: absolute;;
     width: 100vw;
@@ -465,12 +465,13 @@ input{
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 2;
 }
 
 .popupModalBg.active{
     visibility: visible;
-    z-index: 2;
 }
+
 
 .createProjectModal{
     display: none;
@@ -500,17 +501,10 @@ input{
     width: 80%;
 }
 
+.editTaskModal,
 .createTaskModal{
-display: none;
-}
-
-.createTaskModal h2{
-    text-align: center;
-}
-
-.createTaskModal.active{
     position: relative;
-    display: flex;
+    display: none;
     flex-direction: column;
     width: 50rem;
     height: 60rem;
@@ -520,7 +514,17 @@ display: none;
     padding: 2.5rem;
 }
 
-#closeTaskForm,#closeProjectForm{
+.createTaskModal h2{
+    text-align: center;
+}
+
+.editTaskModal,
+.createTaskModal.active{
+    display: flex;
+
+}
+
+#closeTaskForm,#closeProjectForm,#closeEditedForm{
     font-size: 3rem;
     position: absolute;
     top:1rem;
@@ -554,7 +558,9 @@ textarea:focus{
     border: 0.25rem solid black;
 }
 
-#submitNewTask,#submitNewProject{
+#submitNewTask,
+#submitEditedTask
+,#submitNewProject{
     margin-top: 1rem;
     font-size: 2rem;
     padding: 0.5rem;

@@ -1,4 +1,4 @@
-import { TasksManagerModel } from "./TasksManager";
+import { TasksManagerModel, TasksManagerView } from "./TasksManager";
 import dayjs from 'dayjs';
 import { pubsub } from "./pubsub";
 
@@ -114,10 +114,10 @@ class TaskView {
 
     createShowDetailTaskView(title, dueDate, projectName, detail, priority) {
 
-        const detailPopup = document.createElement('div');
-        detailPopup.classList.add('popUpDetailBg');
+        const popUpBg = document.createElement('div');
+        popUpBg.classList.add('popUpBg');
 
-        detailPopup.innerHTML =
+        popUpBg.innerHTML =
             `<div class='popUpDetail'>
                 <div id='closeDetailButton' class="material-icons">close</div>
                 <p>
@@ -129,15 +129,46 @@ class TaskView {
                 </p>
             </div>`
 
-        document.querySelector('body').append(detailPopup);
+        document.querySelector('body').append(popUpBg);
     }
 
     turnOffDetailTaskView() {
-        document.querySelector('.popUpDetailBg').remove();
+        document.querySelector('.popUpBg').remove();
     }
 
     showEditPanelTask() {
+        const popUpBg = document.createElement('div');
+        popUpBg.classList.add('popUpBg');
 
+
+        popUpBg.innerHTML = `<form class="editTaskModal active">
+            <h2>Edit</h2>
+
+            <label for="taskTitleEdit">Task's title</label>
+            <input type="text" name="taskTitleEdit" id="taskTitleEdit" required>
+
+                <label for="dueDateEdit">Due date</label>
+                <input type="date" name="dueDateEdit" id="dueDateEdit" required>
+
+                    <label for="descriptionEdit">Description</label>
+                    <textarea name="descriptionEdit" id="descriptionEdit" cols="30" rows="10"></textarea>
+
+                    <label for="priorityEdit">Pick the priority</label>
+                    <select name="priorityEdit" id="priorityEdit">
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Height">High</option>
+                    </select>
+
+                    <label for="projectSelectionEdit">Pick the project</label>
+                    <select name="projectSelectionEdit" id="projectSelectionEdit">
+                    </select>
+
+                    <button class="material-icons" type="button" id="closeEditedForm">clear</button>
+                    <Button id="submitEditedTask" type="button">Confirm Edit</Button>
+             </form>`
+
+        document.querySelector('body').append(popUpBg);
     }
 }
 
@@ -179,7 +210,7 @@ class TaskController {
         const editButton = this.#taskView.getEditButtonView();
         editButton.addEventListener('click', (event) => {
             event.stopPropagation();
-            console.log(TasksManagerModel.getAllProjects());
+            this.#taskView.showEditPanelTask();
         })
     }
 
