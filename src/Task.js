@@ -265,6 +265,9 @@ class TaskController {
                 currOption.value = projectName;
                 currOption.innerText = projectName;
                 editProjectInput.append(currOption);
+                if (projectName === this.#taskModel.getProjectName()) {
+                    editProjectInput.value = projectName;
+                }
             })
 
             const submitEditTask = document.querySelector('#submitEditedTask');
