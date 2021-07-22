@@ -12,6 +12,7 @@ class TaskModel {
     #projectName;
 
     constructor(title, detail, dueDate, priority, projectName) {
+        this.#isDone = false;
         this.updateTask(title, detail, dueDate, priority, projectName);
     }
 
@@ -29,14 +30,15 @@ class TaskModel {
     setDueDate(newDueDate) { this.#dueDate = newDueDate; }
     setPriority(newPriority) { this.#priority = newPriority; }
     setProjectName(newProjectName) { this.#projectName = newProjectName; }
-    toggleNewStatus() { this.#isDone = this.#isDone ? false : true; }
+    toggleNewStatus() {
+        this.#isDone = this.#isDone ? false : true;
+    }
     //
     updateTask(title, detail, dueDate, priority, projectName) {
         this.#title = title;
         this.#detail = detail;
         this.#dueDate = dueDate;
         this.#priority = priority;
-        this.#isDone = false;
         this.#projectName = projectName;
     }
 
