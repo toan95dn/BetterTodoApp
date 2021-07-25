@@ -374,7 +374,7 @@ nav .material-icons{
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 2rem;
+    padding: 2rem 2rem 2rem 3rem;
     font-size: 2rem ;
     background-color:var(--main-bg-color) ;
     line-height: 3rem;;
