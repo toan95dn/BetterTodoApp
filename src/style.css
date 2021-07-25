@@ -1,3 +1,12 @@
+:root {
+    --main-bg-color:#e76f51 ;
+    --task-bg-color: #f4a261;
+    --header-bg-color:#264653;
+    --menu-bg-color: #2a9d8f;
+    --taskdone-bg-color: lightslategrey;
+    
+}
+
 html{
     font-size: 10px;
     font-family: sans-serif;
@@ -17,15 +26,15 @@ input,select {
     display: block;
     outline: none;
     border:none;
-    background: #ff7a7b;
-    border-bottom: 0.25rem solid lightslategrey;
+    background: var(--main-bg-color);
+    border-bottom: 0.25rem solid var(--task-bg-color);
     font-size: 2rem;
     line-height: 2rem;
     transition: 0.25s;
 }
 
 select:focus,input:focus{
-    border-bottom: 0.25rem solid black;
+    border-bottom: 0.25rem solid var(--header-bg-color);
 
 }
 
@@ -45,7 +54,7 @@ body{
 
 /* Nav bar */
 nav{
-    background-color:red;
+    background-color: var(--header-bg-color);
     color:white;
     font-size: 3rem;
     display: flex;
@@ -86,7 +95,7 @@ nav .material-icons{
     flex-direction: column;
     justify-content: flex-start;
     padding: 1.5rem;
-    background-color: #ff7a7b;
+    background-color: var(--menu-bg-color);
     font-size: 2.25rem;
     font-weight: bold;
     color:black;
@@ -118,7 +127,7 @@ nav .material-icons{
 
 [data-tab]:hover:before{
     width: 100%;
-   background-color: red;
+   background-color: var(--header-bg-color);
    z-index: 1;
 }
 
@@ -153,11 +162,11 @@ nav .material-icons{
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #ff6868;
+    background-color: #f4a261;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgb(252, 63, 63);
+    background-color: #e76f51;
 }
 
 /* Each item in the project list */
@@ -175,12 +184,12 @@ nav .material-icons{
 }
 
 .listProjectsContainer li:hover{
-    background-color: red;
+    background-color: var(--header-bg-color);
 }
 
 .listProjectsContainer .material-icons{
     font-size: 2rem;
-    color: pink;
+    color: white;
     justify-self: flex-start;
 }
 
@@ -191,7 +200,7 @@ nav .material-icons{
 [data-numTasksOf]{
     color:white;
     margin-right:0.5rem;
-    background-color: #ff5959;
+    background-color: var(--main-bg-color);
     display: flex;
 
     width:3rem;
@@ -211,7 +220,7 @@ nav .material-icons{
     height: 100%;
     top:0;
     right: 0;
-    background-color: lightpink;
+    background-color: var(--task-bg-color);
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -225,11 +234,11 @@ nav .material-icons{
 }
 
 .confirmDelete:hover,.cancelDelete:hover{
-    background-color: red;
+    background-color: var(--menu-bg-color);
 }
 /* List tasks container */
 .projectInfoContainer{
-    background-color: lightpink;
+    background-color: var(--main-bg-color);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -290,24 +299,24 @@ nav .material-icons{
     transition: 0.25s;
     cursor: pointer;
     z-index: 0;
-    background-color: #FF9A8B;
+    background-color: var(--task-bg-color);
 }
 
 .task.High{
-    border-left: 0.5rem solid red;
+    border-left: 0.5rem solid #d00000;
 }
 
 .task.Medium{
-    border-left: 0.5rem solid yellow;
+    border-left: 0.5rem solid #efea5a;
 
 }
 
 .task.Low{
-    border-left: 0.5rem solid rgb(0, 204, 0);
+    border-left: 0.5rem solid #0ead69;
 }
 
 .task:hover{
-    box-shadow: 0.5rem 0.5rem 0.75rem rgb(255, 46, 46);
+    box-shadow: 0.5rem 0.5rem 0.75rem #ffcdb2;
     -webkit-transform: translateY(-0.5rem) translateX(-0.5rem);
 }
 
@@ -318,7 +327,7 @@ nav .material-icons{
 }
 
 .task.isDone{
-    background: #ffcbc4;
+    background: var(--taskdone-bg-color);
 }
 
 .task::before{
@@ -328,7 +337,7 @@ nav .material-icons{
     width: 0%;
     height: 10%;
     content: '';
-    background-color:gray;
+    background-color:black;
     opacity: 0.5;
     transition: 0.5s all;
 }
@@ -382,7 +391,7 @@ nav .material-icons{
 }
 
 #closeDetailButton:hover{
-    color:red;
+    color:#d00000;
 }
 
 /* Add buttons */
@@ -391,7 +400,7 @@ nav .material-icons{
     bottom:2rem;
     right:2rem;
     font-size:2rem;
-    background-color: brown;
+    background-color: var(-header-bg-color);
 }
 
 .addButtonsContainer span{
@@ -406,7 +415,7 @@ nav .material-icons{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
+    background-color: var(--header-bg-color);
     border: none;
     width: 5rem;
     height: 5rem;
@@ -435,12 +444,11 @@ nav .material-icons{
     justify-content: space-between;
     margin: 0.5rem;
     transition: 0.5s ease-in-out;
-    background: red;
+    background-color: var(--header-bg-color);
     color: white;
     width: 13rem;
     border-radius: 1rem;
     cursor: pointer;
-    box-shadow: 0.3rem 0.3rem 0.3rem lightcoral;
 }
 
 .createProjectButtonContainer{
@@ -458,7 +466,7 @@ nav .material-icons{
     width: 4rem;
     height: 4rem;
     border-radius: 0 50% 50% 0;
-    background-color: red;
+    background-color: var(--header-bg-color);
     border:none;
     border-left: 0.25rem solid white;
     cursor: pointer;
@@ -512,7 +520,8 @@ input{
     font-size: 2rem;
     padding: 2rem;
     margin:1rem;
-    background-color: #ff7a7b;
+    background-color: var(--main-bg-color);
+    border-radius: 1.5rem;
 
 }
 
@@ -536,10 +545,12 @@ input{
     flex-direction: column;
     width: 50rem;
     height: 60rem;
-    background-color: #ff7a7b;
+    background-color: var(--main-bg-color);
     justify-content: space-between;
     font-size: 1.75rem;
     padding: 2.5rem;
+    border-radius: 1.5rem;
+    font-weight: bold;
 }
 
 .createTaskModal h2{
@@ -562,8 +573,8 @@ input{
     background: inherit;
 }
 
-#closeTaskForm:hover,#closeProjectForm:hover{
-    color: red;
+#closeTaskForm:hover,#closeProjectForm:hover,#closeEditedForm:hover{
+    color: #d00000;
 }
 
 select{
@@ -578,20 +589,27 @@ textarea{
     width: 100%;
     height: 12rem;
     resize: none;
-    border: 0.25rem solid lightslategrey;
+    border: none;
     margin-bottom: 1rem;
 }
 
 textarea:focus{
-    border: 0.25rem solid black;
+    outline: none;
+    border: 0.25rem solid var(--header-bg-color);
 }
 
 #submitNewTask,
 #submitEditedTask
 ,#submitNewProject{
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     font-size: 2rem;
     padding: 0.5rem;
+    background: var(--header-bg-color);
+    border: none;
+    height: 4rem;
+    color: white;
+    font-weight: bold;
+    border-radius: 1.5rem;
 }
 
 /* Responsive */

@@ -181,7 +181,7 @@ class TaskView {
             </select>
 
             <button class="material-icons" type="button" id="closeEditedForm">clear</button>
-            <Button id="submitEditedTask" type="button">Confirm Edit</Button>
+            <Button id="submitEditedTask" type="button">Confirm</Button>
              
             </form>`
 
