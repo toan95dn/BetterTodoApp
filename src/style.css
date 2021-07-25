@@ -366,7 +366,8 @@ nav .material-icons{
 
 .popUpDetail{
     position: relative;
-    width: 50vw;
+    width: 80rem;
+    max-width: 90%;
     height: auto;
     border: 0.25rem solid white;
     display: flex;
@@ -375,8 +376,9 @@ nav .material-icons{
     align-items: flex-start;
     padding: 2rem;
     font-size: 2rem ;
-    background-color:lightpink ;
+    background-color:var(--main-bg-color) ;
     line-height: 3rem;;
+    border-radius: 1.5rem;
 }
 
 .popUpDetail h3{
@@ -513,6 +515,7 @@ input{
     display: none;
     position: relative;
     width: 50rem;
+    max-width: 90%;
     height: 15rem;
     flex-direction: column;
     justify-content: space-between;
@@ -522,6 +525,7 @@ input{
     margin:1rem;
     background-color: var(--main-bg-color);
     border-radius: 1.5rem;
+    border: 0.25rem solid white;
 
 }
 
@@ -544,6 +548,7 @@ input{
     display: none;
     flex-direction: column;
     width: 50rem;
+    max-width: 90%;
     height: 60rem;
     background-color: var(--main-bg-color);
     justify-content: space-between;
@@ -551,6 +556,7 @@ input{
     padding: 2.5rem;
     border-radius: 1.5rem;
     font-weight: bold;
+    border: 0.25rem solid white;
 }
 
 .createTaskModal h2{
@@ -615,7 +621,7 @@ textarea:focus{
 /* Responsive */
 @media (max-width: 800px) {
     html{
-        font-size: 50%;
+        font-size: 8px;
     }
 
     #hamburgerButton{

@@ -138,10 +138,10 @@ class TaskView {
                 <div id='closeDetailButton' class="material-icons">close</div>
                 <p>
                     <h3>${title}</h3>
-                    <div><span> Due Date: </span> <span>${dayjs(dueDate).format('MM/DD/YYYY')}</span></div>
-                    <div><span>Project: </span> <span>${projectName}</span></div>
-                    <div><span>Priority: </span><span>${priority}</span></div>
-                    <p><span>Detail: </span> <span>${detail}</span></p>
+                    <div><span style='font-weight:bold'> Due Date: </span> <span>${dayjs(dueDate).format('MM/DD/YYYY')}</span></div>
+                    <div><span style='font-weight:bold'>Project: </span> <span>${projectName}</span></div>
+                    <div><span style='font-weight:bold'>Priority: </span><span>${priority}</span></div>
+                    <p><span style='font-weight:bold'>Detail: </span> <span>${detail}</span></p>
                 </p>
             </div>`
 
