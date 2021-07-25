@@ -383,6 +383,7 @@ nav .material-icons{
 
 .popUpDetail h3{
     align-self: center;
+    margin-bottom: 1.5rem;
 }
 
 #closeDetailButton{
