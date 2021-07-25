@@ -25,6 +25,8 @@ const TasksManagerModel = (() => {
 
     const addNewTask = (task) => {
         projectMap.get(task.getProjectName()).push(task);
+        //TODO
+        //Add the task on firebase ?
     }
     pubsub.on('addTask', addNewTask);
 
@@ -32,6 +34,8 @@ const TasksManagerModel = (() => {
         const currProjectName = task.getProjectName();
         const listTasksOfCurrProject = projectMap.get(currProjectName);
         listTasksOfCurrProject.splice(listTasksOfCurrProject.indexOf(task), 1);
+        //TODO
+        //Remove the task on Firebase ???Can do a seperate function, then use subpub to subscribe????
     }
     pubsub.on('removeTask', removeTask);
 

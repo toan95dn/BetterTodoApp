@@ -14,6 +14,10 @@ class TaskModel {
     constructor(title, detail, dueDate, priority, projectName) {
         this.#isDone = false;
         this.updateTask(title, detail, dueDate, priority, projectName);
+        //TODO: add a function to create a task on firebase
+        //-Generate key
+        //-push ->>>maybe use this.#uniqueKey = .... ???
+        //can use a subpub function ???
     }
 
     //getters

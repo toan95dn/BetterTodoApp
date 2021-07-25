@@ -298,11 +298,12 @@ nav .material-icons{
 }
 
 .task.Medium{
-    border-left: 0.5rem solid rgb(0, 204, 0);
+    border-left: 0.5rem solid yellow;
+
 }
 
 .task.Low{
-    border-left: 0.5rem solid yellow;
+    border-left: 0.5rem solid rgb(0, 204, 0);
 }
 
 .task:hover{
