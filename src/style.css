@@ -101,6 +101,7 @@ nav .material-icons{
     color:black;
     transition: 0.3s ease-in-out;
     z-index: 1;
+    position: relative;
 }
 
 [data-tab]{
@@ -131,6 +132,34 @@ nav .material-icons{
    z-index: 1;
 }
 
+.signOutContainer{
+    justify-self: flex-end;
+    align-self: center;
+    flex:1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: 1.5rem;
+}
+
+#greetUser{
+    color: white;
+}
+
+#signOutButton{
+    width: 14rem;
+    height: 3.5rem;
+    border-radius: 1.5rem;
+    border: none;
+    background-color:var(--header-bg-color);
+    color: white;
+    margin-top: 1rem;
+}
+
+#signOutButton:hover{
+    border: 0.25rem solid white;
+}
 
 /* Project lists on the left side */
 .Projects{
