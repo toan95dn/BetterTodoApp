@@ -35,7 +35,7 @@
 }
 
 
-.loginContainer form{
+.allInputsContainer{
     display: grid;
     grid-template-rows: 12rem 1fr;
     gap: 1rem;
@@ -50,7 +50,7 @@
     flex: 0.5;
 }
 
-.loginContainer form input{
+.allInputsContainer input{
     font-size: 2rem;
     line-height: 2rem;
     background-color: transparent;
