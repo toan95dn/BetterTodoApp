@@ -37,7 +37,7 @@
 
 .loginContainer form{
     display: grid;
-    grid-template-rows: 2fr 0.5fr repeat(3,1fr) 0fr 2fr;
+    grid-template-rows: 12rem 1fr;
     gap: 1rem;
     width: 45rem;
     height: 60rem;
@@ -51,9 +51,13 @@
 }
 
 .loginContainer form input{
+    font-size: 2rem;
+    line-height: 2rem;
     background-color: transparent;
     margin-top:1rem;
 }
+
+
 
 /* Image container*/
 .imageContainer{
@@ -69,6 +73,17 @@
     width: 50rem;
     align-self: center;
     max-height: 100%;
+}
+
+/* Input Container */
+.logInInputContainer{
+    display: none;
+}
+
+.logInInputContainer.active{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 /* Email + Password Input */
@@ -102,13 +117,14 @@
     justify-content: space-evenly;
 }
 
-#signInButton,#signUpButton{
+#signInButton,#signUpButton,
+#confirmSignUpButton,#cancelSignUpButton{
     height: 4rem;
     width: 15rem;
     margin: 1.5rem 0 0 0;
 }
 
-#signInButton{
+#signInButton,#confirmSignUpButton{
     background-color: #4361ee;
 }
 
@@ -133,12 +149,22 @@
     margin: 1rem;
 }
 
-#loginGoogleButton{
+#loginGoogleButton,#cancelSignUpButton{
     background-color: #e71d36;
 }
 
 #loginDemoButton{
     background-color: slategray;
+}
+
+/* Sign up container */
+.signUpContainer{
+    display: none;
+}
+
+.signUpContainer.active{
+    display: flex;
+    flex-direction: column;
 }
 
 @media (max-width: 1000px){
@@ -149,6 +175,7 @@
     .imageContainer img{
         width: 35rem;
     }
+
     .loginContainer{
         display: flex ;
         justify-content: center;
@@ -165,6 +192,10 @@
 @media  (max-width: 700px){
     html{
         font-size: 8px;
+    }
+
+    .loginContainer .signInForm{
+        flex: 1;
     }
 
     .imageContainer{

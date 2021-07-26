@@ -10,54 +10,77 @@
 </head>
 
 <body>
-    <div class='loginContainer'>
-
+    <div class="loginContainer">
         <div class='imageContainer'>
             <img src="/src/todoImage.svg" alt="">
         </div>
 
+        <form class='signInForm' action="">
+            <div class="brandHeader">
+                <div class="brandName"><span>T</span>
+                    <span class="material-icons">
+                        task_alt
+                    </span>
+                    <span>DO</span>
+                    <span class="material-icons">
+                        sentiment_very_satisfied
+                    </span>
+                </div>
 
-        <form action="">
-            <div class="brandName"><span>T</span>
-                <span class="material-icons">
-                    task_alt
-                </span>
-                <span>DO</span>
-                <span class="material-icons">
-                    sentiment_very_satisfied
-                </span>
+                <h2>Organize your life!</h2>
             </div>
 
-            <div></div>
+            <div class='logInInputContainer active'>
+                <div class='emailpassInput'>
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" required>
+                </div>
 
-            <h2>Organize your life!</h2>
+                <div class='emailpassInput'>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" required>
+                </div>
 
-            <div class='emailpassInput'>
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" required>
+                <div class='emailpassInput confirmPassword'>
+                    <label for="passwordConfirm">Confirm Password</label>
+                    <input type="passwordConfirm" name="passwordConfirm" id="passwordConfirm" required>
+                </div>
+
+                <div class='signInUpButtons'><button id='signInButton'><span>Sign In</span></button>
+                    <button id='signUpButton' type="button"><span></span>Sign Up</button>
+                </div>
+
+                <div class='or'>-OR-</div>
+
+                <div class='logInWithGGDemoContainer'>
+                    <button id='loginGoogleButton' type="button"><span>Sign In With Google</span></button>
+                    <button id='loginDemoButton' type="button"><span>Sign In With Demo</span></button>
+                </div>
             </div>
 
-            <div class='emailpassInput'>
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" required>
+            <div class="signUpContainer">
+                <div class='emailpassInput'>
+                    <label for="emailSignup">Signup Email</label>
+                    <input type="emailSignup" name="emailSignup" id="emailSignup" required>
+                </div>
+
+                <div class='emailpassInput'>
+                    <label for="passwordSignUp">Password</label>
+                    <input type="passwordSignUp" name="passwordSignUp" id="passwordSignUp" required>
+                </div>
+
+                <div class='emailpassInput'>
+                    <label for="passwordConfirm">Confirm Password</label>
+                    <input type="passwordConfirm" name="passwordConfirm" id="passwordConfirm" required>
+                </div>
+
+                <div class='signInUpButtons'><button id='confirmSignUpButton'>Confirm</button>
+                    <button id='cancelSignUpButton' type="button">Cancel</button>
+                </div>
             </div>
 
-            <div class='signInUpButtons'><button id='signInButton'><span>Sign In</span></button>
-                <button id='signUpButton'><span></span>Sign Up</button>
-            </div>
-
-            <div class='or'>-OR-</div>
-
-            <div class='logInWithGGDemoContainer'>
-                <button id='loginGoogleButton'><span>Sign In With Google</span></button>
-                <button id='loginDemoButton'><span>Sign In With Demo</span></button>
-            </div>
         </form>
     </div>
-
-
-
-
 
 
 

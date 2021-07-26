@@ -2,6 +2,7 @@
 import './hamburger.css';
 import './login.css';
 import 'normalize.css'
+import './login';
 import { TaskModel, TaskView, TaskController } from './Task';
 import { TasksManagerModel } from './TasksManager';
 import { pubsub } from './pubsub';
