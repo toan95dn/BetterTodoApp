@@ -1,3 +1,84 @@
+
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import {
+    getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged
+} from "firebase/auth";
+
+import { collection, addDoc } from "firebase/firestore";
+
+// -----------------Link with firebase---------------------//
+
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+    apiKey: "AIzaSyC-KTkKoCLeTWTRKKkjo1kKPysbXhlYnWg",
+    authDomain: "todo-95d7e.firebaseapp.com",
+    projectId: "todo-95d7e",
+    storageBucket: "todo-95d7e.appspot.com",
+    messagingSenderId: "623348448816",
+    appId: "1:623348448816:web:6b0a6a3a6e952ea9b3f7f5",
+    measurementId: "G-L6T216RN91"
+};
+
+initializeApp(firebaseConfig);
+
+const db = getFirestore();
+
+const signIn = (() => {
+    const signInEmailPassButton = document.querySelector('#signInButton');
+    const signInGoogleButton = document.querySelector('#loginGoogleButton');
+    const signInDemoButton = document.querySelector('#loginDemoButton');
+
+    signInGoogleButton.addEventListener('click', () => {
+        const auth = getAuth();
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                console.log(user);
+            }).catch((error) => {
+                console.log(error.message);
+            });
+    })
+
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            const uid = user.uid;
+            // ...
+        } else {
+            // User is signed out
+            // ...
+        }
+    })
+
+})()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// -----------------------------------------------//
 const createLogin = (() => {
     // const loginScreen = document.createElement('div');
     // loginScreen.classList.add('loginContainer');
@@ -71,6 +152,7 @@ const addSignUpEvent = (() => {
     })
 
     cancelSignUpButton.addEventListener('click', () => {
+        disPlayOneContainerAndTurnOffRest(logInContainer, signUpContainer, thankYouForSignUpContainer);
     })
 
     confirmSignUpButton.addEventListener('click', (e) => {
@@ -80,10 +162,21 @@ const addSignUpEvent = (() => {
 
     gobackButton.addEventListener('click', () => {
         disPlayOneContainerAndTurnOffRest(logInContainer, signUpContainer, thankYouForSignUpContainer);
-
     })
 
-
 })()
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export { createLogin }
