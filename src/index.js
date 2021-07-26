@@ -2,12 +2,10 @@
 import './hamburger.css';
 import './login.css';
 import 'normalize.css'
-// import './login';
 import './login';
 import { TaskModel, TaskView, TaskController } from './Task';
 import { TasksManagerModel } from './TasksManager';
 import { pubsub } from './pubsub';
-
 
 //ALL BUTTONS TO ASK A TASK/PROJECT
 const addButton = document.querySelector('#addButton');
@@ -177,6 +175,7 @@ let k = (function addADemoTask() {
         pubsub.emit('addTask', newTask)
     }
 })()
+
 
 
 
