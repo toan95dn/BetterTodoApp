@@ -2,14 +2,55 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import {
-    getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged
+    getAuth, createUserWithEmailAndPassword, signInWithPopup,
+    GoogleAuthProvider, onAuthStateChanged, signOut
 } from "firebase/auth";
 
 import { collection, addDoc } from "firebase/firestore";
 
-// -----------------Link with firebase---------------------//
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+// ----------------Add signup event------------------------//
+
+const signUpButton = document.querySelector('#signUpButton');
+const signUpContainer = document.querySelector('.signUpContainer');
+const logInContainer = document.querySelector('.logInInputContainer');
+const confirmSignUpButton = document.querySelector('#confirmSignUpButton');
+const cancelSignUpButton = document.querySelector('#cancelSignUpButton');
+const gobackButton = document.querySelector('#backButton');
+const thankYouForSignUpContainer = document.querySelector('.thanksMessage');
+
+function switchSignUpAndLogIn() {
+    signUpContainer.classList.toggle('active');
+    logInContainer.classList.toggle('active');
+}
+
+function disPlayOneContainerAndTurnOffRest(displayContainer, ...turnOffContainers) {
+    displayContainer.classList.add('active');
+    turnOffContainers.forEach(container => container.classList.remove('active'));
+}
+
+signUpButton.addEventListener('click', () => {
+    disPlayOneContainerAndTurnOffRest(signUpContainer, logInContainer, thankYouForSignUpContainer);
+})
+
+cancelSignUpButton.addEventListener('click', () => {
+    disPlayOneContainerAndTurnOffRest(logInContainer, signUpContainer, thankYouForSignUpContainer);
+})
+
+confirmSignUpButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    disPlayOneContainerAndTurnOffRest(thankYouForSignUpContainer, logInContainer, signUpContainer);
+})
+
+gobackButton.addEventListener('click', () => {
+    disPlayOneContainerAndTurnOffRest(logInContainer, signUpContainer, thankYouForSignUpContainer);
+})
+
+
+// -----------------Link with firebase---------------------//
+const loginSignUpContainer = document.querySelector('.loginSignUpContainer');
+
 const firebaseConfig = {
     apiKey: "AIzaSyC-KTkKoCLeTWTRKKkjo1kKPysbXhlYnWg",
     authDomain: "todo-95d7e.firebaseapp.com",
@@ -28,6 +69,7 @@ const signIn = (() => {
     const signInEmailPassButton = document.querySelector('#signInButton');
     const signInGoogleButton = document.querySelector('#loginGoogleButton');
     const signInDemoButton = document.querySelector('#loginDemoButton');
+    const signOutButton = document.querySelector('#signOutButton');
 
     signInGoogleButton.addEventListener('click', () => {
         const auth = getAuth();
@@ -45,18 +87,31 @@ const signIn = (() => {
             });
     })
 
+    signOutButton.addEventListener('click', () => {
+        const auth = getAuth();
+        signOut(auth).then(() => {
+            loginSignUpContainer.classList.add('active');
+        }).catch((error) => {
+            console.log(error.message)
+        });
+    })
+
+
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
         if (user) {
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/firebase.User
-            const uid = user.uid;
-            // ...
+            // const uid = user.uid;
+            loginSignUpContainer.classList.remove('active');
         } else {
             // User is signed out
             // ...
         }
     })
+
+
+
 
 })()
 
@@ -128,43 +183,6 @@ const createLogin = (() => {
 })()
 
 
-const addSignUpEvent = (() => {
-    const signUpButton = document.querySelector('#signUpButton');
-    const signUpContainer = document.querySelector('.signUpContainer');
-    const logInContainer = document.querySelector('.logInInputContainer');
-    const confirmSignUpButton = document.querySelector('#confirmSignUpButton');
-    const cancelSignUpButton = document.querySelector('#cancelSignUpButton');
-    const gobackButton = document.querySelector('#backButton');
-    const thankYouForSignUpContainer = document.querySelector('.thanksMessage');
-
-    function switchSignUpAndLogIn() {
-        signUpContainer.classList.toggle('active');
-        logInContainer.classList.toggle('active');
-    }
-
-    function disPlayOneContainerAndTurnOffRest(displayContainer, ...turnOffContainers) {
-        displayContainer.classList.add('active');
-        turnOffContainers.forEach(container => container.classList.remove('active'));
-    }
-
-    signUpButton.addEventListener('click', () => {
-        disPlayOneContainerAndTurnOffRest(signUpContainer, logInContainer, thankYouForSignUpContainer);
-    })
-
-    cancelSignUpButton.addEventListener('click', () => {
-        disPlayOneContainerAndTurnOffRest(logInContainer, signUpContainer, thankYouForSignUpContainer);
-    })
-
-    confirmSignUpButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        disPlayOneContainerAndTurnOffRest(thankYouForSignUpContainer, logInContainer, signUpContainer);
-    })
-
-    gobackButton.addEventListener('click', () => {
-        disPlayOneContainerAndTurnOffRest(logInContainer, signUpContainer, thankYouForSignUpContainer);
-    })
-
-})()
 
 
 

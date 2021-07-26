@@ -1,7 +1,9 @@
 @import url(style.css);
+.loginSignUpContainer{
+    display: none;
+}
 
-.loginContainer{
-    /* visibility: hidden; */
+.loginSignUpContainer.active{
     height: 100vh;
     width: 100vw;
     position: absolute;
@@ -31,7 +33,7 @@
     font-size: 8rem;
 }
 
-.loginContainer h2{
+.loginSignUpContainer h2{
     text-align: center;
 }
 
@@ -97,7 +99,7 @@
 }
 
 /* Sign in + Sign up buttons */
-.loginContainer button{
+.loginSignUpContainer button{
     border-radius: 1.5rem;
     border: none;
     font-size: 1.5rem;
@@ -109,7 +111,7 @@
     overflow: hidden;
 }
 
-.loginContainer button:hover{
+.loginSignUpContainer button:hover{
     border: 0.25rem solid white;
 }
 

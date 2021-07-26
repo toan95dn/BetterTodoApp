@@ -155,6 +155,7 @@ nav .material-icons{
     background-color:var(--header-bg-color);
     color: white;
     margin-top: 1rem;
+    cursor: pointer;
 }
 
 #signOutButton:hover{
