@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "dayjs": "^1.10.6",
+    "normalize.css": "^8.0.1",
     "webpack": "^5.44.0"
   },
   "devDependencies": {

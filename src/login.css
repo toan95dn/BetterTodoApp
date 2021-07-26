@@ -1,0 +1,177 @@
+@import url(style.css);
+
+.loginContainer{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    z-index: 3;
+    background-color: var(--task-bg-color);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    font-size: 1.5rem;
+    /* display: none; */
+}
+
+.brandName span{
+    display: block;
+}
+
+.brandName{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8rem;
+    font-weight: bold;
+}
+
+.brandName .material-icons{
+    font-size: 8rem;
+}
+
+.loginContainer h2{
+    text-align: center;
+}
+
+
+.loginContainer form{
+    display: grid;
+    grid-template-rows: 2fr 0.5fr repeat(3,1fr) 0fr 2fr;
+    gap: 1rem;
+    width: 45rem;
+    height: 60rem;
+    background-color: #e76f5159;
+    padding: 2rem 3rem 2rem 3rem;
+    font-weight: bold;
+    margin:0 3rem 0 3rem;
+    border-radius: 2rem;
+    color: var(--header-bg-color);
+    flex: 0.5;
+}
+
+.loginContainer form input{
+    background-color: transparent;
+    margin-top:1rem;
+}
+
+/* Image container*/
+.imageContainer{
+    background-color: var(--main-bg-color);
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    border-radius: 0 50% 50% 0;
+}
+
+.imageContainer img{
+    width: 50rem;
+    align-self: center;
+    max-height: 100%;
+}
+
+/* Email + Password Input */
+.emailpassInput{
+   width: 100%;
+}
+
+.emailpassInput input{
+    width: 100%;
+}
+
+/* Sign in + Sign up buttons */
+.loginContainer button{
+    border-radius: 1.5rem;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #a2d2ff;
+    color: white;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.loginContainer button:hover{
+    border: 0.25rem solid white;
+}
+
+.signInUpButtons{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#signInButton,#signUpButton{
+    height: 4rem;
+    width: 15rem;
+    margin: 1.5rem 0 0 0;
+}
+
+#signInButton{
+    background-color: #4361ee;
+}
+
+/* Or */
+.or{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login button demo + google */
+.logInWithGGDemoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#loginGoogleButton,#loginDemoButton{
+    height: 4rem;
+    width: 30rem;
+    margin: 1rem;
+}
+
+#loginGoogleButton{
+    background-color: #e71d36;
+}
+
+#loginDemoButton{
+    background-color: slategray;
+}
+
+@media (max-width: 1000px){
+    html{
+        font-size: 9px;
+    }  
+
+    .imageContainer img{
+        width: 35rem;
+    }
+    .loginContainer{
+        display: flex ;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .brandName .material-icons,.brandName{
+        font-size: 7rem;
+    }
+
+}
+
+
+@media  (max-width: 700px){
+    html{
+        font-size: 8px;
+    }
+
+    .imageContainer{
+        display: none;
+    }
+
+    .brandName .material-icons,.brandName{
+        font-size: 7rem;
+    }
+}
