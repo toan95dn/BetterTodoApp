@@ -51,20 +51,38 @@ const addSignUpEvent = (() => {
     const signUpButton = document.querySelector('#signUpButton');
     const signUpContainer = document.querySelector('.signUpContainer');
     const logInContainer = document.querySelector('.logInInputContainer');
+    const confirmSignUpButton = document.querySelector('#confirmSignUpButton');
     const cancelSignUpButton = document.querySelector('#cancelSignUpButton');
+    const gobackButton = document.querySelector('#backButton');
+    const thankYouForSignUpContainer = document.querySelector('.thanksMessage');
 
     function switchSignUpAndLogIn() {
         signUpContainer.classList.toggle('active');
         logInContainer.classList.toggle('active');
     }
 
+    function disPlayOneContainerAndTurnOffRest(displayContainer, ...turnOffContainers) {
+        displayContainer.classList.add('active');
+        turnOffContainers.forEach(container => container.classList.remove('active'));
+    }
+
     signUpButton.addEventListener('click', () => {
-        switchSignUpAndLogIn();
+        disPlayOneContainerAndTurnOffRest(signUpContainer, logInContainer, thankYouForSignUpContainer);
     })
 
     cancelSignUpButton.addEventListener('click', () => {
-        switchSignUpAndLogIn();
     })
+
+    confirmSignUpButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        disPlayOneContainerAndTurnOffRest(thankYouForSignUpContainer, logInContainer, signUpContainer);
+    })
+
+    gobackButton.addEventListener('click', () => {
+        disPlayOneContainerAndTurnOffRest(logInContainer, signUpContainer, thankYouForSignUpContainer);
+
+    })
+
 
 })()
 

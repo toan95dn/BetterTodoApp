@@ -118,7 +118,8 @@
 }
 
 #signInButton,#signUpButton,
-#confirmSignUpButton,#cancelSignUpButton{
+#confirmSignUpButton,#cancelSignUpButton,
+#backButton{
     height: 4rem;
     width: 14rem;
     margin: 1.5rem 0 0 0;
@@ -153,7 +154,7 @@
     background-color: #e71d36;
 }
 
-#loginDemoButton{
+#loginDemoButton,#backButton{
     background-color: slategray;
 }
 
@@ -166,6 +167,19 @@
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     align-items: center;
+}
+
+/* Thank you message after sign up */
+.thanksMessage{
+    display: none;
+}
+
+.thanksMessage.active{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
 }
 
 @media (max-width: 1000px){
