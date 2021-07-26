@@ -163,9 +163,9 @@
 }
 
 .signUpContainer.active{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
 }
 
 @media (max-width: 1000px){
@@ -195,7 +195,7 @@
         font-size: 8px;
     }
 
-    .loginContainer .signInForm{
+    .loginContainer .allInputsContainer{
         flex: 1;
     }
 
