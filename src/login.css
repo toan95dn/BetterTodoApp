@@ -161,6 +161,7 @@
 /* Sign up container */
 .signUpContainer{
     display: none;
+    width: 100%;
 }
 
 .signUpContainer.active{
@@ -175,6 +176,7 @@
 }
 
 .thanksMessage.active{
+    min-width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -191,11 +193,7 @@
         width: 35rem;
     }
 
-    .loginContainer{
-        display: flex ;
-        justify-content: center;
-        align-items: center;
-    }
+    
 
     .brandName .material-icons,.brandName{
         font-size: 7rem;
@@ -208,6 +206,13 @@
     html{
         font-size: 8px;
     }
+
+    .loginContainer{
+            display: flex ;
+            justify-content: center;
+            align-items: center;
+    }
+
 
     .loginContainer .allInputsContainer{
         flex: 1;
