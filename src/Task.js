@@ -309,21 +309,5 @@ class TaskController {
 // #projectName;
 
 
-var taskConverter = {
-    toFirestore: function (task) {
-        return {
-            title: city.name,
-            state: city.state,
-            country: city.country
-        };
-    },
-    fromFirestore: function (snapshot, options) {
-        const data = snapshot.data(options);
-        return new City(data.name, data.state, data.country);
-    }
-};
-
-
-
 export { TaskModel, TaskView, TaskController }
 

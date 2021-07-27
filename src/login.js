@@ -77,7 +77,7 @@ const signIn = (() => {
     const signOutButton = document.querySelector('#signOutButton');
 
     signInGoogleButton.addEventListener('click', () => {
-        pushExampleTasksOnFireBase();
+        // pushExampleTasksOnFireBase();
         const auth = getAuth();
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
@@ -256,7 +256,7 @@ async function pushExampleTasksOnFireBase() {
     Try to organize code
     
     Task <-> Task manager -> login -> index
-
+    move the add task and add project to task manager
 
 
 
