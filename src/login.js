@@ -1,3 +1,4 @@
+import { pubsub } from "./pubsub";
 import { TaskModel } from "./Task";
 import { TasksManagerModel } from "./TasksManager";
 import { initializeApp } from "firebase/app";
@@ -151,23 +152,6 @@ const signUp = (() => {
 })()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // -----------------------------------------------//
 const createLogin = (() => {
     // const loginScreen = document.createElement('div');
@@ -242,6 +226,45 @@ async function pushExampleTasksOnFireBase() {
     //   });
     //   console.log("Document written with ID: ", docRef.id);
 }
+
+
+const syncManager = (() => {
+
+    const getAllTasksFromFirebase = () => {
+
+    }
+
+    const getAllProjectsFromFirebase = () => {
+
+    }
+
+    const addTaskOnFireBase = () => {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+
+            } else {
+
+            }
+        })
+    }
+
+    const removeTaskOnFireBase = () => {
+
+    }
+
+    const removeProjectOnFireBase = () => {
+
+    }
+
+    const updateListProjectOnFireBase = () => {
+
+    }
+})()
+
+
+
+
 
 
 //TODO

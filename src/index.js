@@ -3,9 +3,13 @@ import './hamburger.css';
 import './login.css';
 import 'normalize.css'
 import './login';
+import { doc, getFirestore, collection, addDoc } from "firebase/firestore";
+import { onAuthStateChanged } from '@firebase/auth';
 import { TaskModel, TaskView, TaskController } from './Task';
 import { TasksManagerModel } from './TasksManager';
 import { pubsub } from './pubsub';
+import { getAuth } from 'firebase/auth';
+import { async } from '@firebase/util';
 
 //ALL BUTTONS TO ASK A TASK/PROJECT
 const addButton = document.querySelector('#addButton');
@@ -72,10 +76,6 @@ const inputProjectName = document.querySelector('#projectNameInput');
 submitProjectButton.addEventListener('click', (e) => {
     e.preventDefault();
 
-    // const newProject = document.createElement('li');
-    // newProject.innerText = inputProjectName.value;
-    // listProjectsContainer.append(newProject);
-
     // TasksManagerModel.addNewProject(inputProjectName.value);
     pubsub.emit('addProject', inputProjectName.value);
     TasksManagerModel.printOutProject();
@@ -112,8 +112,38 @@ const inputDescription = document.querySelector('#descriptionInput');
 const inputPriority = document.querySelector('#priorityInput');
 
 
+const db = getFirestore();
 submitTaskButton.addEventListener('click', () => {
-    console.log(inputDueDate.value);
+
+
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            const uid = user.uid;
+            /*
+            #title;
+            #detail;
+            #dueDate;
+            #priority;
+            #isDone;
+            #projectName;
+            */
+            const newTaskData = {
+                title: inputTasksTitle.value, detail: inputDescription.value, dueDate: inputDueDate.value,
+                priority: inputPriority.value, isDone: false, projectName: inputProjectSelection.value
+            };
+
+            const docRef = await addDoc(collection(db, "users", uid, "AllTasks"), newTaskData);
+            console.log(docRef.id);
+
+        } else {
+            // User is signed out
+            // ...
+        }
+    })
+
+
+
     const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value,
         inputDueDate.value, inputPriority.value, inputProjectSelection.value);
     const newController = new TaskController(newTaskModel);
@@ -125,9 +155,44 @@ submitTaskButton.addEventListener('click', () => {
     popupModalBg.classList.remove('active');
 })
 
+async function addTaskToFirebase() {
 
+}
 
 /////////////////////////////////////////
+const syncManager = (() => {
+
+    const getAllTasksFromFirebase = () => {
+
+    }
+
+    const getAllProjectsFromFirebase = () => {
+
+    }
+
+    const addTaskOnFireBase = () => {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+
+            } else {
+
+            }
+        })
+    }
+
+    const removeTaskOnFireBase = () => {
+
+    }
+
+    const removeProjectOnFireBase = () => {
+
+    }
+
+    const updateListProjectOnFireBase = () => {
+
+    }
+})()
 
 
 
@@ -175,14 +240,6 @@ let k = (function addADemoTask() {
         pubsub.emit('addTask', newTask)
     }
 })()
-
-
-
-
-
-// addButton.click();
-// addProjectOptionButton.click();
-// addTaskOptionButton.click()
 
 
 // IMPORTANT BUTTON -> BUTTONS THAT MODIFY BOTH DATA AND VIEW OR NEED DATA TO SHOW VIEW
