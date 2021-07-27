@@ -1,13 +1,13 @@
-
+import { TaskModel } from "./Task";
+import { TasksManagerModel } from "./TasksManager";
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { doc, getFirestore } from "firebase/firestore";
 import {
-    getAuth, createUserWithEmailAndPassword, signInWithPopup,
+    getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
     GoogleAuthProvider, onAuthStateChanged, signOut
 } from "firebase/auth";
 
 import { collection, addDoc } from "firebase/firestore";
-
 
 
 // ----------------Add signup event------------------------//
@@ -67,11 +67,17 @@ const db = getFirestore();
 
 const signIn = (() => {
     const signInEmailPassButton = document.querySelector('#signInButton');
+    const emailSigninInput = document.querySelector('#emailSigninInput');
+    const passwordSigninInput = document.querySelector('#passwordSigninInput');
+
     const signInGoogleButton = document.querySelector('#loginGoogleButton');
+
     const signInDemoButton = document.querySelector('#loginDemoButton');
+
     const signOutButton = document.querySelector('#signOutButton');
 
     signInGoogleButton.addEventListener('click', () => {
+        pushExampleTasksOnFireBase();
         const auth = getAuth();
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
@@ -86,6 +92,34 @@ const signIn = (() => {
                 console.log(error.message);
             });
     })
+
+    signInEmailPassButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, emailSigninInput.value, passwordSigninInput.value)
+            .then((userCredential) => {
+                // Signed in 
+                // const user = userCredential.user;
+                // ...
+            })
+            .catch((error) => {
+                displayPassEmailErr();
+                setTimeout(clearShowingErrors, 3000);
+            });
+    })
+
+    function displayPassEmailErr() {
+        emailSigninInput.value = '';
+        passwordSigninInput.value = '';
+        emailSigninInput.placeholder = 'Invalid Email/Password';
+        passwordSigninInput.placeholder = 'Invalid Email/Password';
+    }
+
+    function clearShowingErrors() {
+        emailSigninInput.placeholder = '';
+        passwordSigninInput.placeholder = '';
+    }
+
 
     signOutButton.addEventListener('click', () => {
         const auth = getAuth();
@@ -109,9 +143,10 @@ const signIn = (() => {
             // ...
         }
     })
+})()
 
 
-
+const signUp = (() => {
 
 })()
 
@@ -183,18 +218,49 @@ const createLogin = (() => {
 })()
 
 
+async function pushExampleTasksOnFireBase() {
+    for (let i = 1; i < 6; i++) {
+        let currPri;
+        if (i % 2 === 0) {
+            currPri = 'High';
+        }
+        else {
+            currPri = i % 3 === 0 ? 'Low' : 'Medium';
+        }
+
+        const newTask = new TaskModel('Task_' + i + '_1stDemo', 'none', `2021-07-${i + 15}`, currPri, '1stDemo');
+        const docRef = await addDoc(collection(db, "users", "fakeUserID", "AllTasks"),
+            { Title: newTask.getTitle(), DueDate: newTask.getDueDate(), ProjectName: newTask.getProjectName(), Status: newTask.getStatus() }
+        );
+
+    }
+
+
+    // const docRef = await addDoc(collection(db, "cities"), {
+    //     name: "Tokyo",
+    //     country: "Japan"
+    //   });
+    //   console.log("Document written with ID: ", docRef.id);
+}
+
+
+//TODO
+
+/*
+    Make a function to get all data from firebase when user login
+1/get all projects from doc
+2/push all projects into hashmap 
+3/get all tasks from doc
+4/push all in tasksmanager (use add task to avoid emit) + try to add the unique ID 
+
+    Try to organize code
+    
+    Task <-> Task manager -> login -> index
 
 
 
 
-
-
-
-
-
-
-
-
+*/
 
 
 export { createLogin }
