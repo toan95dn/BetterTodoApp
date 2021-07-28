@@ -10,10 +10,12 @@ class TaskModel {
     #priority;
     #isDone;
     #projectName;
+    #firebaseId;
 
-    constructor(title, detail, dueDate, priority, projectName) {
+    constructor(title, detail, dueDate, priority, projectName, firebaseId) {
         this.#isDone = false;
         this.updateTask(title, detail, dueDate, priority, projectName);
+        this.#firebaseId = firebaseId;
         //TODO: add a function to create a task on firebase
         //-Generate key
         //-push ->>>maybe use this.#uniqueKey = .... ???

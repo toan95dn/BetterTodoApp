@@ -1,15 +1,12 @@
-// import { pubsub } from "./pubsub";
+import { pubsub } from "./pubsub";
 import { TaskModel } from "./Task";
-// import { TasksManagerModel } from "./TasksManager";
+import { TasksManagerModel } from "./TasksManager";
 import { initializeApp } from "firebase/app";
-import { doc, getFirestore } from "firebase/firestore";
+import { doc, getFirestore, collection, addDoc } from "firebase/firestore";
 import {
     getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
     GoogleAuthProvider, onAuthStateChanged, signOut
 } from "firebase/auth";
-
-import { collection, addDoc } from "firebase/firestore";
-
 
 // ----------------Add signup event------------------------//
 
@@ -228,39 +225,7 @@ async function pushExampleTasksOnFireBase() {
 }
 
 
-const syncManager = (() => {
 
-    const getAllTasksFromFirebase = () => {
-
-    }
-
-    const getAllProjectsFromFirebase = () => {
-
-    }
-
-    const addTaskOnFireBase = () => {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-
-            } else {
-
-            }
-        })
-    }
-
-    const removeTaskOnFireBase = () => {
-
-    }
-
-    const removeProjectOnFireBase = () => {
-
-    }
-
-    const updateListProjectOnFireBase = () => {
-
-    }
-})()
 
 
 
@@ -277,7 +242,7 @@ const syncManager = (() => {
 4/push all in tasksmanager (use add task to avoid emit) + try to add the unique ID 
 
     Try to organize code
-    
+
     Task <-> Task manager -> login -> index
     move the add task and add project to task manager
 

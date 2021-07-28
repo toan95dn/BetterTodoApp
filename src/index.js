@@ -74,18 +74,12 @@ addProjectOptionButton.addEventListener('click', () => {
 const inputProjectName = document.querySelector('#projectNameInput');
 submitProjectButton.addEventListener('click', (e) => {
     e.preventDefault();
-
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             const uid = user.uid;
             const projectNamesRef = doc(db, "users", uid);
-            const docProjectNames = await getDoc(projectNamesRef);
-            if (docProjectNames.data().ProjectNames) {
-                console.log('hi');
-                // await setDoc(projectNamesRef, { Projectnames: ['Inbox'] });
-            }
-            // await updateDoc(projectNamesRef, { Projectnames: arrayUnion(inputProjectName.value) });
+            await updateDoc(projectNamesRef, { Projectnames: arrayUnion(inputProjectName.value) });
         }
     })
 
@@ -145,7 +139,7 @@ submitTaskButton.addEventListener('click', () => {
             };
 
             const docRef = await addDoc(collection(db, "users", uid, "AllTasks"), newTaskData);
-            console.log(docRef.id);
+
 
         } else {
             // User is signed out
@@ -240,17 +234,18 @@ const syncManager = (() => {
 
 
 /* Function to initialize the app */
-const initializeApp = (() => {
+const checkNewUser = (() => { //If the user is new, then set a default project called Inbox for the user
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             const uid = user.uid;
             const projectNamesRef = doc(db, "users", uid);
             const docProjectNames = await getDoc(projectNamesRef);
+            console.log(docProjectNames.data().ProjectNames);
             if (docProjectNames.data().ProjectNames === undefined) {
                 await setDoc(projectNamesRef, { Projectnames: ['Inbox'] });
             }
-            // await updateDoc(projectNamesRef, { Projectnames: arrayUnion(inputProjectName.value) });
+            // await updateDoc(projectNamesRef, { Projectnames: arrayUnion(inputProjectName.value) }); 
         }
     })
 })()
