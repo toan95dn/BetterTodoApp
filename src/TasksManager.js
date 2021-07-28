@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import isToday from 'dayjs/plugin/isToday';
+import { doc } from "firebase/firestore";
 dayjs.extend(isToday);
 import { pubsub } from "./pubsub";
 import { TaskController, TaskModel, TaskView } from "./Task";
@@ -77,6 +78,8 @@ const TasksManagerModel = (() => {
 
 const TasksManagerView = (() => {
 
+    const projectViewMap = new Map();
+
     const listProjectsContainer = document.querySelector('.listProjectsContainer');
     const listOfTasksContainer = document.querySelector('.listOfTasks');
 
@@ -94,11 +97,14 @@ const TasksManagerView = (() => {
                 <div class ='confirmDelete'>Confirm</div>
                 <div class ='cancelDelete'>Cancel</div>
             </div>
-            <div data-numTasksOf = ${projectName}>0</div>
+            <div data-numTasksOf = ${projectName.toString()}>0</div>
             <div>${projectName}</div>
             <div class = 'material-icons'>delete</div>
         `
         listProjectsContainer.append(newProjectView);
+
+        projectViewMap.set(projectName, newProjectView);
+
         return newProjectView;
     }
 
@@ -123,8 +129,7 @@ const TasksManagerView = (() => {
     const updateNumTaskView = (projectName, newNum) => {
         if (projectName !== 'Inbox') {
             const currNumTaskView = document.querySelector(`div[data-numTasksOf='${projectName}']`);
-            console.log(currNumTaskView)
-            // currNumTaskView.innerText = newNum;
+            currNumTaskView.innerText = newNum;
         }
     }
 
@@ -192,6 +197,8 @@ const TasksManagerController = (() => {
             TasksManagerView.updateTilteOfTasksContainer(`Removed ${projectName}`);
             TasksManagerView.clearAllTasksView();
         })
+
+        //Bind event to update the total tasks in each project view
 
         TasksManagerView.updateNumTaskView(projectName, TasksManagerModel.getSizeOfProject(projectName))
     }
