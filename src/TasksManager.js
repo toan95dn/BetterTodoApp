@@ -16,7 +16,6 @@ const TasksManagerModel = (() => {
         }
         return false;
     }
-    // pubsub.on('addProject', addNewProject);
 
     const removeProject = (projectName) => {
         projectMap.delete(projectName);
@@ -124,7 +123,8 @@ const TasksManagerView = (() => {
     const updateNumTaskView = (projectName, newNum) => {
         if (projectName !== 'Inbox') {
             const currNumTaskView = document.querySelector(`div[data-numTasksOf='${projectName}']`);
-            currNumTaskView.innerText = newNum;
+            console.log(currNumTaskView)
+            // currNumTaskView.innerText = newNum;
         }
     }
 
@@ -161,6 +161,10 @@ const TasksManagerController = (() => {
             return;
         };
 
+        createAndBindProjectViewWithEvent(projectName);
+    }
+
+    const createAndBindProjectViewWithEvent = (projectName) => {
         const newProjectView = TasksManagerView.addProjectView(projectName);
         newProjectView.addEventListener('click', () => { switchToTab(projectName); })
         const deleteProjectButton = newProjectView.lastElementChild;
@@ -188,7 +192,11 @@ const TasksManagerController = (() => {
             TasksManagerView.updateTilteOfTasksContainer(`Removed ${projectName}`);
             TasksManagerView.clearAllTasksView();
         })
+
+        TasksManagerView.updateNumTaskView(projectName, TasksManagerModel.getSizeOfProject(projectName))
     }
+
+
     pubsub.on('addProject', createProjectDataAndView);
 
     //Update the number of tasks of each project view (the number show on the left of the project)
@@ -274,7 +282,7 @@ const TasksManagerController = (() => {
 
     //
 
-
+    return { createAndBindProjectViewWithEvent }
 })()
 
 

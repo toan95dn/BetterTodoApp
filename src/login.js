@@ -1,5 +1,5 @@
 import { pubsub } from "./pubsub";
-import { TaskModel } from "./Task";
+import { TaskController, TaskModel } from "./Task";
 import { TasksManagerModel } from "./TasksManager";
 import { initializeApp } from "firebase/app";
 import { doc, getFirestore, collection, addDoc } from "firebase/firestore";
@@ -213,6 +213,8 @@ async function pushExampleTasksOnFireBase() {
         const docRef = await addDoc(collection(db, "users", "fakeUserID", "AllTasks"),
             { Title: newTask.getTitle(), DueDate: newTask.getDueDate(), ProjectName: newTask.getProjectName(), Status: newTask.getStatus() }
         );
+
+        //Render all projects + 
 
     }
 

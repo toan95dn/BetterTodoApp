@@ -3,10 +3,10 @@ import './hamburger.css';
 import './login.css';
 import 'normalize.css'
 import './login';
-import { doc, getFirestore, collection, addDoc, updateDoc, getDoc, setDoc, arrayUnion } from "firebase/firestore";
+import { doc, getFirestore, collection, addDoc, updateDoc, getDoc, setDoc, arrayUnion, getDocs } from "firebase/firestore";
 import { onAuthStateChanged } from '@firebase/auth';
 import { TaskModel, TaskView, TaskController } from './Task';
-import { TasksManagerModel } from './TasksManager';
+import { TasksManagerController, TasksManagerModel } from './TasksManager';
 import { pubsub } from './pubsub';
 import { getAuth } from 'firebase/auth';
 
@@ -80,18 +80,9 @@ submitProjectButton.addEventListener('click', (e) => {
             const uid = user.uid;
             const projectNamesRef = doc(db, "users", uid);
             await updateDoc(projectNamesRef, { ProjectNames: arrayUnion(inputProjectName.value) });
+            pubsub.emit('addProject', inputProjectName.value);
         }
     })
-
-
-    /*await updateDoc(washingtonRef, {
-    regions: arrayUnion("greater_virginia")
-    }); */
-
-
-    // TasksManagerModel.addNewProject(inputProjectName.value);
-    pubsub.emit('addProject', inputProjectName.value);
-    TasksManagerModel.printOutProject();
 
     popupModalBg.classList.remove('active');
     createProjectModal.classList.remove('active');
@@ -139,8 +130,10 @@ submitTaskButton.addEventListener('click', () => {
             };
 
             const docRef = await addDoc(collection(db, "users", uid, "AllTasks"), newTaskData);
-
-
+            const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value,
+                inputDueDate.value, inputPriority.value, inputProjectSelection.value);
+            const newController = new TaskController(newTaskModel);
+            pubsub.emit('addTask', newTaskModel);
         } else {
             // User is signed out
             // ...
@@ -149,12 +142,9 @@ submitTaskButton.addEventListener('click', () => {
 
 
 
-    const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value,
-        inputDueDate.value, inputPriority.value, inputProjectSelection.value);
-    const newController = new TaskController(newTaskModel);
+
 
     //title, detail, dueDate, priority, projectName
-    pubsub.emit('addTask', newTaskModel);
 
     createTaskModal.classList.remove('active');
     popupModalBg.classList.remove('active');
@@ -234,18 +224,50 @@ const syncManager = (() => {
 
 
 /* Function to initialize the app */
-const checkNewUser = (() => { //If the user is new, then set a default project called Inbox for the user
+const checkUserData = (() => { //If the user is new, then set a default project called Inbox for the user
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
         if (user) {
+            console.log('shit')
             const uid = user.uid;
             const userDocRef = doc(db, "users", uid);
             const docSnap = await getDoc(userDocRef);
             if (!docSnap.exists()) {//<---------This is the first time user
-                await setDoc(userDocRef, { ProjectNames: ['Inbox'] });
+                await setDoc(userDocRef, { ProjectNames: ['Inbox'] });//<--------set a default project
+            }
+            else {
+                //Set all projects
+                const allProjectNames = docSnap.data().ProjectNames;
+                allProjectNames.forEach(projectName => {
+                    TasksManagerModel.addNewProject(projectName);
+                })
+
+                //Set all tasks
+                const querySnapshot = await getDocs(collection(db, "users", uid, "AllTasks"));
+                querySnapshot.forEach((doc) => {
+                    const currTaskData = doc.data();
+                    const firebaseID = doc.id;
+                    //convert data from firebase to local
+                    const currTaskModel = new TaskModel(currTaskData.title, currTaskData.detail,
+                        currTaskData.dueDate, currTaskData.priority, currTaskData.projectName, firebaseID)
+                    TasksManagerModel.addNewTask(currTaskModel);
+                });
+
+                //Render all projects
+                // allProjectNames.forEach(projectName => {
+                //     if (projectName !== 'Inbox') {
+                //         TasksManagerController.createAndBindProjectViewWithEvent(projectName);
+                //     }
+                // })
             }
         }
     })
 })()
+
+function deleteTaskFirebase() {
+
+}
+
+
 
 

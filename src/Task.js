@@ -29,6 +29,7 @@ class TaskModel {
     getStatus() { return this.#isDone; }
     getPriority() { return this.#priority; }
     getProjectName() { return this.#projectName; }
+    getFirebaseID() { return this.#firebaseId; }
 
     //setters
     setTitle(newTitle) { this.#title = newTitle; }
