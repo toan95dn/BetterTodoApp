@@ -79,7 +79,7 @@ submitProjectButton.addEventListener('click', (e) => {
         if (user) {
             const uid = user.uid;
             const projectNamesRef = doc(db, "users", uid);
-            await updateDoc(projectNamesRef, { Projectnames: arrayUnion(inputProjectName.value) });
+            await updateDoc(projectNamesRef, { ProjectNames: arrayUnion(inputProjectName.value) });
         }
     })
 
