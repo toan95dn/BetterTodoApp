@@ -238,14 +238,14 @@ const checkNewUser = (() => { //If the user is new, then set a default project c
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            console.log('asdads')
             const uid = user.uid;
-            const projectNamesRef = doc(db, "users", uid);
-            const docProjectNames = await getDoc(projectNamesRef);
-            if (docProjectNames.data().Projectnames === undefined) {
-                await setDoc(projectNamesRef, { Projectnames: ['Inbox'] });
+            const userDocRef = doc(db, "users", uid);
+            const docSnap = await getDoc(userDocRef);
+            if (!docSnap.exists()) {//<---------This is the first time user
+                await setDoc(userDocRef, { ProjectNames: ['Inbox'] });
             }
         }
     })
 })()
+
 
