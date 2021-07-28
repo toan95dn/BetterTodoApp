@@ -235,14 +235,17 @@ const syncManager = (() => {
 
 /* Function to initialize the app */
 const checkNewUser = (() => { //If the user is new, then set a default project called Inbox for the user
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaa1')
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             const uid = user.uid;
             const projectNamesRef = doc(db, "users", uid);
             const docProjectNames = await getDoc(projectNamesRef);
-            console.log(docProjectNames.data().ProjectNames);
-            if (docProjectNames.data().ProjectNames === undefined) {
+            const objContainProjectNames = await docProjectNames.data();
+            const arrayProjectNames = objContainProjectNames.Projectnames;
+            if (arrayProjectNames === undefined) {
+                console.log('shit');
                 await setDoc(projectNamesRef, { Projectnames: ['Inbox'] });
             }
             // await updateDoc(projectNamesRef, { Projectnames: arrayUnion(inputProjectName.value) }); 
