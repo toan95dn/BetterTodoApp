@@ -253,12 +253,12 @@ const checkUserData = (() => { //If the user is new, then set a default project 
                     TasksManagerModel.addNewTask(currTaskModel);
                 });
 
-                //Render all projects
-                // allProjectNames.forEach(projectName => {
-                //     if (projectName !== 'Inbox') {
-                //         TasksManagerController.createAndBindProjectViewWithEvent(projectName);
-                //     }
-                // })
+                // Render all projects
+                allProjectNames.forEach(projectName => {
+                    if (projectName !== 'Inbox') {
+                        TasksManagerController.createAndBindProjectViewWithEvent(projectName);
+                    }
+                })
             }
         }
     })
