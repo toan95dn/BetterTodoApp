@@ -203,10 +203,10 @@ function deleteProjectFireBase(projectName) {
     })
 }
 
-pubsub.on('removeProject', deleteProjectFireBase);
+pubsub.on('removeProjectFireBase', deleteProjectFireBase);
 
 
-async function deleteTaskFireBase(task) {
+function deleteTaskFireBase(task) {
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
         if (user) {
@@ -216,8 +216,11 @@ async function deleteTaskFireBase(task) {
     })
 }
 
-pubsub.on('removeTask', deleteTaskFireBase);
+pubsub.on('removeTaskFirebase', deleteTaskFireBase);
 
+function updateTaskFireBase(task) {
+
+}
 
 
 

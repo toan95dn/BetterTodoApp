@@ -299,6 +299,7 @@ class TaskController {
             event.stopPropagation();
             this.#taskView.removeView();
             pubsub.emit('removeTask', this.#taskModel);
+            pubsub.emit('removeTaskFirebase', this.#taskModel);
         })
     }
 
