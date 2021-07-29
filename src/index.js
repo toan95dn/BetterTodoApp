@@ -3,7 +3,7 @@ import './hamburger.css';
 import './login.css';
 import 'normalize.css'
 import './login';
-import { doc, getFirestore, collection, addDoc, updateDoc, getDoc, setDoc, arrayUnion, getDocs } from "firebase/firestore";
+import { doc, getFirestore, collection, addDoc, updateDoc, getDoc, setDoc, arrayUnion, arrayRemove, getDocs, query, where, deleteDoc } from "firebase/firestore";
 import { onAuthStateChanged } from '@firebase/auth';
 import { TaskModel, TaskView, TaskController } from './Task';
 import { TasksManagerController, TasksManagerModel } from './TasksManager';
@@ -185,37 +185,7 @@ const syncManager = (() => {
 
 
 
-// const inputTaskTitle;
-// const inputDescription;
 
-
-// let m = (function addDemoProjectAndTask() {
-//     pubsub.emit('addProject', '1stDemo');
-//     pubsub.emit('addProject', '2ndDemo');
-//     pubsub.emit('addProject', '3rdDemo');
-//     pubsub.emit('addProject', '4thDemo');
-//     pubsub.emit('addProject', '5thDemo');
-//     pubsub.emit('addProject', '6thDemo');
-// })()
-
-// let k = (function addADemoTask() {
-//     for (let i = 1; i < 12; i++) {
-//         let currPri;
-//         if (i % 2 === 0) {
-//             currPri = 'High';
-//         }
-//         else {
-//             currPri = i % 3 === 0 ? 'Low' : 'Medium';
-//         }
-//         const newTask = new TaskModel('Task_' + i + '_1stDemo', 'none', `2021-07-${i + 15}`, currPri, '1stDemo');
-//         pubsub.emit('addTask', newTask)
-//     }
-
-//     for (let i = 1; i < 6; i++) {
-//         const newTask = new TaskModel('Task_' + i + '_2ndDemo', 'none', `2021-${'0' + i}-10`, 'High', '2ndDemo');
-//         pubsub.emit('addTask', newTask)
-//     }
-// })()
 
 
 // IMPORTANT BUTTON -> BUTTONS THAT MODIFY BOTH DATA AND VIEW OR NEED DATA TO SHOW VIEW
@@ -228,14 +198,14 @@ const checkUserData = (() => { //If the user is new, then set a default project 
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            console.log('shit')
+
             const uid = user.uid;
             const userDocRef = doc(db, "users", uid);
             const docSnap = await getDoc(userDocRef);
             if (!docSnap.exists()) {//<---------This is the first time user
-                await setDoc(userDocRef, { ProjectNames: ['Inbox'] });//<--------set a default project
+                await setDoc(userDocRef, { ProjectNames: ['Inbox'] });//set a default project
             }
-            else {
+            else {//<---------Not a first time user
                 //Set all projects
                 const allProjectNames = docSnap.data().ProjectNames;
                 allProjectNames.forEach(projectName => {
@@ -264,9 +234,39 @@ const checkUserData = (() => { //If the user is new, then set a default project 
     })
 })()
 
-function deleteTaskFirebase() {
-
+function deleteProjectFireBase(projectName) {
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            const uid = user.uid;
+            const projectNamesRef = doc(db, "users", uid);
+            // await updateDoc(projectNamesRef, { ProjectNames: arrayRemove(projectName) });
+            const queryAllTasksOfProject = query(collection(db, "users", uid, "AllTasks"), where("projectName", "==", "4thproject"));
+            const allTasksSnapshot = await getDocs(queryAllTasksOfProject);
+            allTasksSnapshot.forEach((document) => {
+                deleteDoc(doc(db, "users", uid, "AllTasks", document.id));
+            })
+        }
+    })
 }
+
+pubsub.on('removeProject', deleteProjectFireBase);
+
+
+async function deleteTaskFireBase(task) {
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            const uid = user.uid;
+            deleteDoc(doc(db, 'users', uid, "AllTasks", task.getFirebaseID()));
+        }
+    })
+}
+
+pubsub.on('removeTask', deleteTaskFireBase);
+
+
+
 
 
 
