@@ -87,6 +87,14 @@ const TasksManagerView = (() => {
 
     }
 
+
+
+    /*TODO: Add these functions
+    getDeleteButtonView
+    getConfirmDeleteView
+    getNumOfTasksView
+    */
+
     const addProjectView = (projectName) => {
 
 
@@ -97,10 +105,11 @@ const TasksManagerView = (() => {
                 <div class ='confirmDelete'>Confirm</div>
                 <div class ='cancelDelete'>Cancel</div>
             </div>
-            <div data-numTasksOf = ${projectName.toString()}>0</div>
+            <div class ='numTasks'}>0</div>
             <div>${projectName}</div>
             <div class = 'material-icons'>delete</div>
         `
+        //TODO remove data-numTaskOf
         listProjectsContainer.append(newProjectView);
 
         projectViewMap.set(projectName, newProjectView);
@@ -128,7 +137,8 @@ const TasksManagerView = (() => {
     //Update the number of tasks of each project
     const updateNumTaskView = (projectName, newNum) => {
         if (projectName !== 'Inbox') {
-            const currNumTaskView = document.querySelector(`div[data-numTasksOf='${projectName}']`);
+            const currProjectView = projectViewMap.get(projectName);
+            const currNumTaskView = currProjectView.querySelector('.numTasks');
             currNumTaskView.innerText = newNum;
         }
     }
