@@ -43,8 +43,6 @@ closeProjectForm.addEventListener('click', () => {
 })
 
 //
-
-//
 addButton.addEventListener('click', () => {
     popUporClosedAddTaskOrProject();
 })
@@ -140,20 +138,13 @@ submitTaskButton.addEventListener('click', () => {
         }
     })
 
-
-
-
-
     //title, detail, dueDate, priority, projectName
-
     createTaskModal.classList.remove('active');
     popupModalBg.classList.remove('active');
 })
 
-// IMPORTANT BUTTON -> BUTTONS THAT MODIFY BOTH DATA AND VIEW OR NEED DATA TO SHOW VIEW
-//SUBMIT A TASK/PROJECT , DELETE A TASK/PROJECT, TAB HOME/TODAY/WEEK/A PROJECT, SORT BY TIME
 
-
+/*---------------------------------------Firebase stuff------------------------------------------------ */
 
 /* Function to initialize the app */
 const checkUserData = (() => { //If the user is new, then set a default project called Inbox for the user

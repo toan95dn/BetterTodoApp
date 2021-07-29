@@ -203,7 +203,7 @@ const createLogin = (() => {
 /*
     move all things related to firebase here
     all firebase function will be export to index.js and index.js is gonna use it ????
-
+    FIX: week tab
 */
 
 
