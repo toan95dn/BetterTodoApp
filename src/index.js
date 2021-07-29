@@ -240,8 +240,8 @@ function deleteProjectFireBase(projectName) {
         if (user) {
             const uid = user.uid;
             const projectNamesRef = doc(db, "users", uid);
-            // await updateDoc(projectNamesRef, { ProjectNames: arrayRemove(projectName) });
-            const queryAllTasksOfProject = query(collection(db, "users", uid, "AllTasks"), where("projectName", "==", "4thproject"));
+            await updateDoc(projectNamesRef, { ProjectNames: arrayRemove(projectName) });
+            const queryAllTasksOfProject = query(collection(db, "users", uid, "AllTasks"), where("projectName", "==", projectName));
             const allTasksSnapshot = await getDocs(queryAllTasksOfProject);
             allTasksSnapshot.forEach((document) => {
                 deleteDoc(doc(db, "users", uid, "AllTasks", document.id));
