@@ -217,72 +217,7 @@ async function pushExampleTasksOnFireBase() {
         );
 
     }
-
-
-    // const docRef = await addDoc(collection(db, "cities"), {
-    //     name: "Tokyo",
-    //     country: "Japan"
-    //   });
-    //   console.log("Document written with ID: ", docRef.id);
 }
-
-
-const syncManager = (() => {
-
-    const getAllTasksFromFirebase = () => {
-
-    }
-
-    const getAllProjectsFromFirebase = () => {
-
-    }
-
-    const addTaskOnFireBase = () => {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-
-            } else {
-
-            }
-        })
-    }
-
-    const removeTaskOnFireBase = () => {
-
-    }
-
-    const removeProjectOnFireBase = () => {
-
-    }
-
-    const updateListProjectOnFireBase = () => {
-
-    }
-})()
-
-
-
-
-
-
-//TODO
-
-/*
-    Make a function to get all data from firebase when user login
-1/get all projects from doc
-2/push all projects into hashmap 
-3/get all tasks from doc
-4/push all in tasksmanager (use add task to avoid emit) + try to add the unique ID 
-
-    Try to organize code
-    
-    Task <-> Task manager -> login -> index
-    move the add task and add project to task manager
-
-
-
-*/
 
 
 export { createLogin }
