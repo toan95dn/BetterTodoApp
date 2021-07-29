@@ -199,23 +199,13 @@ const createLogin = (() => {
 })()
 
 
-async function pushExampleTasksOnFireBase() {
-    for (let i = 1; i < 6; i++) {
-        let currPri;
-        if (i % 2 === 0) {
-            currPri = 'High';
-        }
-        else {
-            currPri = i % 3 === 0 ? 'Low' : 'Medium';
-        }
+//----------------------------TODO-------------------------------
+/*
+    move all things related to firebase here
+    all firebase function will be export to index.js and index.js is gonna use it ????
 
-        const newTask = new TaskModel('Task_' + i + '_1stDemo', 'none', `2021-07-${i + 15}`, currPri, '1stDemo');
-        const docRef = await addDoc(collection(db, "users", "fakeUserID", "AllTasks"),
-            { Title: newTask.getTitle(), DueDate: newTask.getDueDate(), ProjectName: newTask.getProjectName(), Status: newTask.getStatus() }
-        );
+*/
 
-    }
-}
 
 
 export { createLogin }
