@@ -107,7 +107,7 @@ const TasksManagerView = (() => {
             </div>
             <div class ='numTasks'}>0</div>
             <div>${projectName}</div>
-            <div class = 'material-icons'>delete</div>
+            <div class = 'material-icons deleteProject'>delete</div>
         `
         //TODO remove data-numTaskOf
         listProjectsContainer.append(newProjectView);
@@ -182,9 +182,9 @@ const TasksManagerController = (() => {
     const createAndBindProjectViewWithEvent = (projectName) => {
         const newProjectView = TasksManagerView.addProjectView(projectName);
         newProjectView.addEventListener('click', () => { switchToTab(projectName); })
-        const deleteProjectButton = newProjectView.lastElementChild;
 
-        const popupConfirm = newProjectView.firstElementChild;
+        const deleteProjectButton = newProjectView.querySelector('.deleteProject');
+        const popupConfirm = newProjectView.querySelector('.confirmDeleteProject');
 
         //Bind event to delete project button
         deleteProjectButton.addEventListener('click', (event) => {
@@ -193,13 +193,13 @@ const TasksManagerController = (() => {
         })
 
         //Bind event to confirm to delete project or cancel to delete
-        const cancelToDeleteButton = popupConfirm.lastElementChild;
+        const cancelToDeleteButton = newProjectView.querySelector('.cancelDelete');
         cancelToDeleteButton.addEventListener('click', (event) => {
             event.stopPropagation();
             popupConfirm.classList.remove('active');
         });
 
-        const confirmToDeleteButton = popupConfirm.firstElementChild;
+        const confirmToDeleteButton = newProjectView.querySelector('.confirmDelete');
         confirmToDeleteButton.addEventListener('click', (event) => {
             event.stopPropagation();
             newProjectView.remove();
