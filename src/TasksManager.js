@@ -39,12 +39,6 @@ const TasksManagerModel = (() => {
     }
     pubsub.on('removeTask', removeTask);
 
-    const moveTask = (task, anotherProject) => {
-        removeTask(task);
-        task.setProjectName(anotherProject);
-        addNewTask(task, anotherProject);
-    }
-
     const printOutProject = () => {
     }
 
@@ -210,6 +204,7 @@ const TasksManagerController = (() => {
             event.stopPropagation();
             newProjectView.remove();
             pubsub.emit('removeProject', projectName);
+            pubsub.emit('removeProjectFireBase', projectName);
             TasksManagerView.updateTilteOfTasksContainer(`Removed ${projectName}`);
             TasksManagerView.clearAllTasksView();
         })
