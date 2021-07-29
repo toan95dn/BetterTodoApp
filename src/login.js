@@ -82,11 +82,7 @@ const signIn = (() => {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
             .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                // The signed-in user info.
-                const user = result.user;
+                console.log('Login with GG!')
             }).catch((error) => {
                 console.log(error.message);
             });
@@ -134,10 +130,12 @@ const signIn = (() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-            // const uid = user.uid;
+
             loginSignUpContainer.classList.remove('active');
+            const greetUserView = document.querySelector('#greetUser');
+            const userEmail = user.email;
+            const userName = userEmail.substring(0, userEmail.lastIndexOf('@'));
+            greetUserView.innerText = 'Hi, ' + userName;
         } else {
             // User is signed out
             // ...

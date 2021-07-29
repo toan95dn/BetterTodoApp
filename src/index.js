@@ -150,44 +150,6 @@ submitTaskButton.addEventListener('click', () => {
     popupModalBg.classList.remove('active');
 })
 
-async function addTaskToFirebase() {
-
-}
-
-/////////////////////////////////////////
-const syncManager = (() => {
-
-    const getAllTasksFromFirebase = () => {
-
-    }
-
-    const getAllProjectsFromFirebase = () => {
-
-    }
-
-    const addTaskOnFireBase = async () => {
-
-
-    }
-
-    const removeTaskOnFireBase = () => {
-
-    }
-
-    const removeProjectOnFireBase = () => {
-
-    }
-
-    const updateListProjectOnFireBase = () => {
-
-    }
-})()
-
-
-
-
-
-
 // IMPORTANT BUTTON -> BUTTONS THAT MODIFY BOTH DATA AND VIEW OR NEED DATA TO SHOW VIEW
 //SUBMIT A TASK/PROJECT , DELETE A TASK/PROJECT, TAB HOME/TODAY/WEEK/A PROJECT, SORT BY TIME
 
