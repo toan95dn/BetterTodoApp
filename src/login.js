@@ -1,15 +1,12 @@
 import { pubsub } from "./pubsub";
-import { TaskModel } from "./Task";
+import { TaskController, TaskModel } from "./Task";
 import { TasksManagerModel } from "./TasksManager";
 import { initializeApp } from "firebase/app";
-import { doc, getFirestore } from "firebase/firestore";
+import { doc, getFirestore, collection, addDoc } from "firebase/firestore";
 import {
     getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
     GoogleAuthProvider, onAuthStateChanged, signOut
 } from "firebase/auth";
-
-import { collection, addDoc } from "firebase/firestore";
-
 
 // ----------------Add signup event------------------------//
 
@@ -88,7 +85,7 @@ const signIn = (() => {
                 const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
-                console.log(user);
+                // console.log(user);
             }).catch((error) => {
                 console.log(error.message);
             });
@@ -217,6 +214,8 @@ async function pushExampleTasksOnFireBase() {
             { Title: newTask.getTitle(), DueDate: newTask.getDueDate(), ProjectName: newTask.getProjectName(), Status: newTask.getStatus() }
         );
 
+        //Render all projects + 
+
     }
 
 
@@ -228,39 +227,7 @@ async function pushExampleTasksOnFireBase() {
 }
 
 
-const syncManager = (() => {
 
-    const getAllTasksFromFirebase = () => {
-
-    }
-
-    const getAllProjectsFromFirebase = () => {
-
-    }
-
-    const addTaskOnFireBase = () => {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-
-            } else {
-
-            }
-        })
-    }
-
-    const removeTaskOnFireBase = () => {
-
-    }
-
-    const removeProjectOnFireBase = () => {
-
-    }
-
-    const updateListProjectOnFireBase = () => {
-
-    }
-})()
 
 
 
@@ -277,7 +244,7 @@ const syncManager = (() => {
 4/push all in tasksmanager (use add task to avoid emit) + try to add the unique ID 
 
     Try to organize code
-    
+
     Task <-> Task manager -> login -> index
     move the add task and add project to task manager
 

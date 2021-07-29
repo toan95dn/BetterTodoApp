@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import isToday from 'dayjs/plugin/isToday';
+import { doc } from "firebase/firestore";
 dayjs.extend(isToday);
 import { pubsub } from "./pubsub";
 import { TaskController, TaskModel, TaskView } from "./Task";
@@ -16,7 +17,6 @@ const TasksManagerModel = (() => {
         }
         return false;
     }
-    // pubsub.on('addProject', addNewProject);
 
     const removeProject = (projectName) => {
         projectMap.delete(projectName);
@@ -78,12 +78,22 @@ const TasksManagerModel = (() => {
 
 const TasksManagerView = (() => {
 
+    const projectViewMap = new Map();
+
     const listProjectsContainer = document.querySelector('.listProjectsContainer');
     const listOfTasksContainer = document.querySelector('.listOfTasks');
 
     const removeProjectView = () => {
 
     }
+
+
+
+    /*TODO: Add these functions
+    getDeleteButtonView
+    getConfirmDeleteView
+    getNumOfTasksView
+    */
 
     const addProjectView = (projectName) => {
 
@@ -95,11 +105,15 @@ const TasksManagerView = (() => {
                 <div class ='confirmDelete'>Confirm</div>
                 <div class ='cancelDelete'>Cancel</div>
             </div>
-            <div data-numTasksOf = ${projectName}>0</div>
+            <div class ='numTasks'}>0</div>
             <div>${projectName}</div>
-            <div class = 'material-icons'>delete</div>
+            <div class = 'material-icons deleteProject'>delete</div>
         `
+        //TODO remove data-numTaskOf
         listProjectsContainer.append(newProjectView);
+
+        projectViewMap.set(projectName, newProjectView);
+
         return newProjectView;
     }
 
@@ -123,7 +137,8 @@ const TasksManagerView = (() => {
     //Update the number of tasks of each project
     const updateNumTaskView = (projectName, newNum) => {
         if (projectName !== 'Inbox') {
-            const currNumTaskView = document.querySelector(`div[data-numTasksOf='${projectName}']`);
+            const currProjectView = projectViewMap.get(projectName);
+            const currNumTaskView = currProjectView.querySelector('.numTasks');
             currNumTaskView.innerText = newNum;
         }
     }
@@ -161,11 +176,15 @@ const TasksManagerController = (() => {
             return;
         };
 
+        createAndBindProjectViewWithEvent(projectName);
+    }
+
+    const createAndBindProjectViewWithEvent = (projectName) => {
         const newProjectView = TasksManagerView.addProjectView(projectName);
         newProjectView.addEventListener('click', () => { switchToTab(projectName); })
-        const deleteProjectButton = newProjectView.lastElementChild;
 
-        const popupConfirm = newProjectView.firstElementChild;
+        const deleteProjectButton = newProjectView.querySelector('.deleteProject');
+        const popupConfirm = newProjectView.querySelector('.confirmDeleteProject');
 
         //Bind event to delete project button
         deleteProjectButton.addEventListener('click', (event) => {
@@ -174,13 +193,13 @@ const TasksManagerController = (() => {
         })
 
         //Bind event to confirm to delete project or cancel to delete
-        const cancelToDeleteButton = popupConfirm.lastElementChild;
+        const cancelToDeleteButton = newProjectView.querySelector('.cancelDelete');
         cancelToDeleteButton.addEventListener('click', (event) => {
             event.stopPropagation();
             popupConfirm.classList.remove('active');
         });
 
-        const confirmToDeleteButton = popupConfirm.firstElementChild;
+        const confirmToDeleteButton = newProjectView.querySelector('.confirmDelete');
         confirmToDeleteButton.addEventListener('click', (event) => {
             event.stopPropagation();
             newProjectView.remove();
@@ -188,7 +207,13 @@ const TasksManagerController = (() => {
             TasksManagerView.updateTilteOfTasksContainer(`Removed ${projectName}`);
             TasksManagerView.clearAllTasksView();
         })
+
+        //Bind event to update the total tasks in each project view
+
+        TasksManagerView.updateNumTaskView(projectName, TasksManagerModel.getSizeOfProject(projectName))
     }
+
+
     pubsub.on('addProject', createProjectDataAndView);
 
     //Update the number of tasks of each project view (the number show on the left of the project)
@@ -274,7 +299,7 @@ const TasksManagerController = (() => {
 
     //
 
-
+    return { createAndBindProjectViewWithEvent }
 })()
 
 
