@@ -219,8 +219,22 @@ function deleteTaskFireBase(task) {
 pubsub.on('removeTaskFirebase', deleteTaskFireBase);
 
 function updateTaskFireBase(task) {
-
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            const uid = user.uid;
+            const taskRef = doc(db, "users", uid, "AllTasks", task.getFirebaseID());
+            updateDoc(taskRef,
+                {
+                    title: task.getTitle(), detail: task.getDetail(), dueDate: task.getDueDate(),
+                    priority: task.getPriority(), isDone: task.getStatus(), projectName: task.getProjectName()
+                }
+            );
+        }
+    })
 }
+
+pubsub.on('updateTaskFirebase', updateTaskFireBase);
 
 
 
