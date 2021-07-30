@@ -1,7 +1,6 @@
 import { TasksManagerModel } from "./TasksManager";
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { pubsub } from "./pubsub";
-
 
 class TaskModel {
     #title;
@@ -45,12 +44,8 @@ class TaskModel {
         this.#projectName = projectName;
     }
 
-    removeTask() {
-
-    }
-
-    moveTask() {
-
+    isOverDue() {
+        return dayjs().isAfter(this.#dueDate);
     }
 }
 
@@ -127,6 +122,15 @@ class TaskView {
         }
     }
 
+    setOverdueView(isOverDue) {
+        if (isOverDue) {
+            this.#taskView.classList.add('overdue');
+        }
+        else {
+            this.#taskView.classList.remove('overdue');
+        }
+    }
+
     createShowDetailTaskView(title, dueDate, projectName, detail, priority) {
 
         const popUpBg = document.createElement('div');
@@ -195,6 +199,7 @@ class TaskController {
     constructor(taskModel) {
         this.#taskModel = taskModel;
         this.#taskView = new TaskView(taskModel.getTitle(), taskModel.getDueDate(), taskModel.getPriority(), taskModel.getStatus());
+        this.#taskView.setOverdueView(this.#taskModel.isOverDue());
 
         this.#bindShowDetailEvent();
         this.#bindChangeStatusEvent();
@@ -276,6 +281,7 @@ class TaskController {
                 this.#taskModel.updateTask(editTitleInput.value, editDetailInput.value, editDueDateInput.value, editPriorityInput.value, editProjectInput.value);
                 pubsub.emit('addTask', this.#taskModel);
                 pubsub.emit('updateTaskFirebase', this.#taskModel);
+                this.#taskView.setOverdueView(this.#taskModel.isOverDue());
                 this.#taskView.turnOffPopup();
             })
 

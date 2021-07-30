@@ -336,6 +336,10 @@ nav .material-icons{
     background-color: var(--task-bg-color);
 }
 
+.task.overdue{
+    color: #d00000;
+}
+
 .task.High{
     border-left: 0.5rem solid #d00000;
 }
