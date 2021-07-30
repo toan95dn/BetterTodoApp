@@ -1,7 +1,4 @@
-import { pubsub } from "./pubsub";
-import { TaskController, TaskModel } from "./Task";
-import { TasksManagerController, TasksManagerModel, TasksManagerView } from "./TasksManager";
-import { doc, getFirestore } from "firebase/firestore";
+import { TasksManagerController } from "./TasksManager";
 import {
     getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
     GoogleAuthProvider, onAuthStateChanged, signOut
@@ -49,9 +46,6 @@ gobackButton.addEventListener('click', () => {
 // -----------------Link with firebase---------------------//
 const loginSignUpContainer = document.querySelector('.loginSignUpContainer');
 
-
-
-const db = getFirestore();
 
 const signIn = (() => {
     const signInEmailPassButton = document.querySelector('#signInButton');
