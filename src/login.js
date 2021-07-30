@@ -1,15 +1,12 @@
 import { pubsub } from "./pubsub";
 import { TaskController, TaskModel } from "./Task";
 import { TasksManagerController, TasksManagerModel, TasksManagerView } from "./TasksManager";
-import { initializeApp } from "firebase/app";
 import { doc, getFirestore } from "firebase/firestore";
 import {
     getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
     GoogleAuthProvider, onAuthStateChanged, signOut
 } from "firebase/auth";
-
-import { collection, addDoc } from "firebase/firestore";
-
+import { FireBaseManager } from "./FirebaseManager";
 
 // ----------------Add signup event------------------------//
 
@@ -52,17 +49,7 @@ gobackButton.addEventListener('click', () => {
 // -----------------Link with firebase---------------------//
 const loginSignUpContainer = document.querySelector('.loginSignUpContainer');
 
-const firebaseConfig = {
-    apiKey: "AIzaSyC-KTkKoCLeTWTRKKkjo1kKPysbXhlYnWg",
-    authDomain: "todo-95d7e.firebaseapp.com",
-    projectId: "todo-95d7e",
-    storageBucket: "todo-95d7e.appspot.com",
-    messagingSenderId: "623348448816",
-    appId: "1:623348448816:web:6b0a6a3a6e952ea9b3f7f5",
-    measurementId: "G-L6T216RN91"
-};
 
-initializeApp(firebaseConfig);
 
 const db = getFirestore();
 
@@ -136,6 +123,7 @@ const signIn = (() => {
             const userEmail = user.email;
             const userName = userEmail.substring(0, userEmail.lastIndexOf('@'));
             greetUserView.innerText = 'Hi, ' + userName;
+            FireBaseManager.loadUserData(user);
 
         } else {
             // User is signed out

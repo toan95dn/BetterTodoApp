@@ -3,8 +3,7 @@ import './hamburger.css';
 import './login.css';
 import 'normalize.css'
 import './login';
-import { doc, getFirestore, collection, addDoc, updateDoc, getDoc, setDoc, arrayUnion, arrayRemove, getDocs, query, where, deleteDoc } from "firebase/firestore";
-import { onAuthStateChanged } from '@firebase/auth';
+import { FireBaseManager } from './FirebaseManager';
 import { TaskModel, TaskView, TaskController } from './Task';
 import { TasksManagerController, TasksManagerModel } from './TasksManager';
 import { pubsub } from './pubsub';
@@ -106,7 +105,6 @@ const inputDescription = document.querySelector('#descriptionInput');
 const inputPriority = document.querySelector('#priorityInput');
 
 
-const db = getFirestore();
 submitTaskButton.addEventListener('click', async () => {
 
     const newTaskData = {
@@ -126,119 +124,6 @@ submitTaskButton.addEventListener('click', async () => {
 })
 
 
-/*---------------------------------------Firebase stuff------------------------------------------------ */
-
-const FireBaseManager = (() => {
-    /* Function to initialize the app */
-    const checkUserData = (() => { //If the user is new, then set a default project called Inbox for the user
-        const auth = getAuth();
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-
-                const uid = user.uid;
-                const userDocRef = doc(db, "users", uid);
-                const docSnap = await getDoc(userDocRef);
-                if (!docSnap.exists()) {//<---------This is the first time user
-                    await setDoc(userDocRef, { ProjectNames: ['Inbox'] });//set a default project
-                }
-                else {//<---------Not a first time user
-                    //Set all projects
-                    const allProjectNames = docSnap.data().ProjectNames;
-                    allProjectNames.forEach(projectName => {
-                        TasksManagerModel.addNewProject(projectName);
-                    })
-
-                    //Set all tasks
-                    const querySnapshot = await getDocs(collection(db, "users", uid, "AllTasks"));
-
-                    querySnapshot.forEach((doc) => {
-                        const currTaskData = doc.data();
-                        const firebaseID = doc.id;
-                        //convert data from firebase to local
-                        const currTaskModel = new TaskModel(currTaskData.title, currTaskData.detail,
-                            currTaskData.dueDate, currTaskData.priority, currTaskData.isDone, currTaskData.projectName, firebaseID);
-                        TasksManagerModel.addNewTask(currTaskModel);
-                    });
-
-                    // Render all projects
-                    allProjectNames.forEach(projectName => {
-                        if (projectName !== 'Inbox') {
-                            TasksManagerController.createAndBindProjectViewWithEvent(projectName);
-                        }
-                    })
-                }
-            }
-        })
-    })()
-
-    async function deleteProjectFireBase(projectName) {
-        const auth = getAuth();
-        const user = auth.currentUser;
-        if (user) {
-            const uid = user.uid;
-            const projectNamesRef = doc(db, "users", uid);
-            updateDoc(projectNamesRef, { ProjectNames: arrayRemove(projectName) });
-            const queryAllTasksOfProject = query(collection(db, "users", uid, "AllTasks"), where("projectName", "==", projectName));
-            const allTasksSnapshot = await getDocs(queryAllTasksOfProject);
-            allTasksSnapshot.forEach((document) => {
-                deleteDoc(doc(db, "users", uid, "AllTasks", document.id));
-            })
-        }
-    }
-
-    pubsub.on('removeProjectFireBase', deleteProjectFireBase);
-
-
-    function deleteTaskFireBase(task) {
-        const auth = getAuth();
-        const user = auth.currentUser;
-        if (user) {
-            const uid = user.uid;
-            deleteDoc(doc(db, 'users', uid, "AllTasks", task.getFirebaseID()));
-        }
-    }
-
-    pubsub.on('removeTaskFirebase', deleteTaskFireBase);
-
-    function updateTaskFireBase(task) {
-        const auth = getAuth();
-        const user = auth.currentUser;
-        if (user) {
-            const uid = user.uid;
-            const taskRef = doc(db, "users", uid, "AllTasks", task.getFirebaseID());
-            updateDoc(taskRef,
-                {
-                    title: task.getTitle(), detail: task.getDetail(), dueDate: task.getDueDate(),
-                    priority: task.getPriority(), isDone: task.getStatus(), projectName: task.getProjectName()
-                }
-            );
-        }
-    }
-
-    pubsub.on('updateTaskFirebase', updateTaskFireBase);
-
-    function addProjectFirebase(newProjectName) {
-        const auth = getAuth();
-        const user = auth.currentUser;
-        if (user) {
-            const uid = user.uid;
-            const projectNamesRef = doc(db, "users", uid);
-            updateDoc(projectNamesRef, { ProjectNames: arrayUnion(newProjectName) });
-        }
-    }
-
-    async function addTaskFirebase(taskObj) {
-        const auth = getAuth();
-        const user = auth.currentUser;
-        if (user) {
-            const uid = user.uid;
-            const docRef = await addDoc(collection(db, "users", uid, "AllTasks"), taskObj);
-            return docRef.id;
-        }
-    }
-
-    return { addTaskFirebase, addProjectFirebase }
-})()
 
 
 
