@@ -24,9 +24,10 @@ const TasksManagerModel = (() => {
     pubsub.on('removeProject', removeProject);
 
     const addNewTask = (task) => {
-        projectMap.get(task.getProjectName()).push(task);
-        //TODO
-        //Add the task on firebase ?
+        const currTaskArray = projectMap.get(task.getProjectName());
+        if (currTaskArray) {
+            currTaskArray.push(task);
+        }
     }
     pubsub.on('addTask', addNewTask);
 
@@ -169,6 +170,8 @@ const TasksManagerController = (() => {
 
     //Render all tasks list when a project get pick
     const createProjectDataAndView = (projectName) => {
+        console.log("CALL" + projectName);
+
         //If project name exist, then return
         if (!TasksManagerModel.addNewProject(projectName)) {
             alert('Project name already exists' + projectName);

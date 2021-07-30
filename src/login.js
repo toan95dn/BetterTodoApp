@@ -136,6 +136,7 @@ const signIn = (() => {
             const userEmail = user.email;
             const userName = userEmail.substring(0, userEmail.lastIndexOf('@'));
             greetUserView.innerText = 'Hi, ' + userName;
+
         } else {
             // User is signed out
             // ...

@@ -169,8 +169,10 @@ const checkUserData = (() => { //If the user is new, then set a default project 
                     const firebaseID = doc.id;
                     //convert data from firebase to local
                     const currTaskModel = new TaskModel(currTaskData.title, currTaskData.detail,
-                        currTaskData.dueDate, currTaskData.priority, currTaskData.projectName, firebaseID)
+                        currTaskData.dueDate, currTaskData.priority, currTaskData.projectName, firebaseID);
+                    console.log(currTaskModel.getProjectName())
                     TasksManagerModel.addNewTask(currTaskModel);
+                    // console.log(currTaskModel);
                 });
 
                 // Render all projects
