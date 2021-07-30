@@ -20,8 +20,6 @@ const hamburgerButton = document.querySelector('.hamburger');
 
 // All containers + popup
 const menuTab = document.querySelector('.menu');
-const listProjectsContainer = document.querySelector('.listProjectsContainer');
-const listTasksContainer = document.querySelector('.listOfTasks');
 const popupModalBg = document.querySelector('.popupModalBg');
 const createProjectModal = document.querySelector('.createProjectModal');
 const createTaskModal = document.querySelector('.createTaskModal');
