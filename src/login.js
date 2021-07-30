@@ -1,12 +1,15 @@
 import { pubsub } from "./pubsub";
 import { TaskController, TaskModel } from "./Task";
-import { TasksManagerModel } from "./TasksManager";
+import { TasksManagerController, TasksManagerModel, TasksManagerView } from "./TasksManager";
 import { initializeApp } from "firebase/app";
-import { doc, getFirestore, collection, addDoc } from "firebase/firestore";
+import { doc, getFirestore } from "firebase/firestore";
 import {
     getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
     GoogleAuthProvider, onAuthStateChanged, signOut
 } from "firebase/auth";
+
+import { collection, addDoc } from "firebase/firestore";
+
 
 // ----------------Add signup event------------------------//
 
@@ -75,17 +78,11 @@ const signIn = (() => {
     const signOutButton = document.querySelector('#signOutButton');
 
     signInGoogleButton.addEventListener('click', () => {
-        // pushExampleTasksOnFireBase();
         const auth = getAuth();
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
             .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                // The signed-in user info.
-                const user = result.user;
-                // console.log(user);
+                console.log('Login with GG!')
             }).catch((error) => {
                 console.log(error.message);
             });
@@ -123,6 +120,7 @@ const signIn = (() => {
         const auth = getAuth();
         signOut(auth).then(() => {
             loginSignUpContainer.classList.add('active');
+            TasksManagerController.resetAllViewAndData();
         }).catch((error) => {
             console.log(error.message)
         });
@@ -132,10 +130,13 @@ const signIn = (() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-            // const uid = user.uid;
+
             loginSignUpContainer.classList.remove('active');
+            const greetUserView = document.querySelector('#greetUser');
+            const userEmail = user.email;
+            const userName = userEmail.substring(0, userEmail.lastIndexOf('@'));
+            greetUserView.innerText = 'Hi, ' + userName;
+
         } else {
             // User is signed out
             // ...
@@ -199,58 +200,13 @@ const createLogin = (() => {
 })()
 
 
-async function pushExampleTasksOnFireBase() {
-    for (let i = 1; i < 6; i++) {
-        let currPri;
-        if (i % 2 === 0) {
-            currPri = 'High';
-        }
-        else {
-            currPri = i % 3 === 0 ? 'Low' : 'Medium';
-        }
-
-        const newTask = new TaskModel('Task_' + i + '_1stDemo', 'none', `2021-07-${i + 15}`, currPri, '1stDemo');
-        const docRef = await addDoc(collection(db, "users", "fakeUserID", "AllTasks"),
-            { Title: newTask.getTitle(), DueDate: newTask.getDueDate(), ProjectName: newTask.getProjectName(), Status: newTask.getStatus() }
-        );
-
-        //Render all projects + 
-
-    }
-
-
-    // const docRef = await addDoc(collection(db, "cities"), {
-    //     name: "Tokyo",
-    //     country: "Japan"
-    //   });
-    //   console.log("Document written with ID: ", docRef.id);
-}
-
-
-
-
-
-
-
-
-
-//TODO
-
+//----------------------------TODO-------------------------------
 /*
-    Make a function to get all data from firebase when user login
-1/get all projects from doc
-2/push all projects into hashmap 
-3/get all tasks from doc
-4/push all in tasksmanager (use add task to avoid emit) + try to add the unique ID 
-
-    Try to organize code
-
-    Task <-> Task manager -> login -> index
-    move the add task and add project to task manager
-
-
-
+    move all things related to firebase here
+    all firebase function will be export to index.js and index.js is gonna use it ????
+    FIX: week tab
 */
+
 
 
 export { createLogin }

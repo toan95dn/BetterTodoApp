@@ -24,9 +24,10 @@ const TasksManagerModel = (() => {
     pubsub.on('removeProject', removeProject);
 
     const addNewTask = (task) => {
-        projectMap.get(task.getProjectName()).push(task);
-        //TODO
-        //Add the task on firebase ?
+        const currTaskArray = projectMap.get(task.getProjectName());
+        if (currTaskArray) {
+            currTaskArray.push(task);
+        }
     }
     pubsub.on('addTask', addNewTask);
 
@@ -38,12 +39,6 @@ const TasksManagerModel = (() => {
         //Remove the task on Firebase ???Can do a seperate function, then use subpub to subscribe????
     }
     pubsub.on('removeTask', removeTask);
-
-    const moveTask = (task, anotherProject) => {
-        removeTask(task);
-        task.setProjectName(anotherProject);
-        addNewTask(task, anotherProject);
-    }
 
     const printOutProject = () => {
     }
@@ -69,10 +64,14 @@ const TasksManagerModel = (() => {
         return projectMap.get(projectName);
     }
 
+    const resetAllData = () => {
+        projectMap.clear();
+    }
+
     return {
         addNewTask, addNewProject, removeProject, printOutProject,
         getAllProjects, getSizeOfProject, getAllTasksOfSelectedProject,
-        getAllTasks
+        getAllTasks, resetAllData
     }
 })()
 
@@ -117,10 +116,6 @@ const TasksManagerView = (() => {
         return newProjectView;
     }
 
-    const getDeleteProjectButtonView = (ProjectView) => {
-        return newProjectView.lastElementChild;
-    }
-
     const renderAllTasksOfSelectedProject = (tasks) => {
         clearAllTasksView();
         tasks.forEach((task) => {
@@ -145,13 +140,19 @@ const TasksManagerView = (() => {
 
     const clearAllTasksView = () => {
         while (listOfTasksContainer.firstElementChild) {
-            listOfTasksContainer.firstElementChild.remove()
+            listOfTasksContainer.firstElementChild.remove();
+        }
+    }
+
+    const clearAllProjectsView = () => {
+        while (listProjectsContainer.firstElementChild) {
+            listProjectsContainer.firstElementChild.remove();
         }
     }
 
     return {
         addProjectView, renderAllTasksOfSelectedProject,
-        updateTilteOfTasksContainer, updateNumTaskView, getDeleteProjectButtonView, clearAllTasksView
+        updateTilteOfTasksContainer, updateNumTaskView, clearAllTasksView, clearAllProjectsView
     }
 
 })()
@@ -172,7 +173,7 @@ const TasksManagerController = (() => {
 
         //If project name exist, then return
         if (!TasksManagerModel.addNewProject(projectName)) {
-            alert('Project name already exists');
+            alert('Project name already exists' + projectName);
             return;
         };
 
@@ -204,12 +205,12 @@ const TasksManagerController = (() => {
             event.stopPropagation();
             newProjectView.remove();
             pubsub.emit('removeProject', projectName);
+            pubsub.emit('removeProjectFireBase', projectName);
             TasksManagerView.updateTilteOfTasksContainer(`Removed ${projectName}`);
             TasksManagerView.clearAllTasksView();
         })
 
         //Bind event to update the total tasks in each project view
-
         TasksManagerView.updateNumTaskView(projectName, TasksManagerModel.getSizeOfProject(projectName))
     }
 
@@ -232,6 +233,7 @@ const TasksManagerController = (() => {
     //-----------------------------Home Tab, which shows all tasks from all project---------------------------------
     const homeTab = document.querySelector("li[data-tab='Home']");
     homeTab.addEventListener('click', () => {
+        TasksManagerView.updateTilteOfTasksContainer('Home');
         TasksManagerView.clearAllTasksView();
         currTabTasksData = TasksManagerModel.getAllTasks();
         currTabTasksData.forEach((task) => {
@@ -298,8 +300,15 @@ const TasksManagerController = (() => {
     })()
 
     //
+    const resetAllViewAndData = () => {
+        TasksManagerView.clearAllProjectsView();
+        TasksManagerView.clearAllTasksView();
+        TasksManagerModel.resetAllData();
+    }
 
-    return { createAndBindProjectViewWithEvent }
+
+
+    return { createAndBindProjectViewWithEvent, resetAllViewAndData }
 })()
 
 

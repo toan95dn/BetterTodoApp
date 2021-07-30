@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("throw new Error(\"Module parse failed: Unexpected token (6:0)\\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\\n| import 'normalize.css'\\n| import './login';\\n> <<<<<<< HEAD\\n| import { doc, getFirestore, collection, addDoc, updateDoc, getDoc, setDoc, arrayUnion } from \\\"firebase/firestore\\\";\\n| =======\");\n\n//# sourceURL=webpack://todolist/./src/index.js?");
+eval("throw new Error(\"Module parse failed: Unexpected token (6:0)\\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\\n| import 'normalize.css'\\n| import './login';\\n> <<<<<<< HEAD\\n| <<<<<<< HEAD\\n| import { doc, getFirestore, collection, addDoc, updateDoc, getDoc, setDoc, arrayUnion } from \\\"firebase/firestore\\\";\");\n\n//# sourceURL=webpack://todolist/./src/index.js?");
 
 /***/ })
 

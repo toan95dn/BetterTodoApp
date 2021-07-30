@@ -12,14 +12,10 @@ class TaskModel {
     #projectName;
     #firebaseId;
 
-    constructor(title, detail, dueDate, priority, projectName, firebaseId) {
-        this.#isDone = false;
+    constructor(title, detail, dueDate, priority, isDone, projectName, firebaseId) {
+        this.#isDone = isDone;
         this.updateTask(title, detail, dueDate, priority, projectName);
         this.#firebaseId = firebaseId;
-        //TODO: add a function to create a task on firebase
-        //-Generate key
-        //-push ->>>maybe use this.#uniqueKey = .... ???
-        //can use a subpub function ???
     }
 
     //getters
@@ -231,6 +227,7 @@ class TaskController {
         statusCheckBox.addEventListener('click', (event) => {
             event.stopPropagation();
             this.#taskModel.toggleNewStatus();
+            pubsub.emit('updateTaskFirebase', this.#taskModel);
             this.#taskView.setStatusView(this.#taskModel.getStatus());
         })
     }
@@ -278,10 +275,11 @@ class TaskController {
             })
 
             const submitEditTask = document.querySelector('#submitEditedTask');
-            submitEditTask.addEventListener('click', () => {
+            submitEditTask.addEventListener('click', () => { //Remove from the old project, edit, then add to new project name, finally edit on firebase 
                 pubsub.emit('removeTask', this.#taskModel);
                 this.#taskModel.updateTask(editTitleInput.value, editDetailInput.value, editDueDateInput.value, editPriorityInput.value, editProjectInput.value);
-                pubsub.emit('addTask', this.#taskModel)
+                pubsub.emit('addTask', this.#taskModel);
+                pubsub.emit('updateTaskFirebase', this.#taskModel);
                 this.#taskView.turnOffPopup();
             })
 
@@ -299,6 +297,7 @@ class TaskController {
             event.stopPropagation();
             this.#taskView.removeView();
             pubsub.emit('removeTask', this.#taskModel);
+            pubsub.emit('removeTaskFirebase', this.#taskModel);
         })
     }
 
