@@ -174,9 +174,9 @@ class TaskView {
 
             <label for="priorityEdit">Pick the priority</label>
             <select name="priorityEdit" id="priorityEdit">
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
+                <option value="Low" class='low'>Low</option>
+                <option value="Medium" class ='medium'>Medium</option>
+                <option value="High" class ='high'>High</option>
             </select>
 
             <label for="projectSelectionEdit">Pick the project</label>
