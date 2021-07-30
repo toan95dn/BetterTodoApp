@@ -169,10 +169,9 @@ const TasksManagerController = (() => {
 
     //Render all tasks list when a project get pick
     const createProjectDataAndView = (projectName) => {
-
         //If project name exist, then return
         if (!TasksManagerModel.addNewProject(projectName)) {
-            alert('Project name already exists');
+            alert('Project name already exists' + projectName);
             return;
         };
 

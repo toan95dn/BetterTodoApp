@@ -476,7 +476,7 @@ nav .material-icons{
     align-items: center;
     justify-content: space-between;
     margin: 0.5rem;
-    transition: 0.25s ease-in-out;
+    transition: 0.4s ease-in-out;
     background-color: var(--header-bg-color);
     color: white;
     width: 13rem;

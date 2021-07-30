@@ -73,15 +73,14 @@ const inputProjectName = document.querySelector('#projectNameInput');
 submitProjectButton.addEventListener('click', (e) => {
     e.preventDefault();
     const auth = getAuth();
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            const uid = user.uid;
-            const projectNamesRef = doc(db, "users", uid);
-            await updateDoc(projectNamesRef, { ProjectNames: arrayUnion(inputProjectName.value) });
-            pubsub.emit('addProject', inputProjectName.value);
-        }
-    })
+    const user = auth.currentUser;
+    if (user) {
+        const uid = user.uid;
+        const projectNamesRef = doc(db, "users", uid);
+        updateDoc(projectNamesRef, { ProjectNames: arrayUnion(inputProjectName.value) });
+    }
 
+    pubsub.emit('addProject', inputProjectName.value);
     popupModalBg.classList.remove('active');
     createProjectModal.classList.remove('active');
 })
@@ -115,29 +114,25 @@ const inputPriority = document.querySelector('#priorityInput');
 
 
 const db = getFirestore();
-submitTaskButton.addEventListener('click', () => {
-
-
+submitTaskButton.addEventListener('click', async () => {
     const auth = getAuth();
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            const uid = user.uid;
-            const newTaskData = {
-                title: inputTasksTitle.value, detail: inputDescription.value, dueDate: inputDueDate.value,
-                priority: inputPriority.value, isDone: false, projectName: inputProjectSelection.value
-            };
+    const user = auth.currentUser;
+    if (user) {
+        const uid = user.uid;
+        const newTaskData = {
+            title: inputTasksTitle.value, detail: inputDescription.value, dueDate: inputDueDate.value,
+            priority: inputPriority.value, isDone: false, projectName: inputProjectSelection.value
+        };
 
-            const docRef = await addDoc(collection(db, "users", uid, "AllTasks"), newTaskData);
-            const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value,
-                inputDueDate.value, inputPriority.value, inputProjectSelection.value);
-            const newController = new TaskController(newTaskModel);
-            pubsub.emit('addTask', newTaskModel);
-        } else {
-            // User is signed out
-            // ...
-        }
-    })
-
+        const docRef = await addDoc(collection(db, "users", uid, "AllTasks"), newTaskData);
+        const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value,
+            inputDueDate.value, inputPriority.value, false, inputProjectSelection.value, docRef.id);
+        const newController = new TaskController(newTaskModel);
+        pubsub.emit('addTask', newTaskModel);
+    } else {
+        // User is signed out
+        // ...
+    }
     //title, detail, dueDate, priority, projectName
     createTaskModal.classList.remove('active');
     popupModalBg.classList.remove('active');
@@ -149,6 +144,7 @@ submitTaskButton.addEventListener('click', () => {
 /* Function to initialize the app */
 const checkUserData = (() => { //If the user is new, then set a default project called Inbox for the user
     const auth = getAuth();
+
     onAuthStateChanged(auth, async (user) => {
         if (user) {
 
@@ -167,6 +163,7 @@ const checkUserData = (() => { //If the user is new, then set a default project 
 
                 //Set all tasks
                 const querySnapshot = await getDocs(collection(db, "users", uid, "AllTasks"));
+
                 querySnapshot.forEach((doc) => {
                     const currTaskData = doc.data();
                     const firebaseID = doc.id;
@@ -187,20 +184,19 @@ const checkUserData = (() => { //If the user is new, then set a default project 
     })
 })()
 
-function deleteProjectFireBase(projectName) {
+async function deleteProjectFireBase(projectName) {
     const auth = getAuth();
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            const uid = user.uid;
-            const projectNamesRef = doc(db, "users", uid);
-            await updateDoc(projectNamesRef, { ProjectNames: arrayRemove(projectName) });
-            const queryAllTasksOfProject = query(collection(db, "users", uid, "AllTasks"), where("projectName", "==", projectName));
-            const allTasksSnapshot = await getDocs(queryAllTasksOfProject);
-            allTasksSnapshot.forEach((document) => {
-                deleteDoc(doc(db, "users", uid, "AllTasks", document.id));
-            })
-        }
-    })
+    const user = auth.currentUser;
+    if (user) {
+        const uid = user.uid;
+        const projectNamesRef = doc(db, "users", uid);
+        updateDoc(projectNamesRef, { ProjectNames: arrayRemove(projectName) });
+        const queryAllTasksOfProject = query(collection(db, "users", uid, "AllTasks"), where("projectName", "==", projectName));
+        const allTasksSnapshot = await getDocs(queryAllTasksOfProject);
+        allTasksSnapshot.forEach((document) => {
+            deleteDoc(doc(db, "users", uid, "AllTasks", document.id));
+        })
+    }
 }
 
 pubsub.on('removeProjectFireBase', deleteProjectFireBase);
@@ -208,30 +204,28 @@ pubsub.on('removeProjectFireBase', deleteProjectFireBase);
 
 function deleteTaskFireBase(task) {
     const auth = getAuth();
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            const uid = user.uid;
-            deleteDoc(doc(db, 'users', uid, "AllTasks", task.getFirebaseID()));
-        }
-    })
+    const user = auth.currentUser;
+    if (user) {
+        const uid = user.uid;
+        deleteDoc(doc(db, 'users', uid, "AllTasks", task.getFirebaseID()));
+    }
 }
 
 pubsub.on('removeTaskFirebase', deleteTaskFireBase);
 
 function updateTaskFireBase(task) {
     const auth = getAuth();
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            const uid = user.uid;
-            const taskRef = doc(db, "users", uid, "AllTasks", task.getFirebaseID());
-            updateDoc(taskRef,
-                {
-                    title: task.getTitle(), detail: task.getDetail(), dueDate: task.getDueDate(),
-                    priority: task.getPriority(), isDone: task.getStatus(), projectName: task.getProjectName()
-                }
-            );
-        }
-    })
+    const user = auth.currentUser;
+    if (user) {
+        const uid = user.uid;
+        const taskRef = doc(db, "users", uid, "AllTasks", task.getFirebaseID());
+        updateDoc(taskRef,
+            {
+                title: task.getTitle(), detail: task.getDetail(), dueDate: task.getDueDate(),
+                priority: task.getPriority(), isDone: task.getStatus(), projectName: task.getProjectName()
+            }
+        );
+    }
 }
 
 pubsub.on('updateTaskFirebase', updateTaskFireBase);
