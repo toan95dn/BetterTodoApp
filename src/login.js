@@ -4,15 +4,8 @@ import {
     GoogleAuthProvider, onAuthStateChanged, signOut
 } from "firebase/auth";
 import { FireBaseManager } from "./FirebaseManager";
-import { doc } from "firebase/firestore";
 
 // ----------------Add signup event------------------------//
-
-function switchSignUpAndLogIn() {
-    signUpContainer.classList.toggle('active');
-    logInContainer.classList.toggle('active');
-}
-
 const loginSignUpContainer = document.querySelector('.loginSignUpContainer');
 
 const signIn = (() => {
@@ -26,6 +19,7 @@ const signIn = (() => {
 
     const signOutButton = document.querySelector('#signOutButton');
 
+    // -------------------Log in with Google ---------------------//
     signInGoogleButton.addEventListener('click', () => {
         const auth = getAuth();
         const provider = new GoogleAuthProvider();
@@ -37,6 +31,7 @@ const signIn = (() => {
             });
     })
 
+    // -------------------Log in with Email + Password ---------------------//
     signInEmailPassButton.addEventListener('click', (event) => {
         event.preventDefault();
         const auth = getAuth();
@@ -45,7 +40,6 @@ const signIn = (() => {
                 console.log('Login with email and password!')
             })
             .catch((error) => {
-                console.log(error.message)
                 displayPassEmailErr();
                 setTimeout(clearShowingErrors, 3000);
             });
@@ -63,16 +57,33 @@ const signIn = (() => {
         passwordSigninInput.placeholder = '';
     }
 
+    //--------------------Log in with Demo account, disable saving data ---------------------//
+    signInDemoButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        signInWithEmailAndPassword(auth, 'demoMail@gmail.com', 'demo123')
+            .then((userCredential) => {
+                console.log('Login with Demo')
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+    })
 
     signOutButton.addEventListener('click', () => {
         const auth = getAuth();
         signOut(auth).then(() => {
             loginSignUpContainer.classList.add('active');
             TasksManagerController.resetAllViewAndData();
+            clearInputFields();
         }).catch((error) => {
             console.log(error.message)
         });
     })
+
+    const clearInputFieldsLogIn = () => {
+        emailSigninInput.value = '';
+        passwordSigninInput.value = '';
+    }
 
 
     const auth = getAuth();

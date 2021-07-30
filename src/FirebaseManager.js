@@ -65,13 +65,15 @@ const FireBaseManager = (() => {
         const user = auth.currentUser;
         if (user) {
             const uid = user.uid;
-            const projectNamesRef = doc(db, "users", uid);
-            updateDoc(projectNamesRef, { ProjectNames: arrayRemove(projectName) });
-            const queryAllTasksOfProject = query(collection(db, "users", uid, "AllTasks"), where("projectName", "==", projectName));
-            const allTasksSnapshot = await getDocs(queryAllTasksOfProject);
-            allTasksSnapshot.forEach((document) => {
-                deleteDoc(doc(db, "users", uid, "AllTasks", document.id));
-            })
+            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {
+                const projectNamesRef = doc(db, "users", uid);
+                updateDoc(projectNamesRef, { ProjectNames: arrayRemove(projectName) });
+                const queryAllTasksOfProject = query(collection(db, "users", uid, "AllTasks"), where("projectName", "==", projectName));
+                const allTasksSnapshot = await getDocs(queryAllTasksOfProject);
+                allTasksSnapshot.forEach((document) => {
+                    deleteDoc(doc(db, "users", uid, "AllTasks", document.id));
+                })
+            }
         }
     }
 
@@ -83,7 +85,9 @@ const FireBaseManager = (() => {
         const user = auth.currentUser;
         if (user) {
             const uid = user.uid;
-            deleteDoc(doc(db, 'users', uid, "AllTasks", task.getFirebaseID()));
+            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {
+                deleteDoc(doc(db, 'users', uid, "AllTasks", task.getFirebaseID()));
+            }
         }
     }
 
@@ -94,13 +98,15 @@ const FireBaseManager = (() => {
         const user = auth.currentUser;
         if (user) {
             const uid = user.uid;
-            const taskRef = doc(db, "users", uid, "AllTasks", task.getFirebaseID());
-            updateDoc(taskRef,
-                {
-                    title: task.getTitle(), detail: task.getDetail(), dueDate: task.getDueDate(),
-                    priority: task.getPriority(), isDone: task.getStatus(), projectName: task.getProjectName()
-                }
-            );
+            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {
+                const taskRef = doc(db, "users", uid, "AllTasks", task.getFirebaseID());
+                updateDoc(taskRef,
+                    {
+                        title: task.getTitle(), detail: task.getDetail(), dueDate: task.getDueDate(),
+                        priority: task.getPriority(), isDone: task.getStatus(), projectName: task.getProjectName()
+                    }
+                );
+            }
         }
     }
 
@@ -111,8 +117,10 @@ const FireBaseManager = (() => {
         const user = auth.currentUser;
         if (user) {
             const uid = user.uid;
-            const projectNamesRef = doc(db, "users", uid);
-            updateDoc(projectNamesRef, { ProjectNames: arrayUnion(newProjectName) });
+            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {
+                const projectNamesRef = doc(db, "users", uid);
+                updateDoc(projectNamesRef, { ProjectNames: arrayUnion(newProjectName) });
+            }
         }
     }
 
@@ -121,8 +129,13 @@ const FireBaseManager = (() => {
         const user = auth.currentUser;
         if (user) {
             const uid = user.uid;
-            const docRef = await addDoc(collection(db, "users", uid, "AllTasks"), taskObj);
-            return docRef.id;
+            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {
+                const docRef = await addDoc(collection(db, "users", uid, "AllTasks"), taskObj);
+                return docRef.id;
+            }
+            else {
+                return '1';
+            }
         }
     }
 
