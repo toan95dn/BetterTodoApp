@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import isToday from 'dayjs/plugin/isToday';
-import { doc } from "firebase/firestore";
 dayjs.extend(isToday);
 import { pubsub } from "./pubsub";
 import { TaskController, TaskModel, TaskView } from "./Task";
@@ -170,7 +169,6 @@ const TasksManagerController = (() => {
 
     //Render all tasks list when a project get pick
     const createProjectDataAndView = (projectName) => {
-        console.log("CALL" + projectName);
 
         //If project name exist, then return
         if (!TasksManagerModel.addNewProject(projectName)) {
@@ -306,8 +304,6 @@ const TasksManagerController = (() => {
         TasksManagerView.clearAllTasksView();
         TasksManagerModel.resetAllData();
     }
-
-
 
     return { createAndBindProjectViewWithEvent, resetAllViewAndData }
 })()

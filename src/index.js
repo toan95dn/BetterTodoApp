@@ -72,14 +72,7 @@ addProjectOptionButton.addEventListener('click', () => {
 const inputProjectName = document.querySelector('#projectNameInput');
 submitProjectButton.addEventListener('click', (e) => {
     e.preventDefault();
-    const auth = getAuth();
-    const user = auth.currentUser;
-    if (user) {
-        const uid = user.uid;
-        const projectNamesRef = doc(db, "users", uid);
-        updateDoc(projectNamesRef, { ProjectNames: arrayUnion(inputProjectName.value) });
-    }
-
+    FireBaseManager.addProjectFirebase(inputProjectName.value);
     pubsub.emit('addProject', inputProjectName.value);
     popupModalBg.classList.remove('active');
     createProjectModal.classList.remove('active');
@@ -139,7 +132,6 @@ const FireBaseManager = (() => {
     /* Function to initialize the app */
     const checkUserData = (() => { //If the user is new, then set a default project called Inbox for the user
         const auth = getAuth();
-
         onAuthStateChanged(auth, async (user) => {
             if (user) {
 
@@ -225,8 +217,14 @@ const FireBaseManager = (() => {
 
     pubsub.on('updateTaskFirebase', updateTaskFireBase);
 
-    function addProjectFirebase() {
-
+    function addProjectFirebase(newProjectName) {
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (user) {
+            const uid = user.uid;
+            const projectNamesRef = doc(db, "users", uid);
+            updateDoc(projectNamesRef, { ProjectNames: arrayUnion(newProjectName) });
+        }
     }
 
     async function addTaskFirebase(taskObj) {
@@ -239,7 +237,7 @@ const FireBaseManager = (() => {
         }
     }
 
-    return { addTaskFirebase }
+    return { addTaskFirebase, addProjectFirebase }
 })()
 
 
