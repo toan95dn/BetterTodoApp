@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import isToday from 'dayjs/plugin/isToday';
 dayjs.extend(isToday);
 import { pubsub } from "./pubsub";
-import { TaskController, TaskModel, TaskView } from "./Task";
+import { TaskController } from "./Task";
 
 const TasksManagerModel = (() => {
     //tasksMap is initialized with an empty project name, all tasks created without projectname will be put in
@@ -81,20 +81,7 @@ const TasksManagerView = (() => {
     const listProjectsContainer = document.querySelector('.listProjectsContainer');
     const listOfTasksContainer = document.querySelector('.listOfTasks');
 
-    const removeProjectView = () => {
-
-    }
-
-
-
-    /*TODO: Add these functions
-    getDeleteButtonView
-    getConfirmDeleteView
-    getNumOfTasksView
-    */
-
     const addProjectView = (projectName) => {
-
 
         const newProjectView = document.createElement('li');
 

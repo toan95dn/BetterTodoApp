@@ -4,10 +4,9 @@ import './login.css';
 import 'normalize.css'
 import './login';
 import { FireBaseManager } from './FirebaseManager';
-import { TaskModel, TaskView, TaskController } from './Task';
-import { TasksManagerController, TasksManagerModel } from './TasksManager';
+import { TaskModel, TaskController } from './Task';
+import { TasksManagerModel } from './TasksManager';
 import { pubsub } from './pubsub';
-import { getAuth } from 'firebase/auth';
 
 //ALL BUTTONS TO ASK A TASK/PROJECT
 const addButton = document.querySelector('#addButton');

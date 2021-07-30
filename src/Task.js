@@ -1,4 +1,4 @@
-import { TasksManagerModel, TasksManagerView } from "./TasksManager";
+import { TasksManagerModel } from "./TasksManager";
 import dayjs from 'dayjs';
 import { pubsub } from "./pubsub";
 
@@ -151,7 +151,7 @@ class TaskView {
         document.querySelector('.popUpBg').remove();
     }
 
-    showEditPanelTask(title, dueDate, detail) {
+    showEditPanelTask() {
         let popUpBg = document.createElement('div');
         popUpBg.classList.add('popUpBg');
 
@@ -237,11 +237,7 @@ class TaskController {
         const editButton = this.#taskView.getEditButtonView();
         editButton.addEventListener('click', (event) => {
             event.stopPropagation();
-            this.#taskView.showEditPanelTask(
-                this.#taskModel.getTitle(),
-                this.#taskModel.getDueDate(),
-                this.#taskModel.getDetail()
-            );
+            this.#taskView.showEditPanelTask();
 
             //Get all input 
             const editTitleInput = document.querySelector('#taskTitleEdit');
@@ -302,14 +298,6 @@ class TaskController {
     }
 
 }
-
-// #title;
-// #detail;
-// #dueDate;
-// #priority;
-// #isDone;
-// #projectName;
-
 
 export { TaskModel, TaskView, TaskController }
 

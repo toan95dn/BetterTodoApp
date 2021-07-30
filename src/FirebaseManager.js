@@ -1,10 +1,7 @@
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "@firebase/auth";
-import {
-    doc, getFirestore, collection, addDoc, updateDoc, getDoc, setDoc,
-    arrayUnion, arrayRemove, getDocs, query, where, deleteDoc
-} from "firebase/firestore";
+import { doc, getFirestore, collection, addDoc, updateDoc, getDoc, setDoc, arrayUnion, arrayRemove, getDocs, query, where, deleteDoc } from "firebase/firestore";
 import { TasksManagerModel, TasksManagerController } from "./TasksManager";
 import { TaskModel } from "./Task";
 import { pubsub } from "./pubsub";
