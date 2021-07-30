@@ -10,6 +10,7 @@
 html{
     font-size: 10px;
     font-family: 'Lato', sans-serif;
+    font-weight: bold;
 }
 
 *{
@@ -160,6 +161,7 @@ nav .material-icons{
     color: white;
     margin-top: 1rem;
     cursor: pointer;
+    font-weight: bold;
 }
 
 #signOutButton:hover{
