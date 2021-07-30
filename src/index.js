@@ -8,17 +8,17 @@ import { TaskModel, TaskController } from './Task';
 import { TasksManagerModel } from './TasksManager';
 import { pubsub } from './pubsub';
 
-//ALL BUTTONS TO ASK A TASK/PROJECT
+//All buttons to add a task/project
 const addButton = document.querySelector('#addButton');
 const addTaskOptionButton = document.querySelector('.createTaskButtonContainer');
 const addProjectOptionButton = document.querySelector('.createProjectButtonContainer');
 const submitProjectButton = document.querySelector('#submitNewProject');
 const submitTaskButton = document.querySelector('#submitNewTask');
 
-//BUTTON TO MAKE THE MENU SLIDE OUT (SMALL SCREEN)
+//Hamburger button, makes the menu slide out
 const hamburgerButton = document.querySelector('.hamburger');
 
-// ALL CONTAINERS + POPUP
+// All containers + popup
 const menuTab = document.querySelector('.menu');
 const listProjectsContainer = document.querySelector('.listProjectsContainer');
 const listTasksContainer = document.querySelector('.listOfTasks');
@@ -26,7 +26,7 @@ const popupModalBg = document.querySelector('.popupModalBg');
 const createProjectModal = document.querySelector('.createProjectModal');
 const createTaskModal = document.querySelector('.createTaskModal');
 
-//button to close
+//Buttons to close
 
 const closeTaskForm = document.querySelector('#closeTaskForm');
 closeTaskForm.addEventListener('click', () => {
@@ -76,14 +76,14 @@ submitProjectButton.addEventListener('click', (e) => {
     createProjectModal.classList.remove('active');
 })
 
-//CREATE A NEW TASK
+//Show up modal to add task
 addTaskOptionButton.addEventListener('click', () => {
     getAllProjectsSelection();
     popupModalBg.classList.add('active');
     createTaskModal.classList.add('active');
 })
 
-//WHEN CLICK THE BUTTON TO POPUP FORM TO ADD TASK, PUT ALL THE POSSIBLE PROJECT TO THE PROJECT SELECTION
+//Get all projects for selection when the popup modal to create a task show up
 const inputProjectSelection = document.querySelector('#projectSelectionInput');
 function getAllProjectsSelection() {
     while (inputProjectSelection.firstElementChild) {

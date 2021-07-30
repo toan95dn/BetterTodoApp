@@ -28,6 +28,7 @@ const FireBaseManager = (() => {
         const docSnap = await getDoc(userDocRef);
         if (!docSnap.exists()) {//<---------This is the first time user
             await setDoc(userDocRef, { ProjectNames: ['Inbox'] });//set a default project
+            TasksManagerModel.addNewProject('Inbox');
         }
         else {//<---------Not a first time user
             //Set all projects

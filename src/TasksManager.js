@@ -5,9 +5,7 @@ import { pubsub } from "./pubsub";
 import { TaskController } from "./Task";
 
 const TasksManagerModel = (() => {
-    //tasksMap is initialized with an empty project name, all tasks created without projectname will be put in
     const projectMap = new Map();
-    projectMap.set('Inbox', []);
 
     const addNewProject = (projectName) => {
         if (!projectMap.has(projectName)) {
@@ -217,7 +215,7 @@ const TasksManagerController = (() => {
     pubsub.on('addTask', showCurrentTabContent);
 
     //-----------------------------Home Tab, which shows all tasks from all project---------------------------------
-    const homeTab = document.querySelector("li[data-tab='Home']");
+    const homeTab = document.querySelector("#Home");
     homeTab.addEventListener('click', () => {
         TasksManagerView.updateTilteOfTasksContainer('Home');
         TasksManagerView.clearAllTasksView();
@@ -229,7 +227,7 @@ const TasksManagerController = (() => {
 
 
     //------------------------------Today Tab, which shows all tasks due today-------------------------------------
-    const todayTab = document.querySelector("li[data-tab='Today']");
+    const todayTab = document.querySelector("#Today");
     todayTab.addEventListener('click', () => {
         TasksManagerView.updateTilteOfTasksContainer('Today')
         TasksManagerView.clearAllTasksView();
@@ -238,7 +236,7 @@ const TasksManagerController = (() => {
     })
 
     //------------------------------Week Tab, which shows all tasks due in the next 7 days----------------------
-    const weekTab = document.querySelector("li[data-tab='Week']");
+    const weekTab = document.querySelector("#Week");
     weekTab.addEventListener('click', () => {
         TasksManagerView.updateTilteOfTasksContainer('Week');
         TasksManagerView.clearAllTasksView();
@@ -254,7 +252,7 @@ const TasksManagerController = (() => {
     })
 
     //------------------------Inbox Tab, which shows all tasks that does not belong to any project-----------------------------
-    const inboxTab = document.querySelector("li[data-tab='Inbox']");
+    const inboxTab = document.querySelector("#Inbox");
     inboxTab.addEventListener('click', () => {
         TasksManagerView.updateTilteOfTasksContainer('Inbox');
         TasksManagerView.clearAllTasksView();
@@ -294,10 +292,5 @@ const TasksManagerController = (() => {
 
     return { createAndBindProjectViewWithEvent, resetAllViewAndData }
 })()
-
-
-
-
-
 
 export { TasksManagerModel, TasksManagerView, TasksManagerController };
