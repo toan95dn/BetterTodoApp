@@ -115,25 +115,19 @@ const inputPriority = document.querySelector('#priorityInput');
 
 const db = getFirestore();
 submitTaskButton.addEventListener('click', async () => {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    if (user) {
-        const uid = user.uid;
-        const newTaskData = {
-            title: inputTasksTitle.value, detail: inputDescription.value, dueDate: inputDueDate.value,
-            priority: inputPriority.value, isDone: false, projectName: inputProjectSelection.value
-        };
 
-        const docRef = await addDoc(collection(db, "users", uid, "AllTasks"), newTaskData);
-        const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value,
-            inputDueDate.value, inputPriority.value, false, inputProjectSelection.value, docRef.id);
-        const newController = new TaskController(newTaskModel);
-        pubsub.emit('addTask', newTaskModel);
-    } else {
-        // User is signed out
-        // ...
-    }
-    //title, detail, dueDate, priority, projectName
+    const newTaskData = {
+        title: inputTasksTitle.value, detail: inputDescription.value, dueDate: inputDueDate.value,
+        priority: inputPriority.value, isDone: false, projectName: inputProjectSelection.value
+    };
+
+    const firebaseID = await FireBaseManager.addTaskFirebase(newTaskData);
+    const newTaskModel = new TaskModel(inputTasksTitle.value, inputDescription.value,
+        inputDueDate.value, inputPriority.value, false, inputProjectSelection.value, firebaseID);
+    const newController = new TaskController(newTaskModel);
+
+    pubsub.emit('addTask', newTaskModel);
+
     createTaskModal.classList.remove('active');
     popupModalBg.classList.remove('active');
 })
@@ -230,6 +224,22 @@ const FireBaseManager = (() => {
     }
 
     pubsub.on('updateTaskFirebase', updateTaskFireBase);
+
+    function addProjectFirebase() {
+
+    }
+
+    async function addTaskFirebase(taskObj) {
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (user) {
+            const uid = user.uid;
+            const docRef = await addDoc(collection(db, "users", uid, "AllTasks"), taskObj);
+            return docRef.id;
+        }
+    }
+
+    return { addTaskFirebase }
 })()
 
 
