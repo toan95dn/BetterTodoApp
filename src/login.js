@@ -45,6 +45,7 @@ const signIn = (() => {
                 console.log('Login with email and password!')
             })
             .catch((error) => {
+                console.log(error.message)
                 displayPassEmailErr();
                 setTimeout(clearShowingErrors, 3000);
             });
@@ -130,7 +131,7 @@ const signUp = (() => {
             const auth = getAuth();
             createUserWithEmailAndPassword(auth, signupEmailInput.value, passwordSignupInput.value)
                 .then((userCredential) => {
-                    disPlayOneContainerAndTurnOffRest(thankYouForSignUpContainer, logInContainer, signUpContainer);
+                    clearInputFields();
                 })
                 .catch((error) => {
                     console.log(error.message);
