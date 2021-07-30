@@ -47,7 +47,7 @@ function popUporClosedAddTaskOrProject() {
     changeStatusOfButtons();
 }
 
-//FUNCTION WILL TOGGLE ALL 'ACTIVE' VALUE OF BUTTON, SO THAT WHEN 1 THING POP UP, OTHER THINGS CLOSED
+//Close/Open the options to add a project or a task
 function changeStatusOfButtons() {
     addButton.classList.toggle('active');
     addTaskOptionButton.classList.toggle('active');
@@ -59,10 +59,11 @@ hamburgerButton.addEventListener('click', () => {
     menuTab.classList.toggle('active');
 })
 
-//CREATE A NEW PROJECT
+//Create a new project
 addProjectOptionButton.addEventListener('click', () => {
     popupModalBg.classList.add('active');
     createProjectModal.classList.add('active');
+    changeStatusOfButtons();
 })
 
 const inputProjectName = document.querySelector('#projectNameInput');
@@ -79,6 +80,7 @@ addTaskOptionButton.addEventListener('click', () => {
     getAllProjectsSelection();
     popupModalBg.classList.add('active');
     createTaskModal.classList.add('active');
+    changeStatusOfButtons();
 })
 
 //Get all projects for selection when the popup modal to create a task show up
@@ -100,8 +102,6 @@ const inputTasksTitle = document.querySelector('#taskTitleInput');
 const inputDueDate = document.querySelector('#dueDateInput');
 const inputDescription = document.querySelector('#descriptionInput');
 const inputPriority = document.querySelector('#priorityInput');
-
-
 submitTaskButton.addEventListener('click', async () => {
 
     const newTaskData = {

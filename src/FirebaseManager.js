@@ -56,6 +56,7 @@ const FireBaseManager = (() => {
                 }
             })
 
+            TasksManagerController.showHomeTaskContent();
         }
     }
 

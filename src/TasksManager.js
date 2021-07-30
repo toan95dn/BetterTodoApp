@@ -217,27 +217,37 @@ const TasksManagerController = (() => {
     //-----------------------------Home Tab, which shows all tasks from all project---------------------------------
     const homeTab = document.querySelector("#Home");
     homeTab.addEventListener('click', () => {
+        showHomeTaskContent();
+    })
+    const showHomeTaskContent = () => {
         TasksManagerView.updateTilteOfTasksContainer('Home');
         TasksManagerView.clearAllTasksView();
         currTabTasksData = TasksManagerModel.getAllTasks();
         currTabTasksData.forEach((task) => {
             new TaskController(task);
         })
-    })
-
+    }
 
     //------------------------------Today Tab, which shows all tasks due today-------------------------------------
     const todayTab = document.querySelector("#Today");
     todayTab.addEventListener('click', () => {
+        showTodayTabContent();
+    })
+
+    const showTodayTabContent = () => {
         TasksManagerView.updateTilteOfTasksContainer('Today')
         TasksManagerView.clearAllTasksView();
         const currTabTasksData = TasksManagerModel.getAllTasks().filter(task => dayjs(task.getDueDate()).isToday());
         TasksManagerView.renderAllTasksOfSelectedProject(currTabTasksData);
-    })
+    }
 
     //------------------------------Week Tab, which shows all tasks due in the next 7 days----------------------
     const weekTab = document.querySelector("#Week");
     weekTab.addEventListener('click', () => {
+        showWeekTabContent();
+    })
+
+    const showWeekTabContent = () => {
         TasksManagerView.updateTilteOfTasksContainer('Week');
         TasksManagerView.clearAllTasksView();
         const today = new Date();
@@ -249,17 +259,20 @@ const TasksManagerController = (() => {
             return false;
         });
         TasksManagerView.renderAllTasksOfSelectedProject(currTabTasksData);
-    })
+    }
 
     //------------------------Inbox Tab, which shows all tasks that does not belong to any project-----------------------------
     const inboxTab = document.querySelector("#Inbox");
     inboxTab.addEventListener('click', () => {
+        showInboxTabContent();
+    })
+
+    const showInboxTabContent = () => {
         TasksManagerView.updateTilteOfTasksContainer('Inbox');
         TasksManagerView.clearAllTasksView();
         currTabTasksData = TasksManagerModel.getAllTasksOfSelectedProject('Inbox');
         TasksManagerView.renderAllTasksOfSelectedProject(currTabTasksData);
-    })
-
+    }
 
     const sortDueDateButton = document.querySelector('.dueDateSort');
     sortDueDateButton.addEventListener('click', () => {
@@ -290,7 +303,7 @@ const TasksManagerController = (() => {
         TasksManagerModel.resetAllData();
     }
 
-    return { createAndBindProjectViewWithEvent, resetAllViewAndData }
+    return { createAndBindProjectViewWithEvent, resetAllViewAndData, showHomeTaskContent }
 })()
 
 export { TasksManagerModel, TasksManagerView, TasksManagerController };
