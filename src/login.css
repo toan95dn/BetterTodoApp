@@ -173,20 +173,6 @@
     align-items: center;
 }
 
-/* Thank you message after sign up */
-.thanksMessage{
-    display: none;
-}
-
-.thanksMessage.active{
-    min-width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    text-align: center;
-}
-
 @media (max-width: 1000px){
     html{
         font-size: 9px;

@@ -38,6 +38,10 @@ select:focus,input:focus{
 
 }
 
+::-webkit-input-placeholder {
+    font-style: italic;
+ }
+
 label{
     display: block;
     margin-top: 1rem;

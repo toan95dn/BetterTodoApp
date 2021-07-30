@@ -4,48 +4,16 @@ import {
     GoogleAuthProvider, onAuthStateChanged, signOut
 } from "firebase/auth";
 import { FireBaseManager } from "./FirebaseManager";
+import { doc } from "firebase/firestore";
 
 // ----------------Add signup event------------------------//
-
-const signUpButton = document.querySelector('#signUpButton');
-const signUpContainer = document.querySelector('.signUpContainer');
-const logInContainer = document.querySelector('.logInInputContainer');
-const confirmSignUpButton = document.querySelector('#confirmSignUpButton');
-const cancelSignUpButton = document.querySelector('#cancelSignUpButton');
-const gobackButton = document.querySelector('#backButton');
-const thankYouForSignUpContainer = document.querySelector('.thanksMessage');
 
 function switchSignUpAndLogIn() {
     signUpContainer.classList.toggle('active');
     logInContainer.classList.toggle('active');
 }
 
-function disPlayOneContainerAndTurnOffRest(displayContainer, ...turnOffContainers) {
-    displayContainer.classList.add('active');
-    turnOffContainers.forEach(container => container.classList.remove('active'));
-}
-
-signUpButton.addEventListener('click', () => {
-    disPlayOneContainerAndTurnOffRest(signUpContainer, logInContainer, thankYouForSignUpContainer);
-})
-
-cancelSignUpButton.addEventListener('click', () => {
-    disPlayOneContainerAndTurnOffRest(logInContainer, signUpContainer, thankYouForSignUpContainer);
-})
-
-confirmSignUpButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    disPlayOneContainerAndTurnOffRest(thankYouForSignUpContainer, logInContainer, signUpContainer);
-})
-
-gobackButton.addEventListener('click', () => {
-    disPlayOneContainerAndTurnOffRest(logInContainer, signUpContainer, thankYouForSignUpContainer);
-})
-
-
-// -----------------Link with firebase---------------------//
 const loginSignUpContainer = document.querySelector('.loginSignUpContainer');
-
 
 const signIn = (() => {
     const signInEmailPassButton = document.querySelector('#signInButton');
@@ -74,9 +42,7 @@ const signIn = (() => {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, emailSigninInput.value, passwordSigninInput.value)
             .then((userCredential) => {
-                // Signed in 
-                // const user = userCredential.user;
-                // ...
+                console.log('Login with email and password!')
             })
             .catch((error) => {
                 displayPassEmailErr();
@@ -128,7 +94,69 @@ const signIn = (() => {
 
 
 const signUp = (() => {
+    const signUpButton = document.querySelector('#signUpButton');
+    const signUpContainer = document.querySelector('.signUpContainer');
+    const logInContainer = document.querySelector('.logInInputContainer');
+    const cancelSignUpButton = document.querySelector('#cancelSignUpButton');
 
+    function disPlayOneContainerAndTurnOffRest(displayContainer, ...turnOffContainers) {
+        displayContainer.classList.add('active');
+        turnOffContainers.forEach(container => container.classList.remove('active'));
+    }
+
+    signUpButton.addEventListener('click', () => {
+        disPlayOneContainerAndTurnOffRest(signUpContainer, logInContainer);
+        clearInputFields();
+        showHintCreateAccount();
+    })
+
+    cancelSignUpButton.addEventListener('click', () => {
+        disPlayOneContainerAndTurnOffRest(logInContainer, signUpContainer);
+    })
+
+    //Input values
+    const signupEmailInput = document.querySelector('#emailSignup');
+    const passwordSignupInput = document.querySelector('#passwordSignUp');
+    const passwordConfirmInput = document.querySelector('#passwordConfirm');
+
+    const confirmSignUpButton = document.querySelector('#confirmSignUpButton');
+    confirmSignUpButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (passwordConfirmInput.value !== passwordSignupInput.value || passwordSignupInput.value.length < 6) {
+            clearInputFields();
+            showEmailPasswordError();
+        }
+        else {
+            const auth = getAuth();
+            createUserWithEmailAndPassword(auth, signupEmailInput.value, passwordSignupInput.value)
+                .then((userCredential) => {
+                    disPlayOneContainerAndTurnOffRest(thankYouForSignUpContainer, logInContainer, signUpContainer);
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                    showEmailPasswordError();
+                });
+        }
+    })
+
+    const showEmailPasswordError = () => {
+        signupEmailInput.placeholder = 'Email or password are not valid';
+        passwordSignupInput.placeholder = 'Email or password are not valid';
+        passwordConfirmInput.placeholder = 'Email or password are not valid';
+    }
+
+    const showHintCreateAccount = () => {
+        signupEmailInput.placeholder = 'Example: demoMail@gmail.com';
+        passwordSignupInput.placeholder = 'Must contain at least 6 characters';
+        passwordConfirmInput.placeholder = 'Must contain at least 6 characters';
+    }
+    showHintCreateAccount();
+
+    const clearInputFields = () => {
+        signupEmailInput.value = '';
+        passwordSignupInput.value = '';
+        passwordConfirmInput.value = '';
+    }
 })()
 
 
