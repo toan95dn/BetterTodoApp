@@ -65,7 +65,7 @@ const FireBaseManager = (() => {
         const user = auth.currentUser;
         if (user) {
             const uid = user.uid;
-            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {
+            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {//This special ID is for Demo account, people can't touch the data of this account
                 const projectNamesRef = doc(db, "users", uid);
                 updateDoc(projectNamesRef, { ProjectNames: arrayRemove(projectName) });
                 const queryAllTasksOfProject = query(collection(db, "users", uid, "AllTasks"), where("projectName", "==", projectName));
@@ -85,7 +85,7 @@ const FireBaseManager = (() => {
         const user = auth.currentUser;
         if (user) {
             const uid = user.uid;
-            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {
+            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {//This special ID is for Demo account, people can't touch the data of this account
                 deleteDoc(doc(db, 'users', uid, "AllTasks", task.getFirebaseID()));
             }
         }
@@ -98,7 +98,7 @@ const FireBaseManager = (() => {
         const user = auth.currentUser;
         if (user) {
             const uid = user.uid;
-            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {
+            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {//This special ID is for Demo account, people can't touch the data of this account
                 const taskRef = doc(db, "users", uid, "AllTasks", task.getFirebaseID());
                 updateDoc(taskRef,
                     {
@@ -117,7 +117,7 @@ const FireBaseManager = (() => {
         const user = auth.currentUser;
         if (user) {
             const uid = user.uid;
-            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {
+            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {//This special ID is for Demo account, people can't touch the data of this account
                 const projectNamesRef = doc(db, "users", uid);
                 updateDoc(projectNamesRef, { ProjectNames: arrayUnion(newProjectName) });
             }
@@ -129,7 +129,7 @@ const FireBaseManager = (() => {
         const user = auth.currentUser;
         if (user) {
             const uid = user.uid;
-            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {
+            if (uid !== 'tUNpmmnXGdgMAUddvo97QXBathn2') {//This special ID is for Demo account, people can't touch the data of this account
                 const docRef = await addDoc(collection(db, "users", uid, "AllTasks"), taskObj);
                 return docRef.id;
             }
