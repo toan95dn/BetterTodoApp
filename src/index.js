@@ -12,8 +12,6 @@ import { pubsub } from './pubsub';
 const addButton = document.querySelector('#addButton');
 const addTaskOptionButton = document.querySelector('.createTaskButtonContainer');
 const addProjectOptionButton = document.querySelector('.createProjectButtonContainer');
-const submitProjectButton = document.querySelector('#submitNewProject');
-const submitTaskButton = document.querySelector('#submitNewTask');
 
 //Hamburger button, makes the menu slide out
 const hamburgerButton = document.querySelector('.hamburger');
@@ -21,21 +19,21 @@ const hamburgerButton = document.querySelector('.hamburger');
 // All containers + popup
 const menuTab = document.querySelector('.menu');
 const popupModalBg = document.querySelector('.popupModalBg');
-const createProjectModal = document.querySelector('.createProjectModal');
-const createTaskModal = document.querySelector('.createTaskModal');
+const createProjectForm = document.querySelector('.createProjectModal');
+const createTaskForm = document.querySelector('.createTaskModal');
 
 //Buttons to close
 
 const closeTaskForm = document.querySelector('#closeTaskForm');
 closeTaskForm.addEventListener('click', () => {
     popupModalBg.classList.remove('active');
-    createTaskModal.classList.remove('active');
+    createTaskForm.classList.remove('active');
 })
 
 const closeProjectForm = document.querySelector('#closeProjectForm');
 closeProjectForm.addEventListener('click', () => {
     popupModalBg.classList.remove('active');
-    createProjectModal.classList.remove('active');
+    createProjectForm.classList.remove('active');
 })
 
 //
@@ -62,24 +60,25 @@ hamburgerButton.addEventListener('click', () => {
 //Create a new project
 addProjectOptionButton.addEventListener('click', () => {
     popupModalBg.classList.add('active');
-    createProjectModal.classList.add('active');
+    createProjectForm.classList.add('active');
     changeStatusOfButtons();
 })
 
 const inputProjectName = document.querySelector('#projectNameInput');
-submitProjectButton.addEventListener('click', (e) => {
-    e.preventDefault();
+createProjectForm.addEventListener('submit', (event) => {
+    event.preventDefault();
     FireBaseManager.addProjectFirebase(inputProjectName.value);
     pubsub.emit('addProject', inputProjectName.value);
     popupModalBg.classList.remove('active');
-    createProjectModal.classList.remove('active');
+    createProjectForm.classList.remove('active');
+    createProjectForm.reset();
 })
 
 //Show up modal to add task
 addTaskOptionButton.addEventListener('click', () => {
     getAllProjectsSelection();
     popupModalBg.classList.add('active');
-    createTaskModal.classList.add('active');
+    createTaskForm.classList.add('active');
     changeStatusOfButtons();
 })
 
@@ -102,8 +101,9 @@ const inputTasksTitle = document.querySelector('#taskTitleInput');
 const inputDueDate = document.querySelector('#dueDateInput');
 const inputDescription = document.querySelector('#descriptionInput');
 const inputPriority = document.querySelector('#priorityInput');
-submitTaskButton.addEventListener('click', async () => {
 
+createTaskForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
     const newTaskData = {
         title: inputTasksTitle.value, detail: inputDescription.value, dueDate: inputDueDate.value,
         priority: inputPriority.value, isDone: false, projectName: inputProjectSelection.value
@@ -116,7 +116,8 @@ submitTaskButton.addEventListener('click', async () => {
 
     pubsub.emit('addTask', newTaskModel);
 
-    createTaskModal.classList.remove('active');
+    createTaskForm.reset();
+    createTaskForm.classList.remove('active');
     popupModalBg.classList.remove('active');
 })
 
