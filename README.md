@@ -24,7 +24,7 @@ Made with: JS, CSS, Html, Webpack, Dayjs
 - Click 'Today' to show all tasks that are due today.
 - Click 'Week' to show all tasks that are due this week.
 
-### Project container (in side bar menu)
+### Project container (inside side bar menu)
 - The number before each project shows the number of tasks the project have, these numbers will be updated when you delete/add/move a task.
 - Click the trash can icon to remove a project, which also removes all tasks in the project.
 
