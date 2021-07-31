@@ -218,11 +218,11 @@ class TaskController {
                 this.#taskModel.getDetail(),
                 this.#taskModel.getPriority()
             );
-            this.#bindCloseDetailEvent();
+            this.bindCloseDetailEvent();
         })
     }
 
-    #bindCloseDetailEvent() {
+    bindCloseDetailEvent() {
         const closeDetailButton = document.querySelector('#closeDetailButton');
         closeDetailButton.addEventListener('click', () => this.#taskView.turnOffPopup());
     }
