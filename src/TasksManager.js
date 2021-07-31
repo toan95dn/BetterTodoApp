@@ -12,11 +12,15 @@ const TasksManagerModel = (() => {
     const projectMap = new Map();
 
     const addNewProject = (projectName) => {
-        if (!projectMap.has(projectName)) {
+        if (!containsProjectname(projectName)) {
             projectMap.set(projectName, []);
             return true;
         }
         return false;
+    }
+
+    const containsProjectname = (projectName) => {
+        return projectMap.has(projectName);
     }
 
     const removeProject = (projectName) => {
@@ -68,7 +72,7 @@ const TasksManagerModel = (() => {
     }
 
     return {
-        addNewTask, addNewProject, removeProject, printOutProject,
+        addNewTask, addNewProject, removeProject, containsProjectname, printOutProject,
         getAllProjects, getSizeOfProject, getAllTasksOfSelectedProject,
         getAllTasks, resetAllData
     }
@@ -159,7 +163,6 @@ const TasksManagerController = (() => {
 
         //If project name exist, then return
         if (!TasksManagerModel.addNewProject(projectName)) {
-            alert('Project name already exists' + projectName);
             return;
         };
 

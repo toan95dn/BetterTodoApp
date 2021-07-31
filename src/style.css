@@ -42,6 +42,7 @@ select:focus,input:focus{
 
 ::-webkit-input-placeholder {
     font-style: italic;
+    color: #d00000;
  }
 
 label{

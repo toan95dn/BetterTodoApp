@@ -5,7 +5,7 @@ import 'normalize.css'
 import './login';
 import { FireBaseManager } from './FirebaseManager';
 import { TaskModel, TaskController } from './Task';
-import { TasksManagerModel } from './TasksManager';
+import { TasksManagerController, TasksManagerModel } from './TasksManager';
 import { pubsub } from './pubsub';
 
 //All buttons to add a task/project
@@ -26,12 +26,14 @@ const createTaskForm = document.querySelector('.createTaskModal');
 
 const closeTaskForm = document.querySelector('#closeTaskForm');
 closeTaskForm.addEventListener('click', () => {
+    createTaskForm.reset();
     popupModalBg.classList.remove('active');
     createTaskForm.classList.remove('active');
 })
 
 const closeProjectForm = document.querySelector('#closeProjectForm');
 closeProjectForm.addEventListener('click', () => {
+    createProjectForm.reset();
     popupModalBg.classList.remove('active');
     createProjectForm.classList.remove('active');
 })
@@ -59,6 +61,7 @@ hamburgerButton.addEventListener('click', () => {
 
 //Create a new project
 addProjectOptionButton.addEventListener('click', () => {
+    inputProjectName.placeholder = ''; //reset because if the user make error, the placeholder still show the error
     popupModalBg.classList.add('active');
     createProjectForm.classList.add('active');
     changeStatusOfButtons();
@@ -67,12 +70,22 @@ addProjectOptionButton.addEventListener('click', () => {
 const inputProjectName = document.querySelector('#projectNameInput');
 createProjectForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    FireBaseManager.addProjectFirebase(inputProjectName.value);
-    pubsub.emit('addProject', inputProjectName.value);
-    popupModalBg.classList.remove('active');
-    createProjectForm.classList.remove('active');
-    createProjectForm.reset();
+    if (!TasksManagerModel.containsProjectname(inputProjectName.value)) {
+        FireBaseManager.addProjectFirebase(inputProjectName.value);
+        pubsub.emit('addProject', inputProjectName.value);
+        popupModalBg.classList.remove('active');
+        createProjectForm.classList.remove('active');
+        createProjectForm.reset();
+    }
+    else {
+        showErrorCreateProject();
+    }
 })
+
+function showErrorCreateProject() {
+    createProjectForm.reset();
+    inputProjectName.placeholder = `The project's name already exists`;
+}
 
 //Show up modal to add task
 addTaskOptionButton.addEventListener('click', () => {
