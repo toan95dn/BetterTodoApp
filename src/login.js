@@ -1,3 +1,4 @@
+import { PageManager } from "./PageManager";
 import { TasksManagerController } from "./TasksManager";
 import {
     getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
@@ -5,7 +6,8 @@ import {
 } from "firebase/auth";
 import { FireBaseManager } from "./FirebaseManager";
 
-// ----------------Add signup event------------------------//
+PageManager.createLoginPage();
+
 const loginSignUpContainer = document.querySelector('.loginSignUpContainer');
 
 const signIn = (() => {
@@ -74,22 +76,16 @@ const signIn = (() => {
         signOut(auth).then(() => {
             loginSignUpContainer.classList.add('active');
             TasksManagerController.resetAllViewAndData();
-            clearInputFields();
+            PageManager.createLoginPage();
         }).catch((error) => {
             console.log(error.message)
         });
     })
 
-    const clearInputFieldsLogIn = () => {
-        emailSigninInput.value = '';
-        passwordSigninInput.value = '';
-    }
-
-
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
         if (user) {
-
+            PageManager.clearLoginPage();
             loginSignUpContainer.classList.remove('active');
             const greetUserView = document.querySelector('#greetUser');
             const userEmail = user.email;

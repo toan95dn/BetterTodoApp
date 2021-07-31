@@ -50,10 +50,17 @@ label{
     margin-top: 1rem;
 }
 
-
 body{
-    height: 100vh;
     max-width: 100vw;
+    height: 100vh;
+}
+
+.App{
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -61,6 +68,7 @@ body{
 
 /* Nav bar */
 nav{
+    position: relative;
     background-color: var(--header-bg-color);
     color:white;
     font-size: 3rem;
