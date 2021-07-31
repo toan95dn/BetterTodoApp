@@ -6,203 +6,125 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="./Image/favicon-32x32.png" />
+    <title>Todo</title>
 </head>
 
 <body>
-    <div class="loginSignUpContainer active">
-        <div class='imageContainer'>
-            <img src="/src/todoImage.svg" alt="">
+    <div class='App'>
+        <!-- Navbar -->
+        <nav>
+            <div id="hamburgerButton">
+                <button class="hamburger hamburger--emphatic" type="button">
+                    <span class="hamburger-box">
+                        <span class="hamburger-inner"></span>
+                    </span>
+                </button>
+            </div>
+
+            <span>T</span>
+            <span class="material-icons">
+                task_alt
+            </span>
+            <span>DO</span>
+            <span class="material-icons">
+                sentiment_very_satisfied
+            </span>
+        </nav>
+
+        <div class="contentContainer">
+            <!-- Menu -->
+            <menu class="menu">
+                <li id='Home' class='tab'>Home</li>
+                <li id='Inbox' class='tab'>Inbox</li>
+                <li id='Today' class='tab'>Today</li>
+                <li id='Week' class='tab'>Week</li>
+                <ul class='Projects'>
+                    <div>Projects</div>
+                    <div class="listProjectsContainer"></div>
+                </ul>
+
+                <div class="signOutContainer">
+                    <div id='greetUser'>Hello, Toan</div>
+                    <button id='signOutButton'>Sign out</button>
+                </div>
+            </menu>
+
+            <div class="projectInfoContainer">
+                <ul class='projectInfoHeader'>
+                    <h3 id='currentTab'> Home </h3>
+                    <div class='dueDateSort'><span>Due Date</span>
+                        <span class="material-icons">swap_vert</span>
+                    </div>
+                </ul>
+                <div class='listOfTasks'></div>
+            </div>
+
         </div>
 
-        <div class='allInputsContainer' action="">
-            <div class="brandHeader">
-                <div class="brandName"><span>T</span>
-                    <span class="material-icons">
+
+        <!-- Adding buttons -->
+        <div class='addButtonsContainer'>
+            <button id='addButton'><span class="material-icons">
+                    add
+                </span></button>
+
+            <div class="createTaskButtonContainer">
+                <span>Task</span>
+                <button id='createTaskButton'> <span class="material-icons">
                         task_alt
-                    </span>
-                    <span>DO</span>
-                    <span class="material-icons">
-                        sentiment_very_satisfied
-                    </span>
-                </div>
-
-                <h2>Organize your life!</h2>
-            </div>
-
-            <form class='logInInputContainer active'>
-                <div class='emailpassInput'>
-                    <label for="emailSigninInput">Email</label>
-                    <input type="email" name="emailSigninInput" id="emailSigninInput" required>
-                </div>
-
-                <div class='emailpassInput'>
-                    <label for="passwordSigninInput">Password</label>
-                    <input type="password" name="passwordSigninInput" id="passwordSigninInput" required>
-                </div>
-
-                <div class='signInUpButtons'><button id='signInButton'><span>Sign In</span></button>
-                    <button id='signUpButton' type="button"><span></span>Sign Up</button>
-                </div>
-
-                <div class='or'>-OR-</div>
-
-                <div class='logInWithGGDemoContainer'>
-                    <button id='loginGoogleButton' type="button"><span>Sign In With Google</span></button>
-                    <button id='loginDemoButton' type="button"><span>Sign In With Demo</span></button>
-                </div>
-            </form>
-
-            <form action="" class="signUpContainer">
-                <div class='emailpassInput'>
-                    <label for="emailSignup">Signup Email</label>
-                    <input type="emailSignup" name="emailSignup" id="emailSignup" required>
-                </div>
-
-                <div class='emailpassInput'>
-                    <label for="passwordSignUp">Password</label>
-                    <input type="password" name="passwordSignUp" id="passwordSignUp" required>
-                </div>
-
-                <div class='emailpassInput'>
-                    <label for="passwordConfirm">Confirm Password</label>
-                    <input type="passwordConfirm" name="passwordConfirm" id="passwordConfirm" required>
-                </div>
-
-                <div class='signInUpButtons'><button id='confirmSignUpButton'>Confirm</button>
-                    <button id='cancelSignUpButton' type="button">Cancel</button>
-                </div>
-            </form>
-
-
-            <div class="thanksMessage">
-                <h3>Thank you!
-                    <br> <br>
-                    Now you can go back and log in!
-                </h3>
-                <button id="backButton">Back</button>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-    <!-- Navbar -->
-    <nav>
-        <div id="hamburgerButton">
-            <button class="hamburger hamburger--emphatic" type="button">
-                <span class="hamburger-box">
-                    <span class="hamburger-inner"></span>
-                </span>
-            </button>
-        </div>
-
-        <span>T</span>
-        <span class="material-icons">
-            task_alt
-        </span>
-        <span>DO</span>
-        <span class="material-icons">
-            sentiment_very_satisfied
-        </span>
-    </nav>
-
-    <div class="contentContainer">
-        <!-- Menu -->
-        <menu class="menu">
-            <li id='Home' class='tab'>Home</li>
-            <li id='Inbox' class='tab'>Inbox</li>
-            <li id='Today' class='tab'>Today</li>
-            <li id='Week' class='tab'>Week</li>
-            <ul class='Projects'>
-                <div>Projects</div>
-                <div class="listProjectsContainer"></div>
-            </ul>
-
-            <div class="signOutContainer">
-                <div id='greetUser'>Hello, Toan</div>
-                <button id='signOutButton'>Sign out</button>
-            </div>
-        </menu>
-
-        <div class="projectInfoContainer">
-            <ul class='projectInfoHeader'>
-                <h3 id='currentTab'> Home </h3>
-                <div class='dueDateSort'><span>Due Date</span>
-                    <span class="material-icons">swap_vert</span>
-                </div>
-            </ul>
-            <div class='listOfTasks'></div>
-        </div>
-
-    </div>
-
-
-
-    <!-- Adding buttons -->
-    <div class='addButtonsContainer'>
-        <button id='addButton'><span class="material-icons">
-                add
-            </span></button>
-
-        <div class="createTaskButtonContainer">
-            <span>Task</span>
-            <button id='createTaskButton'> <span class="material-icons">
-                    task_alt
-                </span></button>
-            </span></button>
-
-        </div>
-
-        <div class='createProjectButtonContainer'>
-            <span>Project</span>
-            <button id='createProjectButton'><span class="material-icons">
-                    construction
+                    </span></button>
                 </span></button>
 
+            </div>
+
+            <div class='createProjectButtonContainer'>
+                <span>Project</span>
+                <button id='createProjectButton'><span class="material-icons">
+                        construction
+                    </span></button>
+
+            </div>
+        </div>
+
+        <!-- Popup Modal -->
+        <div class="popupModalBg">
+            <form class="createProjectModal">
+                <h3>Enter the name of the new project</h3>
+                <input type="text" id="projectNameInput" name="projectNameInput" required>
+                <button id='submitNewProject' type='submit'>Submit</button>
+                <button class="material-icons" type="button" id="closeProjectForm">clear</button>
+            </form>
+
+            <form class="createTaskModal">
+                <h2>Add a new task</h2>
+
+                <label for="taskTitleInput">Task's title</label>
+                <input type="text" name="taskTitleInput" id="taskTitleInput" required>
+
+                <label for="dueDateInput">Due date</label>
+                <input type="date" name="dueDateInput" id="dueDateInput" required>
+
+                <label for="descriptionInput">Description</label>
+                <textarea name="description" id="descriptionInput" cols="30" rows="10"></textarea>
+
+                <label for="priorityInput">Pick the priority</label>
+                <select name="priorityInput" id="priorityInput">
+                    <option value="Low" class='low'>Low</option>
+                    <option value="Medium" class='medium'>Medium</option>
+                    <option value="High" class='high'>High</option>
+                </select>
+
+                <label for="projectSelectionInput">Pick the project</label>
+                <select name="projectSelectionInput" id="projectSelectionInput">
+                </select>
+
+                <button class="material-icons" type="button" id="closeTaskForm">clear</button>
+                <Button id="submitNewTask" type="submit">Submit</Button>
+            </form>
         </div>
     </div>
-
-    <!-- Popup Modal -->
-    <div class="popupModalBg">
-        <form class="createProjectModal">
-            <h3>Enter the name of the new project</h3>
-            <input type="text" id="projectNameInput" name="projectNameInput" required>
-            <button id='submitNewProject' type='submit'>Submit</button>
-            <button class="material-icons" type="button" id="closeProjectForm">clear</button>
-        </form>
-
-        <form class="createTaskModal">
-            <h2>Add a new task</h2>
-
-            <label for="taskTitleInput">Task's title</label>
-            <input type="text" name="taskTitleInput" id="taskTitleInput" required>
-
-            <label for="dueDateInput">Due date</label>
-            <input type="date" name="dueDateInput" id="dueDateInput" required>
-
-            <label for="descriptionInput">Description</label>
-            <textarea name="description" id="descriptionInput" cols="30" rows="10"></textarea>
-
-            <label for="priorityInput">Pick the priority</label>
-            <select name="priorityInput" id="priorityInput">
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
-            </select>
-
-            <label for="projectSelectionInput">Pick the project</label>
-            <select name="projectSelectionInput" id="projectSelectionInput">
-            </select>
-
-            <button class="material-icons" type="button" id="closeTaskForm">clear</button>
-            <Button id="submitNewTask" type="button">Submit</Button>
-        </form>
-    </div>
-
-
     <script src="main.js"></script>
 </body>
 

@@ -1,4 +1,3 @@
-import { loginPage } from "./LoginPage";
 import { TasksManagerController } from "./TasksManager";
 import {
     getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
@@ -6,165 +5,240 @@ import {
 } from "firebase/auth";
 import { FireBaseManager } from "./FirebaseManager";
 
-loginPage.createLoginPage();
+/*-------------------------------Generate log in page ------------------------------ */
+const createLoginPage = (() => {
+    const loginContainer = document.createElement('div');
+    loginContainer.classList.add('loginSignUpContainer', 'active');
 
-const loginSignUpContainer = document.querySelector('.loginSignUpContainer');
-const appContainer = document.querySelector('.App');
+    const loginContainerContent =
+        `<div class='imageContainer'>
+                    <img src="./Image/todoImage.svg" alt="">
+                </div>
 
-const signIn = (() => {
-    const signInEmailPassButton = document.querySelector('#signInButton');
-    const emailSigninInput = document.querySelector('#emailSigninInput');
-    const passwordSigninInput = document.querySelector('#passwordSigninInput');
+                <div class='allInputsContainer' action="">
+                    <div class="brandHeader">
+                        <div class="brandName"><span>T</span>
+                            <span class="material-icons">
+                                task_alt
+                            </span>
+                            <span>DO</span>
+                            <span class="material-icons">
+                                sentiment_very_satisfied
+                            </span>
+                        </div>
 
-    const signInGoogleButton = document.querySelector('#loginGoogleButton');
+                        <h2>Organize your life!</h2>
+                    </div>
 
-    const signInDemoButton = document.querySelector('#loginDemoButton');
+                    <form class='logInInputContainer active'>
+                        <div class='emailpassInput'>
+                            <label for="emailSigninInput">Email</label>
+                            <input type="email" name="emailSigninInput" id="emailSigninInput" required>
+                        </div>
 
-    const signOutButton = document.querySelector('#signOutButton');
+                        <div class='emailpassInput'>
+                            <label for="passwordSigninInput">Password</label>
+                            <input type="password" name="passwordSigninInput" id="passwordSigninInput" required>
+                        </div>
 
-    // -------------------Log in with Google ---------------------//
-    signInGoogleButton.addEventListener('click', () => {
-        const auth = getAuth();
-        const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                console.log('Login with GG!')
-            }).catch((error) => {
-                console.log(error.message);
-            });
-    })
+                        <div class='signInUpButtons'><button id='signInButton'><span>Sign In</span></button>
+                            <button id='signUpButton' type="button"><span></span>Sign Up</button>
+                        </div>
 
-    // -------------------Log in with Email + Password ---------------------//
-    signInEmailPassButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, emailSigninInput.value, passwordSigninInput.value)
-            .then((userCredential) => {
-                console.log('Login with email and password!')
-            })
-            .catch((error) => {
-                displayPassEmailErr();
-                setTimeout(clearShowingErrors, 3000);
-            });
-    })
+                        <div class='or'>-OR-</div>
 
-    function displayPassEmailErr() {
-        emailSigninInput.value = '';
-        passwordSigninInput.value = '';
-        emailSigninInput.placeholder = 'Invalid Email/Password';
-        passwordSigninInput.placeholder = 'Invalid Email/Password';
-    }
+                        <div class='logInWithGGDemoContainer'>
+                            <button id='loginGoogleButton' type="button"><span>Sign In With Google</span></button>
+                            <button id='loginDemoButton' type="button"><span>Sign In With Demo</span></button>
+                        </div>
+                    </form>
 
-    function clearShowingErrors() {
-        emailSigninInput.placeholder = '';
-        passwordSigninInput.placeholder = '';
-    }
+                    <form action="" class="signUpContainer">
+                        <div class='emailpassInput'>
+                            <label for="emailSignup">Signup Email</label>
+                            <input type="emailSignup" name="emailSignup" id="emailSignup" required>
+                        </div>
 
-    //--------------------Log in with Demo account, disable saving data ---------------------//
-    signInDemoButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        signInWithEmailAndPassword(auth, 'demoMail@gmail.com', 'demo123')
-            .then((userCredential) => {
-                console.log('Login with Demo')
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
-    })
+                        <div class='emailpassInput'>
+                            <label for="passwordSignUp">Password</label>
+                            <input type="password" name="passwordSignUp" id="passwordSignUp" required>
+                        </div>
 
-    signOutButton.addEventListener('click', () => {
-        const auth = getAuth();
-        signOut(auth).then(() => {
-            appContainer.classList.remove('active');
-            TasksManagerController.resetAllViewAndData();
-            loginPage.createLoginPage();
-        }).catch((error) => {
-            console.log(error.message)
-        });
-    })
+                        <div class='emailpassInput'>
+                            <label for="passwordConfirm">Confirm Password</label>
+                            <input type="password" name="passwordConfirm" id="passwordConfirm" required>
+                        </div>
 
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            loginPage.clearLoginPage();
-            appContainer.classList.add('active');
-            const greetUserView = document.querySelector('#greetUser');
-            const userEmail = user.email;
-            const userName = userEmail.substring(0, userEmail.lastIndexOf('@'));
-            greetUserView.innerText = 'Hi, ' + userName;
-            FireBaseManager.loadUserData(user);
+                        <div class='signInUpButtons'><button id='confirmSignUpButton'>Confirm</button>
+                            <button id='cancelSignUpButton' type="button">Cancel</button>
+                        </div>
+                    </form>
+                </div>`;
 
-        } else {
-            // User is signed out
-            // ...
-        }
-    })
+    loginContainer.innerHTML = loginContainerContent;
+    document.querySelector('body').append(loginContainer);
 })()
 
 
-const signUp = (() => {
-    const signUpButton = document.querySelector('#signUpButton');
-    const signUpContainer = document.querySelector('.signUpContainer');
-    const logInContainer = document.querySelector('.logInInputContainer');
-    const cancelSignUpButton = document.querySelector('#cancelSignUpButton');
+/*-------------------------------Bind events with log in page ------------------------------ */
+const bindEventWithLoginPage = (() => {
+    const loginSignUpContainer = document.querySelector('.loginSignUpContainer');
+    const appContainer = document.querySelector('.App');
 
-    function disPlayOneContainerAndTurnOffRest(displayContainer, ...turnOffContainers) {
-        displayContainer.classList.add('active');
-        turnOffContainers.forEach(container => container.classList.remove('active'));
-    }
+    const signIn = (() => {
+        const signInEmailPassButton = document.querySelector('#signInButton');
+        const emailSigninInput = document.querySelector('#emailSigninInput');
+        const passwordSigninInput = document.querySelector('#passwordSigninInput');
 
-    signUpButton.addEventListener('click', () => {
-        disPlayOneContainerAndTurnOffRest(signUpContainer, logInContainer);
-        clearInputFields();
-        showHintCreateAccount();
-    })
+        const signInGoogleButton = document.querySelector('#loginGoogleButton');
 
-    cancelSignUpButton.addEventListener('click', () => {
-        disPlayOneContainerAndTurnOffRest(logInContainer, signUpContainer);
-    })
+        const signInDemoButton = document.querySelector('#loginDemoButton');
 
-    //Input values
-    const signupEmailInput = document.querySelector('#emailSignup');
-    const passwordSignupInput = document.querySelector('#passwordSignUp');
-    const passwordConfirmInput = document.querySelector('#passwordConfirm');
+        const signOutButton = document.querySelector('#signOutButton');
 
-    const confirmSignUpButton = document.querySelector('#confirmSignUpButton');
-    confirmSignUpButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        if (passwordConfirmInput.value !== passwordSignupInput.value || passwordSignupInput.value.length < 6) {
-            clearInputFields();
-            showEmailPasswordError();
-        }
-        else {
+        // -------------------Log in with Google ---------------------//
+        signInGoogleButton.addEventListener('click', () => {
             const auth = getAuth();
-            createUserWithEmailAndPassword(auth, signupEmailInput.value, passwordSignupInput.value)
+            const provider = new GoogleAuthProvider();
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    console.log('Login with GG!')
+                }).catch((error) => {
+                    console.log(error.message);
+                });
+        })
+
+        // -------------------Log in with Email + Password ---------------------//
+        signInEmailPassButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            const auth = getAuth();
+            signInWithEmailAndPassword(auth, emailSigninInput.value, passwordSigninInput.value)
                 .then((userCredential) => {
-                    clearInputFields();
+                    console.log('Login with email and password!')
+                })
+                .catch((error) => {
+                    displayPassEmailErr();
+                    setTimeout(clearShowingErrors, 3000);
+                });
+        })
+
+        function displayPassEmailErr() {
+            emailSigninInput.value = '';
+            passwordSigninInput.value = '';
+            emailSigninInput.placeholder = 'Invalid Email/Password';
+            passwordSigninInput.placeholder = 'Invalid Email/Password';
+        }
+
+        function clearShowingErrors() {
+            emailSigninInput.placeholder = '';
+            passwordSigninInput.placeholder = '';
+        }
+
+        //--------------------Log in with Demo account, disable saving data ---------------------//
+        signInDemoButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            signInWithEmailAndPassword(auth, 'demoMail@gmail.com', 'demo123')
+                .then((userCredential) => {
+                    console.log('Login with Demo')
                 })
                 .catch((error) => {
                     console.log(error.message);
-                    showEmailPasswordError();
                 });
+        })
+
+        signOutButton.addEventListener('click', () => {
+            const auth = getAuth();
+            signOut(auth).then(() => {
+                appContainer.classList.remove('active');
+                loginSignUpContainer.classList.add('active');
+                TasksManagerController.resetAllViewAndData();
+            }).catch((error) => {
+                console.log(error.message)
+            });
+        })
+
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                loginSignUpContainer.classList.remove('active');
+                appContainer.classList.add('active');
+                const greetUserView = document.querySelector('#greetUser');
+                const userEmail = user.email;
+                const userName = userEmail.substring(0, userEmail.lastIndexOf('@'));
+                greetUserView.innerText = 'Hi, ' + userName;
+                FireBaseManager.loadUserData(user);
+
+            } else {
+                // User is signed out
+                // ...
+            }
+        })
+    })()
+
+
+    const signUp = (() => {
+        const signUpButton = document.querySelector('#signUpButton');
+        const signUpContainer = document.querySelector('.signUpContainer');
+        const logInContainer = document.querySelector('.logInInputContainer');
+        const cancelSignUpButton = document.querySelector('#cancelSignUpButton');
+
+        function disPlayOneContainerAndTurnOffRest(displayContainer, ...turnOffContainers) {
+            displayContainer.classList.add('active');
+            turnOffContainers.forEach(container => container.classList.remove('active'));
         }
-    })
 
-    const showEmailPasswordError = () => {
-        signupEmailInput.placeholder = 'Email or password are not valid';
-        passwordSignupInput.placeholder = 'Email or password are not valid';
-        passwordConfirmInput.placeholder = 'Email or password are not valid';
-    }
+        signUpButton.addEventListener('click', () => {
+            disPlayOneContainerAndTurnOffRest(signUpContainer, logInContainer);
+            clearInputFields();
+            showHintCreateAccount();
+        })
 
-    const showHintCreateAccount = () => {
-        signupEmailInput.placeholder = 'Example: demoMail@gmail.com';
-        passwordSignupInput.placeholder = 'Must contain at least 6 characters';
-        passwordConfirmInput.placeholder = 'Must contain at least 6 characters';
-    }
-    showHintCreateAccount();
+        cancelSignUpButton.addEventListener('click', () => {
+            disPlayOneContainerAndTurnOffRest(logInContainer, signUpContainer);
+        })
 
-    const clearInputFields = () => {
-        signupEmailInput.value = '';
-        passwordSignupInput.value = '';
-        passwordConfirmInput.value = '';
-    }
+        //Input values
+        const signupEmailInput = document.querySelector('#emailSignup');
+        const passwordSignupInput = document.querySelector('#passwordSignUp');
+        const passwordConfirmInput = document.querySelector('#passwordConfirm');
+
+        const confirmSignUpButton = document.querySelector('#confirmSignUpButton');
+        confirmSignUpButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (passwordConfirmInput.value !== passwordSignupInput.value || passwordSignupInput.value.length < 6) {
+                clearInputFields();
+                showEmailPasswordError();
+            }
+            else {
+                const auth = getAuth();
+                createUserWithEmailAndPassword(auth, signupEmailInput.value, passwordSignupInput.value)
+                    .then((userCredential) => {
+                        clearInputFields();
+                    })
+                    .catch((error) => {
+                        console.log(error.message);
+                        showEmailPasswordError();
+                    });
+            }
+        })
+
+        const showEmailPasswordError = () => {
+            signupEmailInput.placeholder = 'Email or password are not valid';
+            passwordSignupInput.placeholder = 'Email or password are not valid';
+            passwordConfirmInput.placeholder = 'Email or password are not valid';
+        }
+
+        const showHintCreateAccount = () => {
+            signupEmailInput.placeholder = 'Example: demoMail@gmail.com';
+            passwordSignupInput.placeholder = 'Must contain at least 6 characters';
+            passwordConfirmInput.placeholder = 'Must contain at least 6 characters';
+        }
+        showHintCreateAccount();
+
+        const clearInputFields = () => {
+            signupEmailInput.value = '';
+            passwordSignupInput.value = '';
+            passwordConfirmInput.value = '';
+        }
+    })()
 })()
-
