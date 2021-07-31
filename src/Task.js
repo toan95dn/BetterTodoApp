@@ -65,11 +65,11 @@ class TaskView {
         this.#taskView.classList.add('task');
         this.#taskView.classList.add(priority);
 
-        this.#titleView = this.#createView(title);
-        this.#dueDateView = this.#createView(dayjs(dueDate).format('MM/DD/YYYY'));
-        this.#editButtonView = this.#createView('edit', 'material-icons');
-        this.#deleteButtonView = this.#createView('delete', 'material-icons');
-        this.#checkBoxView = this.#createView('check_box_outline_blank', 'material-icons');
+        this.#titleView = this.createView(title);
+        this.#dueDateView = this.createView(dayjs(dueDate).format('MM/DD/YYYY'));
+        this.#editButtonView = this.createView('edit', 'material-icons');
+        this.#deleteButtonView = this.createView('delete', 'material-icons');
+        this.#checkBoxView = this.createView('check_box_outline_blank', 'material-icons');
         this.setStatusView(isDone);
 
         this.#taskView.append(this.#checkBoxView, this.#titleView, this.#dueDateView, this.#editButtonView, this.#deleteButtonView);
@@ -96,7 +96,7 @@ class TaskView {
     }
 
     //Create a view an element in taskView and add it to the taskView
-    #createView(textInside, ...allClassNames) {
+    createView(textInside, ...allClassNames) {
         const newView = document.createElement('div');
         newView.innerText = textInside;
         allClassNames.forEach((className) => newView.classList.add(className));
@@ -201,14 +201,14 @@ class TaskController {
         this.#taskView = new TaskView(taskModel.getTitle(), taskModel.getDueDate(), taskModel.getPriority(), taskModel.getStatus());
         this.#taskView.setOverdueView(this.#taskModel.isOverDue());
 
-        this.#bindShowDetailEvent();
-        this.#bindChangeStatusEvent();
-        this.#bindDeleteTaskEvent();
-        this.#bindEditEvent();
+        this.bindShowDetailEvent();
+        this.bindChangeStatusEvent();
+        this.bindDeleteTaskEvent();
+        this.bindEditEvent();
 
     }
 
-    #bindShowDetailEvent() {
+    bindShowDetailEvent() {
         const currTaskView = this.#taskView.getTaskView();
         currTaskView.addEventListener('click', () => {
             this.#taskView.createShowDetailTaskView(
@@ -227,7 +227,7 @@ class TaskController {
         closeDetailButton.addEventListener('click', () => this.#taskView.turnOffPopup());
     }
     //--------------------Change status of a task-----------------------
-    #bindChangeStatusEvent() {
+    bindChangeStatusEvent() {
         const statusCheckBox = this.#taskView.getCheckBoxView();
         statusCheckBox.addEventListener('click', (event) => {
             event.stopPropagation();
@@ -238,7 +238,7 @@ class TaskController {
     }
 
     //--------------------Edit a task -----------------------
-    #bindEditEvent() {
+    bindEditEvent() {
         const editButton = this.#taskView.getEditButtonView();
         editButton.addEventListener('click', (event) => {
             event.stopPropagation();
@@ -295,7 +295,7 @@ class TaskController {
     }
 
     //------------ 
-    #bindDeleteTaskEvent() {
+    bindDeleteTaskEvent() {
         const deleteTaskButton = this.#taskView.getDeleteButtonView();
         deleteTaskButton.addEventListener('click', (event) => {
             event.stopPropagation();
