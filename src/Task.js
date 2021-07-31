@@ -45,7 +45,7 @@ class TaskModel {
     }
 
     isOverDue() {
-        return dayjs().isAfter(this.#dueDate);
+        return dayjs().isAfter(this.#dueDate, "day");
     }
 }
 

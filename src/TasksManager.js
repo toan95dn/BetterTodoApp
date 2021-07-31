@@ -1,6 +1,10 @@
 import dayjs from "dayjs";
 import isToday from 'dayjs/plugin/isToday';
 dayjs.extend(isToday);
+import isBetween from 'dayjs/plugin/isBetween';
+dayjs.extend(isBetween);
+import weekday from 'dayjs/plugin/weekday';
+dayjs.extend(weekday)
 import { pubsub } from "./pubsub";
 import { TaskController } from "./Task";
 
@@ -239,7 +243,7 @@ const TasksManagerController = (() => {
         TasksManagerView.renderAllTasksOfSelectedProject(currTabTasksData);
     }
 
-    //------------------------------Week Tab, which shows all tasks due in the next 7 days----------------------
+    //------------------------------Week Tab, which shows all tasks due in this week----------------------
     const weekTab = document.querySelector("#Week");
     weekTab.addEventListener('click', () => {
         showWeekTabContent();
@@ -250,11 +254,7 @@ const TasksManagerController = (() => {
         TasksManagerView.clearAllTasksView();
         const today = new Date();
         const currTabTasksData = TasksManagerModel.getAllTasks().filter((task) => {
-            const dayDiff = (new Date(task.getDueDate()) - today) / 1000 / 60 / 60 / 24;
-            if (dayDiff <= 7 && dayDiff >= 0) {
-                return true;
-            }
-            return false;
+            return dayjs(task.getDueDate()).isBetween(dayjs().weekday(0), dayjs().weekday(+7), 'day', '(]');
         });
         TasksManagerView.renderAllTasksOfSelectedProject(currTabTasksData);
     }
