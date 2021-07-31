@@ -184,7 +184,7 @@ class TaskView {
             </select>
 
             <button class="material-icons" type="button" id="closeEditedForm">clear</button>
-            <Button id="submitEditedTask" type="button">Confirm</Button>
+            <Button id="submitEditedTask" type="submit">Confirm</Button>
              
             </form>`
 
@@ -275,8 +275,9 @@ class TaskController {
                 }
             })
 
-            const submitEditTask = document.querySelector('#submitEditedTask');
-            submitEditTask.addEventListener('click', () => { //Remove from the old project, edit, then add to new project name, finally edit on firebase 
+            const editForm = document.querySelector('.editTaskModal');
+            editForm.addEventListener('submit', (event) => {
+                event.preventDefault();
                 pubsub.emit('removeTask', this.#taskModel);
                 this.#taskModel.updateTask(editTitleInput.value, editDetailInput.value, editDueDateInput.value, editPriorityInput.value, editProjectInput.value);
                 pubsub.emit('addTask', this.#taskModel);
@@ -284,6 +285,7 @@ class TaskController {
                 this.#taskView.setOverdueView(this.#taskModel.isOverDue());
                 this.#taskView.turnOffPopup();
             })
+
 
             const closeEditedFormButton = document.querySelector('#closeEditedForm');
             closeEditedFormButton.addEventListener('click', () => {
