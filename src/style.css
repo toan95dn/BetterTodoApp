@@ -321,7 +321,7 @@ nav .material-icons{
 }
 
 .listOfTasks::-webkit-scrollbar {
-    width: 0.75rem;
+    width: 0.7rem;
 }
 
 .task{
