@@ -1,4 +1,4 @@
-import { PageManager } from "./PageManager";
+import { loginPage } from "./LoginPage";
 import { TasksManagerController } from "./TasksManager";
 import {
     getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
@@ -6,9 +6,10 @@ import {
 } from "firebase/auth";
 import { FireBaseManager } from "./FirebaseManager";
 
-PageManager.createLoginPage();
+loginPage.createLoginPage();
 
 const loginSignUpContainer = document.querySelector('.loginSignUpContainer');
+const appContainer = document.querySelector('.App');
 
 const signIn = (() => {
     const signInEmailPassButton = document.querySelector('#signInButton');
@@ -74,9 +75,9 @@ const signIn = (() => {
     signOutButton.addEventListener('click', () => {
         const auth = getAuth();
         signOut(auth).then(() => {
-            loginSignUpContainer.classList.add('active');
+            appContainer.classList.remove('active');
             TasksManagerController.resetAllViewAndData();
-            PageManager.createLoginPage();
+            loginPage.createLoginPage();
         }).catch((error) => {
             console.log(error.message)
         });
@@ -85,8 +86,8 @@ const signIn = (() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            PageManager.clearLoginPage();
-            loginSignUpContainer.classList.remove('active');
+            loginPage.clearLoginPage();
+            appContainer.classList.add('active');
             const greetUserView = document.querySelector('#greetUser');
             const userEmail = user.email;
             const userName = userEmail.substring(0, userEmail.lastIndexOf('@'));
@@ -167,64 +168,3 @@ const signUp = (() => {
     }
 })()
 
-
-// -----------------------------------------------//
-const createLogin = (() => {
-    // const loginScreen = document.createElement('div');
-    // loginScreen.classList.add('loginContainer');
-
-    // loginScreen.innerHTML = `
-    //     <div class='imageContainer'>
-    //         <img src="/src/todoImage.svg" alt="">
-    //     </div>
-
-
-    //     <form class='signInForm' action="">
-    //         <div class="brandName"><span>T</span>
-    //             <span class="material-icons">
-    //                 task_alt
-    //             </span>
-    //             <span>DO</span>
-    //             <span class="material-icons">
-    //                 sentiment_very_satisfied
-    //             </span>
-    //         </div>
-
-    //         <h2>Organize your life!</h2>
-
-    //         <div class='emailpassInput'>
-    //             <label for="email">Email</label>
-    //             <input type="email" name="email" id="email" required>
-    //         </div>
-
-    //         <div class='emailpassInput'>
-    //             <label for="password">Password</label>
-    //             <input type="password" name="password" id="password" required>
-    //         </div>
-
-    //         <div class='signInUpButtons'><button id='signInButton'><span>Sign In</span></button>
-    //             <button id='signUpButton'><span></span>Sign Up</button>
-    //         </div>
-
-    //         <div class='or'>-OR-</div>
-
-    //         <div class='logInWithGGDemoContainer'>
-    //             <button id='loginGoogleButton'><span>Sign In With Google</span></button>
-    //             <button id='loginDemoButton'><span>Sign In With Demo</span></button>
-    //         </div>
-    //     </form>
-    //     `
-    // document.querySelector('body').append(loginScreen);
-})()
-
-
-//----------------------------TODO-------------------------------
-/*
-    move all things related to firebase here
-    all firebase function will be export to index.js and index.js is gonna use it ????
-    FIX: week tab
-*/
-
-
-
-export { createLogin }

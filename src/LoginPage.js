@@ -1,5 +1,7 @@
-const PageManager = (() => {
+
+const loginPage = (() => {
     const loginContainer = document.createElement('div');
+    const appContainer = document.createElement('div');
 
     const createLoginPage = () => {
         loginContainer.classList.add('loginSignUpContainer', 'active');
@@ -80,4 +82,4 @@ const PageManager = (() => {
     return { createLoginPage, clearLoginPage }
 })()
 
-export { PageManager }
+export { loginPage }
