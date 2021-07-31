@@ -1,6 +1,6 @@
 # BetterTodoApp
 
-Made with: JS, CSS, Html, Webpack
+Made with: JS, CSS, Html, Webpack, Dayjs
 
 [Link](https://toan95dn.github.io/BetterTodoApp/)
 
@@ -31,7 +31,7 @@ Made with: JS, CSS, Html, Webpack
 ## What I've learn in this project:
 - Incorperating firebase to manage users and data.
 - Model View Controller
-- Pubsub design pattern
+- Pubsub design pattern [Link](https://www.youtube.com/watch?v=nQRXi1SVOow)
 - Check compatibility before applying new JS features (In this project, my page did not render on IOS device because they still have not supported
 private methods inside classes yet, took me a while to figure out)
 
