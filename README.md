@@ -1,6 +1,6 @@
 # BetterTodoApp
 
-Made with: JS, CSS, Html, Webpack, Dayjs
+Made with: JS, CSS, Html, Npm, Webpack, Dayjs
 
 # [Link](https://toan95dn.github.io/BetterTodoApp/)
 
