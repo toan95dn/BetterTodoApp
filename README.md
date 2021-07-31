@@ -1,6 +1,8 @@
 # BetterTodoApp
 
-[Link](https://github.com/user/repo/blob/branch/other_file.md)
+Made with: JS, CSS, Html, Webpack
+
+[Link](https://toan95dn.github.io/BetterTodoApp/)
 
 ## How to use:
 
@@ -30,7 +32,7 @@
 - Incorperating firebase to manage users and data.
 - Model View Controller
 - Pubsub design pattern
-- Check compatibility before applying new JS features (For example, in this project, my page did not render on IOS device because they still have not supported
+- Check compatibility before applying new JS features (In this project, my page did not render on IOS device because they still have not supported
 private methods inside classes yet, took me a while to figure out)
 
 
