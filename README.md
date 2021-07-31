@@ -2,7 +2,7 @@
 
 Made with: JS, CSS, Html, Webpack, Dayjs
 
-[Link](https://toan95dn.github.io/BetterTodoApp/)
+# [Link](https://toan95dn.github.io/BetterTodoApp/)
 
 ## How to use:
 
