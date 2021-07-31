@@ -26,7 +26,8 @@ Made with: JS, CSS, Html, Webpack, Dayjs
 
 ### Project container (inside side bar menu)
 - The number before each project shows the number of tasks the project have, these numbers will be updated when you delete/add/move a task.
-- Click the trash can icon to remove a project, which also removes all tasks in the project.
+- Click to the project name to show all tasks of the project.
+- Click the trash can icon then click confirm to remove a project, which also removes all tasks in the project.
 
 ## What I've learn in this project:
 - Incorperating firebase to manage users and data.
