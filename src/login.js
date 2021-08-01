@@ -1,4 +1,3 @@
-import { TasksManagerController } from "./TasksManager";
 import {
     getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
     GoogleAuthProvider, onAuthStateChanged, signOut
@@ -151,14 +150,13 @@ const bindEventWithLoginPage = (() => {
             signOut(auth).then(() => {
                 appContainer.classList.remove('active');
                 loginSignUpContainer.classList.add('active');
-                TasksManagerController.resetAllViewAndData();
             }).catch((error) => {
                 console.log(error.message)
             });
         })
 
         const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth,async (user) => {
             if (user) {
                 loginSignUpContainer.classList.remove('active');
                 appContainer.classList.add('active');
@@ -166,8 +164,7 @@ const bindEventWithLoginPage = (() => {
                 const userEmail = user.email;
                 const userName = userEmail.substring(0, userEmail.lastIndexOf('@'));
                 greetUserView.innerText = 'Hi, ' + userName;
-                FireBaseManager.loadUserData(user);
-
+                await FireBaseManager.loadUserData(user);
             } else {
                 // User is signed out
                 // ...

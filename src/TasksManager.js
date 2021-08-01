@@ -164,7 +164,7 @@ const TasksManagerController = (() => {
         //If project name exist, then return
         if (!TasksManagerModel.addNewProject(projectName)) {
             return;
-        };
+        }
 
         createAndBindProjectViewWithEvent(projectName);
     }
@@ -255,7 +255,6 @@ const TasksManagerController = (() => {
     const showWeekTabContent = () => {
         TasksManagerView.updateTilteOfTasksContainer('Week');
         TasksManagerView.clearAllTasksView();
-        const today = new Date();
         const currTabTasksData = TasksManagerModel.getAllTasks().filter((task) => {
             return dayjs(task.getDueDate()).isBetween(dayjs().weekday(0), dayjs().weekday(+7), 'day', '(]');
         });
