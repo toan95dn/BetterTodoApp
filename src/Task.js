@@ -307,5 +307,6 @@ class TaskController {
 
 }
 
+
 export { TaskModel, TaskView, TaskController }
 
