@@ -138,7 +138,7 @@ const bindEventWithLoginPage = (() => {
         signInDemoButton.addEventListener('click', (event) => {
             event.preventDefault();
             signInWithEmailAndPassword(auth, 'demoMail@gmail.com', 'demo123')
-                .then((userCredential) => {
+                .then(() => {
                     console.log('Login with Demo')
                 })
                 .catch((error) => {
