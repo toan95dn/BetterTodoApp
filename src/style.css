@@ -35,6 +35,7 @@ option {
   line-height: 2rem;
   transition: 0.25s;
   font-weight: bold;
+  width: 100%;
 }
 
 select:focus,
@@ -658,6 +659,7 @@ select {
 
 textarea {
   font-size: 2rem;
+  font-weight: bold;
   width: 100%;
   height: 12rem;
   resize: none;
