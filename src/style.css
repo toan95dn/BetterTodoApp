@@ -154,6 +154,7 @@ nav .material-icons {
 }
 
 .signOutContainer {
+  margin-bottom: 4vh;
   justify-self: flex-end;
   align-self: center;
   flex: 1;
@@ -454,9 +455,9 @@ nav .material-icons {
 /* Add buttons */
 .addButtonsContainer {
   position: absolute;
-  bottom: 2rem;
-  right: 2rem;
-  font-size: 2rem;
+  bottom: 3.5rem;
+  right: 3.5rem;
+  font-size: 3rem;
   background-color: var(-header-bg-color);
 }
 
