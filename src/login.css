@@ -1,217 +1,216 @@
 @import url(style.css);
-.loginSignUpContainer{
-    display: none;
+.loginSignUpContainer {
+  display: none;
 }
 
-.loginSignUpContainer.active{
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    z-index: 3;
-    background-color: var(--task-bg-color);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    justify-items: center;
-    font-size: 1.5rem;
-    /* display: none; */
+.loginSignUpContainer.active {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 3;
+  background-color: var(--task-bg-color);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  font-size: 1.5rem;
+  /* display: none; */
 }
 
-.brandName span{
-    display: block;
+.brandName span {
+  display: block;
 }
 
-.brandName{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 8rem;
+.brandName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 8rem;
 }
 
-.brandName .material-icons{
-    font-size: 8rem;
+.brandName .material-icons {
+  font-size: 8rem;
 }
 
-.loginSignUpContainer h2{
-    text-align: center;
+.loginSignUpContainer h2 {
+  text-align: center;
 }
 
-
-.allInputsContainer{
-    display: grid;
-    grid-template-rows: 12rem 1fr;
-    gap: 1rem;
-    width: 45rem;
-    height: 60rem;
-    background-color: #e76f5159;
-    padding: 2rem 3rem 2rem 3rem;
-    font-weight: bold;
-    margin:0 3rem 0 3rem;
-    border-radius: 2rem;
-    color: var(--header-bg-color);
-    flex: 0.5;
+.allInputsContainer {
+  display: grid;
+  grid-template-rows: 12rem 1fr;
+  gap: 1rem;
+  width: 45rem;
+  height: 60rem;
+  background-color: #e76f5159;
+  padding: 2rem 3rem 2rem 3rem;
+  font-weight: bold;
+  margin: 0 3rem 0 3rem;
+  border-radius: 2rem;
+  color: var(--header-bg-color);
+  flex: 0.5;
 }
 
-.allInputsContainer input{
-    font-size: 2rem;
-    line-height: 2rem;
-    background-color: transparent;
-    margin-top:1rem;
+.allInputsContainer input {
+  font-size: 2rem;
+  line-height: 2rem;
+  background-color: transparent;
+  margin-top: 1rem;
 }
-
-
 
 /* Image container*/
-.imageContainer{
-    background-color: var(--main-bg-color);
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    border-radius: 0 50% 50% 0;
+.imageContainer {
+  background-color: var(--main-bg-color);
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  border-radius: 0 50% 50% 0;
 }
 
-.imageContainer img{
-    width: 50rem;
-    align-self: center;
-    max-height: 100%;
+.imageContainer img {
+  width: 50rem;
+  align-self: center;
+  max-height: 100%;
 }
 
 /* Input Container */
-.logInInputContainer{
-    display: none;
+.logInInputContainer {
+  display: none;
 }
 
-.logInInputContainer.active{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+.logInInputContainer.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 /* Email + Password Input */
-.emailpassInput{
-   width: 100%;
+.emailpassInput {
+  width: 100%;
 }
 
-.emailpassInput input{
-    width: 100%;
+.emailpassInput input {
+  width: 100%;
 }
 
 /* Sign in + Sign up buttons */
-.loginSignUpContainer button{
-    border-radius: 1.5rem;
-    border: none;
-    font-size: 1.5rem;
-    font-weight: bold;
-    background-color: #a2d2ff;
-    color: white;
-    position: relative;
-    cursor: pointer;
-    overflow: hidden;
+.loginSignUpContainer button {
+  border-radius: 1.5rem;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: #a2d2ff;
+  color: white;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
 }
 
-.loginSignUpContainer button:hover{
-    border: 0.25rem solid white;
+.loginSignUpContainer button:hover {
+  border: 0.25rem solid white;
 }
 
-.signInUpButtons{
-    display: flex;
-    justify-content: space-evenly;
+.signInUpButtons {
+  display: flex;
+  justify-content: space-evenly;
 }
 
-#signInButton,#signUpButton,
-#confirmSignUpButton,#cancelSignUpButton,
-#backButton{
-    height: 4rem;
-    width: 14rem;
-    margin: 1.5rem 0 0 0;
+#signInButton,
+#signUpButton,
+#confirmSignUpButton,
+#cancelSignUpButton,
+#backButton {
+  height: 4rem;
+  width: 14rem;
+  margin: 1.5rem 0 0 0;
 }
 
-#signInButton,#confirmSignUpButton{
-    background-color: #4361ee;
+#signInButton,
+#confirmSignUpButton {
+  background-color: #4361ee;
 }
 
 /* Or */
-.or{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.or {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Login button demo + google */
-.logInWithGGDemoContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+.logInWithGGDemoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
-#loginGoogleButton,#loginDemoButton{
-    height: 4rem;
-    width: 30rem;
-    margin: 1rem;
+#loginGoogleButton,
+#loginDemoButton {
+  height: 4rem;
+  width: 30rem;
+  margin: 1rem;
 }
 
-#loginGoogleButton,#cancelSignUpButton{
-    background-color: #e71d36;
+#loginGoogleButton,
+#cancelSignUpButton {
+  background-color: #e71d36;
 }
 
-#loginDemoButton,#backButton{
-    background-color: slategray;
+#loginDemoButton,
+#backButton {
+  background-color: slategray;
 }
 
 /* Sign up container */
-.signUpContainer{
-    display: none;
-    width: 100%;
+.signUpContainer {
+  display: none;
+  width: 100%;
 }
 
-.signUpContainer.active{
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+.signUpContainer.active {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+}
+
+@media (max-width: 1000px) {
+  html {
+    font-size: 9px;
+  }
+
+  .imageContainer img {
+    width: 35rem;
+  }
+
+  .brandName .material-icons,
+  .brandName {
+    font-size: 7rem;
+  }
+}
+
+@media (max-width: 700px) {
+  html {
+    font-size: 8px;
+  }
+
+  .loginSignUpContainer.active {
+    display: flex;
+    justify-content: center;
     align-items: center;
-}
+  }
 
-@media (max-width: 1000px){
-    html{
-        font-size: 9px;
-    }  
+  .loginSignUpContainer .allInputsContainer {
+    flex: 1;
+  }
 
-    .imageContainer img{
-        width: 35rem;
-    }
+  .imageContainer {
+    display: none;
+  }
 
- 
-    
-
-    .brandName .material-icons,.brandName{
-        font-size: 7rem;
-    }
-
-}
-
-
-@media  (max-width: 700px){
-    html{
-        font-size: 8px;
-    }
-
-    .loginSignUpContainer.active{
-            display: flex ;
-            justify-content: center;
-            align-items: center;
-    }
-
-
-    .loginSignUpContainer .allInputsContainer{
-        flex: 1;
-    }
-
-    .imageContainer{
-        display: none;
-    }
-
-    .brandName .material-icons,.brandName{
-        font-size: 7rem;
-    }
+  .brandName .material-icons,
+  .brandName {
+    font-size: 7rem;
+  }
 }

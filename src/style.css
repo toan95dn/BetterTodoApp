@@ -1,707 +1,705 @@
 :root {
-    --main-bg-color:#e76f51 ;
-    --task-bg-color: #f4a261;
-    --header-bg-color:#264653;
-    --menu-bg-color: #2a9d8f;
-    --taskdone-bg-color: lightslategrey;
-    
+  --main-bg-color: #e76f51;
+  --task-bg-color: #f4a261;
+  --header-bg-color: #264653;
+  --menu-bg-color: #2a9d8f;
+  --taskdone-bg-color: lightslategrey;
 }
 
-html{
-    font-size: 10px;
-    font-family: 'Lato', sans-serif;
-    font-weight: bold;
+html {
+  font-size: 10px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
 }
 
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-li,ul{
-    -webkit-appearance: none;
+li,
+ul {
+  -webkit-appearance: none;
 }
 
-input,select,option {
-    display: block;
-    outline: none;
-    border:none;
-    background: var(--main-bg-color);
-    border-bottom: 0.25rem solid var(--task-bg-color);
-    font-size: 2rem;
-    line-height: 2rem;
-    transition: 0.25s;
-    font-weight: bold;
+input,
+select,
+option {
+  display: block;
+  outline: none;
+  border: none;
+  background: var(--main-bg-color);
+  border-bottom: 0.25rem solid var(--task-bg-color);
+  font-size: 2rem;
+  line-height: 2rem;
+  transition: 0.25s;
+  font-weight: bold;
 }
 
-select:focus,input:focus{
-    border-bottom: 0.25rem solid var(--header-bg-color);
-
+select:focus,
+input:focus {
+  border-bottom: 0.25rem solid var(--header-bg-color);
 }
 
 ::-webkit-input-placeholder {
-    font-style: italic;
-    color: #d00000;
- }
-
-label{
-    display: block;
-    margin-top: 1rem;
+  font-style: italic;
+  color: #d00000;
 }
 
-body{
-    max-width: 100vw;
-    height: 100vh;
+label {
+  display: block;
+  margin-top: 1rem;
 }
 
-.App{display: none;}
+body {
+  max-width: 100vw;
+  height: 100vh;
+}
 
-.App.active{
-    position: absolute;
-    height: 100vh;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
+.App {
+  display: none;
+}
+
+.App.active {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Nav bar */
-nav{
-    position: relative;
-    background-color: var(--header-bg-color);
-    color:white;
-    font-size: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
+nav {
+  position: relative;
+  background-color: var(--header-bg-color);
+  color: white;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
 }
 
-nav .material-icons{
-    font-size: 3rem;
+nav .material-icons {
+  font-size: 3rem;
 }
 
 /* Hamburger Button */
-#hamburgerButton{
-    display: none;
-    position: fixed;
-    left: 0;
-    color:white;
+#hamburgerButton {
+  display: none;
+  position: fixed;
+  left: 0;
+  color: white;
 }
 
-#hamburgerButton .hamburger:hover{
-    opacity: 1;
+#hamburgerButton .hamburger:hover {
+  opacity: 1;
 }
 
 /* Content Container (Menu + List of Tasks */
-.contentContainer{
-    flex:1;
-    position: relative;
-    display: flex;
+.contentContainer {
+  flex: 1;
+  position: relative;
+  display: flex;
 }
 
 /* Menu */
-.menu{
-    width: 35rem;
-    height: 100%;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 1.5rem;
-    background-color: var(--menu-bg-color);
-    font-size: 2.25rem;
-    font-weight: bold;
-    color:black;
-    transition: 0.3s ease-in-out;
-    z-index: 1;
-    position: relative;
+.menu {
+  width: 35rem;
+  height: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1.5rem;
+  background-color: var(--menu-bg-color);
+  font-size: 2.25rem;
+  font-weight: bold;
+  color: black;
+  transition: 0.3s ease-in-out;
+  z-index: 1;
+  position: relative;
 }
 
-.tab{
-    position: relative;
-    margin:1rem;
-    padding: 0.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom:0.25rem solid white;
-    cursor: pointer;
+.tab {
+  position: relative;
+  margin: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 0.25rem solid white;
+  cursor: pointer;
 }
 
-.tab::before{
-    position: absolute;
-    bottom: -0.25rem;
-    left: 0;
-    width: 0;
-    height: 0.25rem;
-    content: '';
-    background-color: transparent;
-    -webkit-transition: all 0.25s;
+.tab::before {
+  position: absolute;
+  bottom: -0.25rem;
+  left: 0;
+  width: 0;
+  height: 0.25rem;
+  content: "";
+  background-color: transparent;
+  transition: all 0.25s;
 }
 
-.tab:hover:before{
-    width: 100%;
-   background-color: var(--header-bg-color);
-   z-index: 1;
+.tab:hover:before {
+  width: 100%;
+  background-color: var(--header-bg-color);
+  z-index: 1;
 }
 
-.signOutContainer{
-    justify-self: flex-end;
-    align-self: center;
-    flex:1;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    font-size: 1.5rem;
+.signOutContainer {
+  justify-self: flex-end;
+  align-self: center;
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-size: 1.5rem;
 }
 
-#greetUser{
-    color: white;
+#greetUser {
+  color: white;
 }
 
-#signOutButton{
-    width: 14rem;
-    height: 3.5rem;
-    border-radius: 1.5rem;
-    border: none;
-    background-color:var(--header-bg-color);
-    color: white;
-    margin-top: 1rem;
-    cursor: pointer;
-    font-weight: bold;
+#signOutButton {
+  width: 14rem;
+  height: 3.5rem;
+  border-radius: 1.5rem;
+  border: none;
+  background-color: var(--header-bg-color);
+  color: white;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-#signOutButton:hover{
-    border: 0.25rem solid white;
+#signOutButton:hover {
+  border: 0.25rem solid white;
 }
 
 /* Project lists on the left side */
-.Projects{
-    margin: 2rem 1rem 0 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 40vh;
-    flex-direction: column;
-    justify-content: start;
-    cursor:default;
+.Projects {
+  margin: 2rem 1rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 40vh;
+  flex-direction: column;
+  justify-content: start;
+  cursor: default;
 }
 
-[data-tab='Projects']:hover{
-    border:none;
+[data-tab="Projects"]:hover {
+  border: none;
 }
 
 /* custom the scroll bar */
-.listProjectsContainer{
-    width: 90%;
-    height: 100%;
-    overflow:auto;
-    font-size: 1.5rem;
-    margin: 1rem 0 1rem 0;
+.listProjectsContainer {
+  width: 90%;
+  height: 100%;
+  overflow: auto;
+  font-size: 1.5rem;
+  margin: 1rem 0 1rem 0;
 }
 
 ::-webkit-scrollbar {
-    width: 0.5rem;
+  width: 0.5rem;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #f4a261;
+  background-color: #f4a261;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #dc2f02;
+  background-color: #dc2f02;
 }
 
 /* Each item in the project list */
-.listProjectsContainer li{
-    position: relative;
-    padding: 0.5rem;
-    border-bottom: 0.2rem solid white;
-    line-height: 2.5rem;
-    margin-right: 1.5rem;
-    display: grid;
-    grid-template-columns: 3.5rem 1fr 2.5rem;
-    align-items: center;
-    flex-direction: row;
-    cursor: pointer;
+.listProjectsContainer li {
+  position: relative;
+  padding: 0.5rem;
+  border-bottom: 0.2rem solid white;
+  line-height: 2.5rem;
+  margin-right: 1.5rem;
+  display: grid;
+  grid-template-columns: 3.5rem 1fr 2.5rem;
+  align-items: center;
+  flex-direction: row;
+  cursor: pointer;
 }
 
-.listProjectsContainer li:hover{
-    background-color: var(--header-bg-color);
+.listProjectsContainer li:hover {
+  background-color: var(--header-bg-color);
 }
 
-.listProjectsContainer .material-icons{
-    font-size: 2rem;
-    color: white;
-    justify-self: flex-start;
+.listProjectsContainer .material-icons {
+  font-size: 2rem;
+  color: white;
+  justify-self: flex-start;
 }
 
-.listProjectsContainer .material-icons:hover{
-    font-size: 2.5rem;
+.listProjectsContainer .material-icons:hover {
+  font-size: 2.5rem;
 }
 
-.numTasks{
-    color:white;
-    margin-right:0.5rem;
-    background-color: var(--main-bg-color);
-    display: flex;
+.numTasks {
+  color: white;
+  margin-right: 0.5rem;
+  background-color: var(--main-bg-color);
+  display: flex;
 
-    width:3rem;
-    height: 3rem;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Confirm delete a project */
-.confirmDeleteProject{
-    display: none;
+.confirmDeleteProject {
+  display: none;
 }
-.confirmDeleteProject.active{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top:0;
-    right: 0;
-    background-color: var(--task-bg-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.confirmDelete,.cancelDelete{
-    width: 45%;
-    border: 0.25rem solid white;
-    text-align: center;
-    color: white;
+.confirmDeleteProject.active {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  background-color: var(--task-bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
-.confirmDelete:hover,.cancelDelete:hover{
-    background-color: var(--menu-bg-color);
+.confirmDelete,
+.cancelDelete {
+  width: 45%;
+  border: 0.25rem solid white;
+  text-align: center;
+  color: white;
+}
+
+.confirmDelete:hover,
+.cancelDelete:hover {
+  background-color: var(--menu-bg-color);
 }
 /* List tasks container */
-.projectInfoContainer{
-    background-color: var(--main-bg-color);
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.projectInfoContainer {
+  background-color: var(--main-bg-color);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.projectInfoHeader{
-    padding: 0 1rem 0 1rem;
-    width: 90%;
-    height: 4rem;
-    display: grid;
-    grid-template-columns: 1fr 18rem;
-    align-items: center;
-    margin: 1rem;
-    font-size: 2rem;
-    border-bottom: 0.25rem solid white;
+.projectInfoHeader {
+  padding: 0 1rem 0 1rem;
+  width: 90%;
+  height: 4rem;
+  display: grid;
+  grid-template-columns: 1fr 18rem;
+  align-items: center;
+  margin: 1rem;
+  font-size: 2rem;
+  border-bottom: 0.25rem solid white;
 }
 
-.dueDateSort{
-    display: flex;
-    justify-content: start;
-    align-items: center;
+.dueDateSort {
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
 
-.dueDateSort:hover{
-    font-size: 2.1rem;
-    cursor: pointer;
+.dueDateSort:hover {
+  font-size: 2.1rem;
+  cursor: pointer;
 }
 
-.projectInfoHeader h3{
-    margin-left: 1rem;
+.projectInfoHeader h3 {
+  margin-left: 1rem;
 }
 
-.projectInfoHeader .material-icons{
-}
-
-.listOfTasks{
-    width: 90%;
-    font-size: 1.75rem;
-    height: 80vh;
-    overflow: auto;
+.listOfTasks {
+  width: 90%;
+  font-size: 1.75rem;
+  height: 80vh;
+  overflow: auto;
 }
 
 .listOfTasks::-webkit-scrollbar {
-    width: 0.7rem;
+  width: 0.7rem;
 }
 
-.task{
-    position: relative;
-    display: grid;
-    height: 4rem;
-    margin: 1rem;   
-    padding: 0 1rem 0 1rem;
-    grid-template-columns: 2.75rem 1fr 9rem 2.75rem 2.75rem;
-    gap:1rem;
-    justify-items: start;
-    align-items: center;
-    transition: 0.25s;
-    cursor: pointer;
-    z-index: 0;
-    background-color: var(--task-bg-color);
+.task {
+  position: relative;
+  display: grid;
+  height: 4rem;
+  margin: 1rem;
+  padding: 0 1rem 0 1rem;
+  grid-template-columns: 2.75rem 1fr 9rem 2.75rem 2.75rem;
+  gap: 1rem;
+  justify-items: start;
+  align-items: center;
+  transition: 0.25s;
+  cursor: pointer;
+  z-index: 0;
+  background-color: var(--task-bg-color);
 }
 
-.task.overdue{
-    color: #d00000;
+.task.overdue {
+  color: #d00000;
 }
 
-.task.High{
-    border-left: 0.5rem solid #d00000;
+.task.High {
+  border-left: 0.5rem solid #d00000;
 }
 
-.task.Medium{
-    border-left: 0.5rem solid #efea5a;
-
+.task.Medium {
+  border-left: 0.5rem solid #efea5a;
 }
 
-.task.Low{
-    border-left: 0.5rem solid #0ead69;
+.task.Low {
+  border-left: 0.5rem solid #0ead69;
 }
 
-.task:hover{
-    box-shadow: 0.5rem 0.5rem 0.75rem #ffcdb2;
-    -webkit-transform: translateY(-0.5rem) translateX(-0.5rem);
+.task:hover {
+  box-shadow: 0.5rem 0.5rem 0.75rem #ffcdb2;
+  transform: translateY(-0.5rem) translateX(-0.5rem);
 }
 
-.task .material-icons{
-    margin: 0.5rem;
-    font-size: 1.75rem;
-    z-index: 1;
+.task .material-icons {
+  margin: 0.5rem;
+  font-size: 1.75rem;
+  z-index: 1;
 }
 
-.task.isDone{
-    background: var(--taskdone-bg-color);
+.task.isDone {
+  background: var(--taskdone-bg-color);
 }
 
-.task::before{
-    visibility: hidden;
-    position: absolute;
-    align-self: center;
-    width: 0%;
-    height: 10%;
-    content: '';
-    background-color:black;
-    opacity: 0.5;
-    transition: 0.5s all;
+.task::before {
+  visibility: hidden;
+  position: absolute;
+  align-self: center;
+  width: 0%;
+  height: 10%;
+  content: "";
+  background-color: black;
+  opacity: 0.5;
+  transition: 0.5s all;
 }
 
-.task.isDone::before{
-    visibility: visible;
-   display: block;
-   width: 100%;
+.task.isDone::before {
+  visibility: visible;
+  display: block;
+  width: 100%;
 }
 
-.dueDate{
-    justify-self: end;
+.dueDate {
+  justify-self: end;
 }
 
-.task .material-icons{
-    font-size: 2.25rem;
+.task .material-icons {
+  font-size: 2.25rem;
 }
-.task .material-icons:hover{
-    font-size: 2.75rem;
+.task .material-icons:hover {
+  font-size: 2.75rem;
 }
 
 /* Task description */
-.popUpBg{
-    visibility: visible !important;
+.popUpBg {
+  visibility: visible !important;
 }
 
-.popUpDetail{
-    position: relative;
-    width: 80rem;
-    max-width: 90%;
-    height: auto;
-    border: 0.25rem solid white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 2rem 2rem 2rem 3rem;
-    font-size: 2rem ;
-    background-color:var(--main-bg-color) ;
-    line-height: 3rem;;
-    border-radius: 1.5rem;
+.popUpDetail {
+  position: relative;
+  width: 80rem;
+  max-width: 90%;
+  height: auto;
+  border: 0.25rem solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 2rem 2rem 3rem;
+  font-size: 2rem;
+  background-color: var(--main-bg-color);
+  line-height: 3rem;
+  border-radius: 1.5rem;
 }
 
-.popUpDetail h3{
-    align-self: center;
-    margin-bottom: 1.5rem;
+.popUpDetail h3 {
+  align-self: center;
+  margin-bottom: 1.5rem;
 }
 
-#closeDetailButton{
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    cursor: pointer;
+#closeDetailButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
 }
 
-#closeDetailButton:hover{
-    color:#d00000;
+#closeDetailButton:hover {
+  color: #d00000;
 }
 
 /* Add buttons */
-.addButtonsContainer{
-    position: absolute;
-    bottom:2rem;
-    right:2rem;
-    font-size:2rem;
-    background-color: var(-header-bg-color);
+.addButtonsContainer {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  background-color: var(-header-bg-color);
 }
 
-.addButtonsContainer span{
-    display: block;
-    margin: 1rem;
+.addButtonsContainer span {
+  display: block;
+  margin: 1rem;
 }
 
-#addButton{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--header-bg-color);
-    border: none;
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    transition: 0.25s ease-in-out;
-    cursor: pointer;
+#addButton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--header-bg-color);
+  border: none;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  transition: 0.25s ease-in-out;
+  cursor: pointer;
 }
 
-#addButton .material-icons{
-    font-weight: bolder;
-    font-size: 3rem;
+#addButton .material-icons {
+  font-weight: bolder;
+  font-size: 3rem;
 }
 
-#addButton.active{
-    -webkit-transform: rotate(90deg);
+#addButton.active {
+  transform: rotate(90deg);
 }
 
 .createTaskButtonContainer,
-.createProjectButtonContainer{
-    display: flex;
-    visibility: hidden;
-    position: absolute;
-    bottom: 5rem;
-    right: 0;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0.5rem;
-    transition: 0.4s ease-in-out;
-    background-color: var(--header-bg-color);
-    color: white;
-    width: 13rem;
-    border-radius: 1rem;
-    cursor: pointer;
+.createProjectButtonContainer {
+  display: flex;
+  visibility: hidden;
+  position: absolute;
+  bottom: 5rem;
+  right: 0;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.5rem;
+  transition: 0.4s ease-in-out;
+  background-color: var(--header-bg-color);
+  color: white;
+  width: 13rem;
+  border-radius: 1rem;
+  cursor: pointer;
 }
 
-.createProjectButtonContainer{
-    right: 0;
-    bottom: 5rem;
+.createProjectButtonContainer {
+  right: 0;
+  bottom: 5rem;
 }
-
-
 
 #createTaskButton,
-#createProjectButton{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 0 50% 50% 0;
-    background-color: var(--header-bg-color);
-    border:none;
-    border-left: 0.25rem solid white;
-    cursor: pointer;
+#createProjectButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0 50% 50% 0;
+  background-color: var(--header-bg-color);
+  border: none;
+  border-left: 0.25rem solid white;
+  cursor: pointer;
 }
 
-.createTaskButtonContainer.active{
-    visibility: visible;
-    -webkit-transform: translateY(-9rem);
+.createTaskButtonContainer.active {
+  visibility: visible;
+  transform: translateY(-9rem);
 }
 
-.createProjectButtonContainer.active{
-    visibility: visible;
-    -webkit-transform: translateY(-2.5rem);
+.createProjectButtonContainer.active {
+  visibility: visible;
+  transform: translateY(-2.5rem);
 }
 
-.material-icons{
-    color: white;
+.material-icons {
+  color: white;
 }
 
 /* Pop up modal */
-input{
-    display: block;
+input {
+  display: block;
 }
 
 .popupModalBg,
-.popUpBg{
-    visibility: hidden;
-    position: absolute;;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
+.popUpBg {
+  visibility: hidden;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
 }
 
-.popupModalBg.active{
-    visibility: visible;
+.popupModalBg.active {
+  visibility: visible;
 }
 
-
-.createProjectModal{
-    display: none;
-    position: relative;
-    width: 50rem;
-    max-width: 90%;
-    height: 15rem;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 2rem;
-    padding: 2rem;
-    margin:1rem;
-    background-color: var(--main-bg-color);
-    border-radius: 1.5rem;
-    border: 0.25rem solid white;
-
+.createProjectModal {
+  display: none;
+  position: relative;
+  width: 50rem;
+  max-width: 90%;
+  height: 15rem;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2rem;
+  padding: 2rem;
+  margin: 1rem;
+  background-color: var(--main-bg-color);
+  border-radius: 1.5rem;
+  border: 0.25rem solid white;
 }
 
-.createProjectModal.active{  
-    display: flex;
+.createProjectModal.active {
+  display: flex;
 }
 
-
-.createProjectModal input{
-    width: 80%;
+.createProjectModal input {
+  width: 80%;
 }
 
-#submitNewProject{
-    width: 80%;
+#submitNewProject {
+  width: 80%;
 }
 
 .editTaskModal,
-.createTaskModal{
-    position: relative;
-    display: none;
-    flex-direction: column;
-    width: 50rem;
-    max-width: 90%;
-    height: 60rem;
-    background-color: var(--main-bg-color);
-    justify-content: space-between;
-    font-size: 1.75rem;
-    padding: 2.5rem;
-    border-radius: 1.5rem;
-    font-weight: bold;
-    border: 0.25rem solid white;
+.createTaskModal {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  width: 50rem;
+  max-width: 90%;
+  height: 60rem;
+  background-color: var(--main-bg-color);
+  justify-content: space-between;
+  font-size: 1.75rem;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  font-weight: bold;
+  border: 0.25rem solid white;
 }
 
-.createTaskModal h2{
-    text-align: center;
+.createTaskModal h2 {
+  text-align: center;
 }
 
 .editTaskModal,
-.createTaskModal.active{
-    display: flex;
-
+.createTaskModal.active {
+  display: flex;
 }
 
-#closeTaskForm,#closeProjectForm,#closeEditedForm{
-    font-size: 3rem;
-    position: absolute;
-    top:1rem;
-    right: 1rem;
-    border:none;
-    color:white;
-    background: inherit;
+#closeTaskForm,
+#closeProjectForm,
+#closeEditedForm {
+  font-size: 3rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+  color: white;
+  background: inherit;
 }
 
-#closeTaskForm:hover,#closeProjectForm:hover,#closeEditedForm:hover{
-    color: #d00000;
+#closeTaskForm:hover,
+#closeProjectForm:hover,
+#closeEditedForm:hover {
+  color: #d00000;
 }
 
-option.low{
-    color: #018b50;
+option.low {
+  color: #018b50;
 }
 
-option.medium{
-    color:#efea5a ;
+option.medium {
+  color: #efea5a;
 }
 
-option.high{
-    color: #d00000 ;
+option.high {
+  color: #d00000;
 }
 
-
-select{
-    max-height: 5rem;
-    size:4;
-    z-index: 2;
-    font-size: 2rem;
+select {
+  max-height: 5rem;
+  size: 4;
+  z-index: 2;
+  font-size: 2rem;
 }
 
-textarea{
-    font-size: 2rem;
-    width: 100%;
-    height: 12rem;
-    resize: none;
-    border: none;
-    margin-bottom: 1rem;
+textarea {
+  font-size: 2rem;
+  width: 100%;
+  height: 12rem;
+  resize: none;
+  border: none;
+  margin-bottom: 1rem;
 }
 
-textarea:focus{
-    outline: none;
-    border: 0.25rem solid var(--header-bg-color);
+textarea:focus {
+  outline: none;
+  border: 0.25rem solid var(--header-bg-color);
 }
 
 #submitNewTask,
-#submitEditedTask
-,#submitNewProject{
-    margin-top: 1.5rem;
-    font-size: 2rem;
-    padding: 0.5rem;
-    background: var(--header-bg-color);
-    border: none;
-    height: 4rem;
-    color: white;
-    font-weight: bold;
-    border-radius: 1.5rem;
+#submitEditedTask,
+#submitNewProject {
+  margin-top: 1.5rem;
+  font-size: 2rem;
+  padding: 0.5rem;
+  background: var(--header-bg-color);
+  border: none;
+  height: 4rem;
+  color: white;
+  font-weight: bold;
+  border-radius: 1.5rem;
 }
 
 /* Responsive */
 @media (max-width: 800px) {
-    html{
-        font-size: 8px;
-    }
+  html {
+    font-size: 8px;
+  }
 
-    #hamburgerButton{
-        display: block;
-    }
+  #hamburgerButton {
+    display: block;
+  }
 
-    .menu{
-        position: absolute;
-        left: -35rem;
-        top:0;
-    }
+  .menu {
+    position: absolute;
+    left: -35rem;
+    top: 0;
+  }
 
-    .menu.active{
-        transform: translateX(35rem);
-    }
+  .menu.active {
+    transform: translateX(35rem);
+  }
 }
-

@@ -135,8 +135,3 @@ const bindEventsWithApp = (() => {
         popupModalBg.classList.remove('active');
     })
 })()
-
-
-
-
-
