@@ -112,10 +112,11 @@ const bindEventWithLoginPage = (() => {
             event.preventDefault();
             const auth = getAuth();
             signInWithEmailAndPassword(auth, emailSigninInput.value, passwordSigninInput.value)
-                .then((userCredential) => {
+                .then(() => {
                     console.log('Login with email and password!')
                 })
                 .catch((error) => {
+                    console.log(error.message)
                     displayPassEmailErr();
                     setTimeout(clearShowingErrors, 3000);
                 });
@@ -209,7 +210,7 @@ const bindEventWithLoginPage = (() => {
             else {
                 const auth = getAuth();
                 createUserWithEmailAndPassword(auth, signupEmailInput.value, passwordSignupInput.value)
-                    .then((userCredential) => {
+                    .then(() => {
                         clearInputFields();
                     })
                     .catch((error) => {

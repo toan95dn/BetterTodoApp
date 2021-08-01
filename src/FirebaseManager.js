@@ -27,7 +27,7 @@ const FireBaseManager = (() => {
         const userDocRef = doc(db, "users", uid);
         const docSnap = await getDoc(userDocRef);
 
-        TasksManagerController.resetAllViewAndData();//Reset all view and data before loading user data to screen
+        TasksManagerController.resetAllViewAndData();//Reset all old view and data before loading user data to screen
 
 
         if (!docSnap.exists()) {//<---------This is the first time user
