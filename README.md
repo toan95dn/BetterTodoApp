@@ -19,6 +19,7 @@ Made with: JS, CSS, Html, Npm, Webpack, Babel, Dayjs , [Hamburger](https://jonsu
 - Check the box to mark a task as done.
 - Click on the trash can icon to remove a task.
 - Click the Duedate with the icon to sort the due date of tasks.
+- Check the priority of tasks : red (high), medium (yellow), low (green)
 
 ### Side bar menu
 
