@@ -1,6 +1,6 @@
 # BetterTodoApp
 
-Made with: JS, CSS, Html, Npm, Webpack, Dayjs
+Made with: JS, CSS, Html, Npm, Webpack, Babel, Dayjs , [Hamburger](https://jonsuh.com/hamburgers/#usage)
 
 # [Link](https://toan95dn.github.io/BetterTodoApp/)
 
@@ -40,3 +40,4 @@ Made with: JS, CSS, Html, Npm, Webpack, Dayjs
 - Pubsub design pattern [Link](https://www.youtube.com/watch?v=nQRXi1SVOow)
 - Check compatibility before applying new JS features (In this project, my page did not render on IOS device because they still have not supported
   private methods inside classes yet, took me a while to figure out)
+- Asynchronous JavaScript
